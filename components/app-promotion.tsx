@@ -5,7 +5,7 @@ import { MessageCircle, ChevronRight } from 'lucide-react'
 
 export default function AppPromotion() {
   return (
-    <section className="py-16 bg-[#1a365d]">
+    <section className="py-16 bg-[#003884]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col items-center text-center">
           {/* Icon and Label */}
@@ -27,7 +27,7 @@ export default function AppPromotion() {
           </p>
 
           {/* CTA Button */}
-          <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 h-auto text-sm font-medium flex items-center gap-2">
+          <Button className="bg-[#07B34E] hover:bg-green-600 text-white px-6 py-3 h-auto text-sm font-medium flex items-center gap-2">
             무료 상담 신청하기
             <ChevronRight size={16} />
           </Button>

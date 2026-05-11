@@ -14,33 +14,141 @@ export default function Home() {
       <Header />
       <Hero />
       <CategoryNav />
-      <PropertySection 
-        title="추천매물" 
-        badge="HOT"
+      <PropertySection
+        title="추천매물"
+        hideBottomBorder
         properties={[
-          { id: 1, image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop", name: "현대 스타일 주택", location: "강남구", price: "2.2억", discount: "25%" },
-          { id: 2, image: "https://images.unsplash.com/photo-1570129477492-45201003abed?w=400&h=300&fit=crop", name: "트렌디 아파트", location: "서초구", price: "3.5억", discount: "15%" },
-          { id: 3, image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop", name: "럭셔리 펜트하우스", location: "용산구", price: "5.8억", discount: "20%" },
-          { id: 4, image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop", name: "모던 오피스텔", location: "마포구", price: "1.8억", discount: "18%" },
+          {
+            id: 1,
+            image: '/building/building_type01.png',
+            title: '역삼동 대로변 근생빌딩',
+            location: '서울 강남구 역삼동 · 15층',
+            specs: {
+              rooms: '근생빌딩 지하1층/지상 6층',
+              size: '대지 85평 연면적 · 210평',
+            },
+            rating: 5,
+            deposit: '평단가 2,131만',
+            discountRate: '수익률 5.9%',
+            price: '22억',
+            agent: {
+              name: '김부동산',
+              avatar:
+                '/building/perso.jpg',
+            },
+            recommendationReason:
+              '대로변 코너 입지, 1층 프랜차이즈 입점으로 공실 리스크 낮음',
+          },
+          {
+            id: 2,
+            image: '/building/building_type01.png',
+            title: '서초동 역세권 오피스텔',
+            location: '서울 서초구 서초동 · 12층',
+            specs: {
+              rooms: '준오피스텔 지하2층/지상 14층',
+              size: '대지 62평 연면적 · 168평',
+            },
+            rating: 5,
+            deposit: '평단가 1,895만',
+            discountRate: '수익률 5.2%',
+            price: '18.5억',
+            agent: {
+              name: '김부동산',
+              avatar:
+                '/building/perso.jpg',
+            },
+            recommendationReason:
+              '2호선·신분당선 더블역세권, 주변 대형 오피스 밀집으로 임대 수요 안정적입니다.',
+          },
+          {
+            id: 3,
+            image: '/building/building_type01.png',
+            title: '용산 해맞이로 상가주택',
+            location: '서울 용산구 한강로동 · 4층',
+            specs: {
+              rooms: '상가주택 지상 4층',
+              size: '대지 48평 연면적 · 132평',
+            },
+            rating: 4,
+            deposit: '평단가 2,340만',
+            discountRate: '수익률 6.1%',
+            price: '15.2억',
+            agent: {
+              name: '김부동산',
+              avatar:
+                '/building/perso.jpg',
+            },
+            recommendationReason:
+              '1층 상가 안정 임차 완료, 주거층 분리로 관리 용이합니다.',
+          },
+          {
+            id: 4,
+            image: '/building/building_type01.png',
+            title: '마포 상수동 신축 근린생활시설',
+            location: '서울 마포구 상수동 · B1~3F',
+            specs: {
+              rooms: '근린생활시설 지하1층/지상 3층',
+              size: '대지 72평 연면적 · 195평',
+            },
+            rating: 5,
+            deposit: '평단가 1,720만',
+            discountRate: '수익률 5.5%',
+            price: '19.8억',
+            agent: {
+              name: '김부동산',
+              avatar:
+                '/building/perso.jpg',
+            },
+            recommendationReason:
+              '홍대·합정 상권 인접, 카페·미식 상가 밀집으로 유동 인구가 많습니다.',
+          },
         ]}
       />
-      <PropertySection 
-        title="거래된 신규 상품" 
-        properties={[
-          { id: 5, image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop", name: "강남 신축 빌라", location: "강남구", price: "4.2억", badge: "예약" },
-          { id: 6, image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=300&fit=crop", name: "서초 오피스", location: "서초구", price: "6.5억", badge: "거래완료" },
-          { id: 7, image: "https://images.unsplash.com/photo-149964386051-1e0e80ef47d4?w=400&h=300&fit=crop", name: "용산 상가건물", location: "용산구", price: "7.2억", badge: "거래완료" },
-          { id: 8, image: "https://images.unsplash.com/photo-1522531914681-8146cf6f4be1?w=400&h=300&fit=crop", name: "마포 주상복합", location: "마포구", price: "5.5억", badge: "예약" },
-        ]}
+      <PropertySection
+        title="지역별 신규 매물"
+        properties={[5, 6, 7, 8].map((id) => ({
+          id,
+          image: '/building/building_type02.png',
+          title: '강남역 초역세권 오피스텔',
+          location: '서울 강남구 역삼동 · 15층',
+          specs: {
+            rooms: '근생빌딩 지하1층/지상 6층',
+            size: '대지 85평 연면적 · 210평',
+          },
+          rating: 5,
+          deposit: '평단가 2,131만',
+          discountRate: '수익률 5.9%',
+          price: '14.5억',
+          badge: 'NEW',
+      
+          recommendationReason:
+            '대로변 코너 입지, 1층 프랜차이즈 입점으로 공실 리스크 낮음',
+        }))}
       />
-      <PropertySection 
-        title="업데이트 매물" 
-        properties={[
-          { id: 9, image: "https://images.unsplash.com/photo-1540932239986-310128078caf?w=400&h=300&fit=crop", name: "강동 신규 아파트", location: "강동구", price: "2.9억" },
-          { id: 10, image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop", name: "송파 주택", location: "송파구", price: "3.1억" },
-          { id: 11, image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop", name: "노원 빌라", location: "노원구", price: "2.5억" },
-          { id: 12, image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop", name: "도봉 주택", location: "도봉구", price: "2.3억" },
-        ]}
+      <PropertySection
+        title="검증 매물 모음"
+        className="bg-[#F8F9FB]"
+        showFilterTabs={false}
+        properties={[9, 10, 11, 12].map((id) => ({
+          id,
+          image: '/building/building_type01.png',
+          title: '역삼동 대로변 근생빌딩',
+          location: '서울 강남구 역삼동 · 15층',
+          specs: {
+            rooms: '근생빌딩 지하1층/지상 6층',
+            size: '대지 85평 연면적 · 210평',
+          },
+          rating: 5,
+          deposit: '평단가 2,131만',
+          discountRate: '수익률 5.9%',
+          price: '22억',
+          agent: {
+            name: '김부동산',
+            avatar: '/building/perso.jpg',
+          },
+          recommendationReason:
+            '대로변 코너 입지, 1층 프랜차이즈 입점으로 공실 리스크 낮음',
+        }))}
       />
       <CommunitySection />
       <GovernmentSupportSection />

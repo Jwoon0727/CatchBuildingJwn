@@ -1,6 +1,7 @@
 'use client'
 
-import { ChevronRight, Eye, MessageCircle, Heart } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowRight, Eye, MessageCircle, Heart } from 'lucide-react'
 
 const filterTabs = [
   { id: 'all', label: '전체' },
@@ -9,121 +10,165 @@ const filterTabs = [
   { id: 'analysis', label: '시장분석' },
 ]
 
+/** 문자열 안의 `<br/>` / `<br />` 를 실제 줄바꿈으로 렌더링 */
+function splitDescriptionHtmlBreaks(text: string): string[] {
+  return text.split(/<br\s*\/?>/i)
+}
+
 const posts = [
   {
     id: 1,
     badge: '부동산',
-    badgeColor: 'bg-green-500',
+    badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
-    description: '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+    description:
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 <br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
     likes: 123,
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=100&h=80&fit=crop',
+    image:
+      '/building/building_type03.jpg',
   },
   {
     id: 2,
     badge: '질문',
-    badgeColor: 'bg-teal-500',
+    badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
-    description: '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+    description:
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
     likes: 123,
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=100&h=80&fit=crop',
+    image:
+      '/building/building_type03.jpg',
   },
   {
     id: 3,
     badge: '질문',
-    badgeColor: 'bg-teal-500',
+    badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
-    description: '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+    description:
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
     likes: 123,
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=100&h=80&fit=crop',
+    image:
+      '/building/building_type03.jpg',
   },
   {
     id: 4,
     badge: '노하우',
-    badgeColor: 'bg-yellow-500',
+    badgeColor: 'bg-[#F97316]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
-    description: '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+    description:
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
     likes: 123,
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=100&h=80&fit=crop',
+    image:
+      '/building/building_type03.jpg',
   },
 ]
 
 export default function CommunitySection() {
+  const [activeTab, setActiveTab] = useState<string>('all')
+
   return (
-    <section className="py-12 border-b border-border bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section className="border-border bg-background py-12 font-pretendard">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">베스트 커뮤니티</h2>
-          <a href="#" className="flex items-center gap-1 text-primary hover:text-primary/80 text-sm font-medium">
-            더보기 <ChevronRight size={16} />
+          <a
+            href="#"
+            className="flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:text-[#1d4ed8]"
+          >
+            더보기{' '}
+            <ArrowRight className="size-4 shrink-0" aria-hidden strokeWidth={2} />
           </a>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex gap-3 mb-8">
-          {filterTabs.map((tab, i) => (
-            <button
-              key={tab.id}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-                i === 0
-                  ? 'bg-primary text-white'
-                  : 'bg-secondary text-foreground hover:bg-secondary/80'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div className="mb-8 flex flex-wrap gap-2">
+          {filterTabs.map(tab => {
+            const active = activeTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  active
+                    ? 'bg-[#2563EB] text-white hover:bg-[#1d4ed8]'
+                    : 'bg-[#EFF1F4] text-[#374151] hover:bg-[#E5E8EC]'
+                }`}
+              >
+                {tab.label}
+              </button>
+            )
+          })}
         </div>
 
-        {/* Posts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {posts.map((post) => (
-            <div key={post.id} className="flex gap-4 p-4 border-b border-border hover:bg-secondary/30 transition-colors cursor-pointer">
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <span className={`${post.badgeColor} text-white px-2 py-1 rounded text-xs font-bold`}>
+        {/* Posts — 2열, 마지막 행은 하단 구분선 없음 */}
+        <div className="grid grid-cols-1 gap-x-10 lg:grid-cols-2">
+          {posts.map(post => (
+            <article
+              key={post.id}
+              className="cursor-pointer border-b border-[#E5E8EC] py-6 transition-colors last:border-b-0 hover:bg-[#FAFBFC] lg:[&:nth-last-child(-n+2)]:border-b-0"
+            >
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between gap-3">
+                  <span
+                    className={`shrink-0 rounded px-2 py-0.5 text-xs font-bold text-white ${post.badgeColor}`}
+                  >
                     {post.badge}
                   </span>
-                  <span className="text-sm text-muted-foreground">{post.date}</span>
+                  <span className="text-xs text-[#9CA3AF]">{post.date}</span>
                 </div>
-                <h3 className="font-bold text-foreground mb-2 line-clamp-1">{post.title}</h3>
-                <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{post.description}</p>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+
+                <div className="flex gap-3">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="mb-1.5 line-clamp-2 text-[15px] font-bold leading-snug text-foreground">
+                      {post.title}
+                    </h3>
+                    <p className="line-clamp-4 text-sm leading-relaxed text-[#6B7280]">
+                      {splitDescriptionHtmlBreaks(post.description).map((part, i) => (
+                        <span key={i}>
+                          {i > 0 ? <br /> : null}
+                          {part}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                  <div className="relative h-[76px] w-[100px] shrink-0 overflow-hidden rounded-lg bg-muted">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 text-xs text-[#9CA3AF]">
                   <span className="flex items-center gap-1">
-                    <Eye size={14} />
+                    <Eye className="size-3.5 shrink-0" strokeWidth={2} aria-hidden />
                     {post.views}
                   </span>
                   <span className="flex items-center gap-1">
-                    <MessageCircle size={14} />
+                    <MessageCircle className="size-3.5 shrink-0" strokeWidth={2} aria-hidden />
                     {post.comments}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Heart size={14} />
+                    <Heart className="size-3.5 shrink-0" strokeWidth={2} aria-hidden />
                     {post.likes}
                   </span>
                 </div>
               </div>
-              <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

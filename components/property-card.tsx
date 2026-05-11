@@ -1,6 +1,12 @@
 'use client'
 
-import { Heart, Star } from 'lucide-react'
+import { Heart, Hexagon, MapPin, Star } from 'lucide-react'
+
+/** 위치 줄 앞 아이콘 — `public` 기준 경로(예: `/icons/property-pin.png`) 또는 URL */
+const PROPERTY_LOCATION_ICON_SRC = '/building/loca01.svg'
+
+/** 대지·연면적 줄 앞 아이콘 — `public` 기준 경로 또는 URL */
+const PROPERTY_AREA_ICON_SRC = '/building/loca02.svg'
 
 interface PropertyCardProps {
   property: {
@@ -15,14 +21,19 @@ interface PropertyCardProps {
       floor?: string
     }
     rating?: number
+    /** 평단가 등 — 회색 배지 */
     deposit?: string
     discount?: string
+    /** 수익률 등 — 노란 배지 우선 표시 */
     discountRate?: string
     price: string
     agent?: {
       name: string
-      description: string
+      description?: string
+      avatar?: string
     }
+    /** 추천 이유 본문 (헤더는 카드에서 고정) */
+    recommendationReason?: string
     badge?: string
   }
 }
@@ -30,9 +41,12 @@ interface PropertyCardProps {
 export default function PropertyCard({ property }: PropertyCardProps) {
   const title = property.title || property.name || '매물'
   const stars = property.rating ? Math.round(property.rating) : 4
+
+  /** 위치·면적 블록: 아이콘 열 20px + 간격 — 줄바꿈 시 본문만 같은 시작선에 정렬 */
+  const metaRow = 'grid grid-cols-[20px_minmax(0,1fr)] items-start gap-x-1.5'
   
   return (
-    <div className="rounded-lg overflow-hidden border border-border hover:shadow-lg transition-shadow bg-[#f8f9fb] group cursor-pointer">
+    <div className="group cursor-pointer overflow-hidden rounded-lg border border-border bg-white shadow-sm transition-shadow hover:shadow-lg">
       {/* Image Container */}
       <div className="relative h-56 overflow-hidden bg-muted">
         <img 
@@ -41,11 +55,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         
-        {/* Like Button */}
-        <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-md transition-colors">
-          <Heart size={16} className="text-muted-foreground" />
-        </button>
-
+   
         {/* Badge */}
         {property.badge && (
           <div className="absolute top-3 left-3 flex gap-1">
@@ -60,55 +70,125 @@ export default function PropertyCard({ property }: PropertyCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-4 pt-4">
         {/* Stars */}
-        <div className="flex gap-1 mb-2">
+        <div className="mb-2 flex gap-0.5">
           {Array.from({ length: 5 }).map((_, i) => (
             <Star
               key={i}
               size={14}
-              className={i < stars ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
+              className={
+                i < stars
+                  ? 'fill-[#facc15] text-[#facc15]'
+                  : 'fill-none text-gray-300'
+              }
             />
           ))}
         </div>
 
         {/* Title */}
-        <h3 className="font-bold text-foreground mb-1 text-sm line-clamp-1">{title}</h3>
+        <h3 className="mb-2 line-clamp-2 text-base font-bold leading-snug tracking-tight text-foreground">
+          {title}
+        </h3>
 
-        {/* Location */}
-        <p className="text-xs text-muted-foreground mb-3">{property.location}</p>
+        {/* 위치 · 건물 · 면적 */}
+        <div className="mb-4 space-y-0.5 text-xs font-pretendard text-muted-foreground">
+          <div className={metaRow}>
+            <span className="flex size-[20px] shrink-0 items-start justify-center pt-0.1">
+              {PROPERTY_LOCATION_ICON_SRC ? (
+                <img
+                  src={PROPERTY_LOCATION_ICON_SRC}
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="size-[20px] object-contain"
+                  draggable={false}
+                  aria-hidden
+                />
+              ) : (
+                <MapPin className="size-3.5 shrink-0 text-sky-400" strokeWidth={2} aria-hidden />
+              )}
+            </span>
+            <span className="min-w-0 leading-snug">{property.location}</span>
+          </div>
+          {property.specs?.rooms && (
+            <div className={metaRow}>
+              <span className="size-[20px] shrink-0" aria-hidden />
+              <span className="min-w-0 leading-snug">{property.specs.rooms}</span>
+            </div>
+          )}
+          {property.specs?.size && (
+            <div className={`${metaRow} mt-2`}>
+              <span className="flex size-[20px] shrink-0 items-start justify-center pt-0.1">
+                {PROPERTY_AREA_ICON_SRC ? (
+                  <img
+                    src={PROPERTY_AREA_ICON_SRC}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="size-[20px] object-contain"
+                    draggable={false}
+                    aria-hidden
+                  />
+                ) : (
+                  <Hexagon className="size-[20px] shrink-0 text-violet-400" strokeWidth={2} aria-hidden />
+                )}
+              </span>
+              <span className="min-w-0 leading-snug">{property.specs.size}</span>
+            </div>
+          )}
+          {property.specs?.floor && (
+            <div className={metaRow}>
+              <span className="size-[20px] shrink-0" aria-hidden />
+              <span className="min-w-0 leading-snug">{property.specs.floor}</span>
+            </div>
+          )}
+        </div>
 
-        {/* Specs */}
-        {property.specs && (
-          <div className="text-xs text-muted-foreground space-y-1 mb-3 pb-3 border-b border-border">
-            {property.specs.rooms && <p>⊙ {property.specs.rooms}</p>}
-            {property.specs.size && <p>⊙ {property.specs.size}</p>}
-            {property.specs.floor && <p>⊙ {property.specs.floor}</p>}
+        {/* 평단가 · 수익률 — 우측 정렬 */}
+        {(property.deposit || property.discountRate || property.discount) && (
+          <div className="mb-3 flex flex-wrap items-center justify-end gap-2">
+            {property.deposit ? (
+              <span className="rounded-[4px] border border-[#e5e7eb] bg-white px-2.5 py-1 text-[12px] font-semibold text-foreground shadow-none">
+                {property.deposit}
+              </span>
+            ) : null}
+            {(property.discountRate || property.discount) ? (
+              <span className="rounded-[4px] bg-[#facc15] px-2.5 py-1 text-[12px] font-bold text-neutral-900">
+                {property.discountRate || property.discount}
+              </span>
+            ) : null}
           </div>
         )}
 
-        {/* Price Section */}
-        <div className="mb-3">
-          <div className="flex items-center justify-between mb-1">
-            {property.deposit && <span className="text-xs text-muted-foreground">{property.deposit}</span>}
-            {property.discount && (
-              <span className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold">
-                {property.discountRate || property.discount}
-              </span>
-            )}
-          </div>
-          <div className="text-lg font-bold text-primary">{property.price}</div>
+        {/* 매매가 */}
+        <div className="mb-5 text-right text-2xl font-bold tracking-tight text-foreground">
+          {property.price}
         </div>
 
-        {/* Agent Info */}
+        {/* 공인중개사 */}
         {property.agent && (
-          <div className="border-t border-border pt-3">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-7 h-7 rounded-full bg-gray-300 flex-shrink-0"></div>
-              <span className="text-sm font-medium text-foreground">{property.agent.name}</span>
-            </div>
-            <p className="text-xs text-muted-foreground">{property.agent.description}</p>
-            <p className="text-xs text-muted-foreground mt-1">대접면 코너 있고, 1층 프렌차이즈 입점으로 공실 리스크 낮음</p>
+          <div className="mb-3 flex items-center gap-2.5 pt-1">
+            {property.agent.avatar ? (
+              <img
+                src={property.agent.avatar}
+                alt=""
+                className="size-8 shrink-0 rounded-full object-cover"
+              />
+            ) : (
+              <div className="size-8 shrink-0 rounded-full bg-muted" aria-hidden />
+            )}
+            <span className="text-sm font-semibold text-foreground">{property.agent.name}</span>
+          </div>
+        )}
+
+        {/* 추천하는 이유 */}
+        {(property.recommendationReason || property.agent?.description) && (
+          <div className="rounded-lg bg-[#eef0f3] p-3">
+            <p className="mb-1.5 text-xs font-bold text-foreground">추천하는 이유</p>
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              {property.recommendationReason ?? property.agent?.description}
+            </p>
           </div>
         )}
       </div>

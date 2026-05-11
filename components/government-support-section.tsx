@@ -1,12 +1,22 @@
 'use client'
 
-import { ChevronRight, Calendar } from 'lucide-react'
+import { ArrowRight, Calendar } from 'lucide-react'
+
+const BADGE_STYLES: Record<string, string> = {
+  창업지원: 'bg-[#E3F2FF] text-[#1565C0]',
+  주거지원: 'bg-[#E8F5E9] text-[#2E7D32]',
+  고용지원: 'bg-[#F3E5F5] text-[#7B1FA2]',
+  금융지원: 'bg-[#FFF8E1] text-[#F57F17]',
+}
+
+function badgeClassFor(label: string) {
+  return BADGE_STYLES[label] ?? 'bg-[#EFF1F4] text-[#374151]'
+}
 
 const supportPrograms = [
   {
     id: 1,
     badge: '창업지원',
-    badgeColor: 'bg-gray-700',
     title: '2026 소상공인 디지털 전환 지원사업',
     organization: '중소벤처기업부',
     amount: '최대 3천만원',
@@ -15,7 +25,6 @@ const supportPrograms = [
   {
     id: 2,
     badge: '주거지원',
-    badgeColor: 'bg-teal-500',
     title: '2026 소상공인 디지털 전환 지원사업',
     organization: '중소벤처기업부',
     amount: '최대 3천만원',
@@ -24,7 +33,6 @@ const supportPrograms = [
   {
     id: 3,
     badge: '고용지원',
-    badgeColor: 'bg-gray-700',
     title: '2026 소상공인 디지털 전환 지원사업',
     organization: '중소벤처기업부',
     amount: '최대 3천만원',
@@ -33,7 +41,6 @@ const supportPrograms = [
   {
     id: 4,
     badge: '창업지원',
-    badgeColor: 'bg-teal-500',
     title: '2026 소상공인 디지털 전환 지원사업',
     organization: '중소벤처기업부',
     amount: '최대 3천만원',
@@ -42,7 +49,6 @@ const supportPrograms = [
   {
     id: 5,
     badge: '금융지원',
-    badgeColor: 'bg-gray-700',
     title: '2026 소상공인 디지털 전환 지원사업',
     organization: '중소벤처기업부',
     amount: '최대 3천만원',
@@ -51,7 +57,6 @@ const supportPrograms = [
   {
     id: 6,
     badge: '주거지원',
-    badgeColor: 'bg-teal-500',
     title: '2026 소상공인 디지털 전환 지원사업',
     organization: '중소벤처기업부',
     amount: '최대 3천만원',
@@ -61,36 +66,46 @@ const supportPrograms = [
 
 export default function GovernmentSupportSection() {
   return (
-    <section className="py-12 border-b border-border bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+    <section className="border-b border-border bg-background py-12 font-pretendard">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mb-8 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">정부지원금 최신 공고</h2>
-          <a href="#" className="flex items-center gap-1 text-primary hover:text-primary/80 text-sm font-medium">
-            더보기 <ChevronRight size={16} />
+          <a
+            href="#"
+            className="flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:text-[#1d4ed8]"
+          >
+            더보기 <ArrowRight className="size-4 shrink-0" aria-hidden strokeWidth={2} />
           </a>
         </div>
 
-        {/* Support Programs Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {supportPrograms.map((program) => (
-            <div key={program.id} className="p-6 border border-border rounded-lg hover:shadow-md transition-shadow cursor-pointer bg-card">
-              <div className="flex items-center justify-between mb-4">
-                <span className={`${program.badgeColor} text-white px-3 py-1 rounded text-xs font-bold`}>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
+          {supportPrograms.map(program => (
+            <article
+              key={program.id}
+              className="cursor-pointer rounded-xl border border-[#E8EAED] bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+            >
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <span
+                  className={`rounded-md px-2.5 py-1 text-xs font-bold ${badgeClassFor(program.badge)}`}
+                >
                   {program.badge}
                 </span>
-                <span className="flex items-center gap-1 text-sm text-muted-foreground">
-                  <Calendar size={14} />
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#F3F4F6] px-2.5 py-1 text-xs font-medium text-black">
+                  <Calendar className="size-3.5 shrink-0" strokeWidth={2} aria-hidden />
                   {program.dDay}
                 </span>
               </div>
-              <h3 className="font-bold text-foreground mb-2">{program.title}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{program.organization}</p>
-              <div className="flex items-center justify-between pt-4 border-t border-border">
-                <span className="text-sm text-muted-foreground">지원 금액</span>
-                <span className="font-bold text-foreground">{program.amount}</span>
+
+              <h3 className="mb-1 text-[15px] font-bold leading-snug text-foreground">
+                {program.title}
+              </h3>
+              <p className="mb-2 text-sm text-[#6B7280]">{program.organization}</p>
+
+              <div className="flex items-center justify-between border-t border-[#EEF1F4] pt-2">
+                <span className="text-sm text-[#6B7280]">지원 금액</span>
+                <span className="text-sm font-bold text-foreground">{program.amount}</span>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

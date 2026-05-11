@@ -1,6 +1,7 @@
 'use client'
 
-import { ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowRight } from 'lucide-react'
 
 const filterTabs = [
   { id: 'base', label: '기준금리' },
@@ -10,169 +11,250 @@ const filterTabs = [
   { id: 'jeonse2', label: '전세대출' },
 ]
 
+function parsePct(v: string) {
+  const n = parseFloat(v.replace(/%/g, '').trim())
+  return Number.isFinite(n) ? n : 0
+}
+
+/** 발표 금리가 이전보다 높으면 상승(빨강), 아니면 블루 */
+function announceCellClass(current: string, previous: string) {
+  return parsePct(current) > parsePct(previous)
+    ? 'text-[#EF4444]'
+    : 'text-[#2563EB]'
+}
+
+type TrendDisplay = 'neutral' | 'down'
+
 const rateCards = [
   {
     title: '한국은행 기준금리',
     rate: '2.75',
+    trendDisplay: 'neutral' as TrendDisplay,
     change: '0.00',
-    trend: 'neutral',
-    strokeColor: '#3b82f6',
-    chartPath: 'M0,25 L40,25 L60,30 L100,30 L140,35 L180,35 L200,35',
+    strokeColor: '#2563EB',
+    chartPath: 'M 4 12 L 82 12 L 82 34 L 196 34',
     history: [
       { date: '2026.02.26(2월)', current: '2.75%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '2.75%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '2.75%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '2.75%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '2.75%', previous: '3.00%' },
-    ]
+      { date: '2026.01.26(1월)', current: '2.75%', previous: '3.00%' },
+      { date: '2025.11.26(11월)', current: '3.00%', previous: '3.25%' },
+      { date: '2025.09.26(9월)', current: '3.25%', previous: '3.50%' },
+      { date: '2025.07.26(7월)', current: '3.50%', previous: '3.75%' },
+    ],
   },
   {
     title: '개인 신용대출 금리',
     rate: '5.10',
+    trendDisplay: 'down' as TrendDisplay,
     change: '0.00',
-    trend: 'down',
     strokeColor: '#22c55e',
-    chartPath: 'M0,15 L40,18 L80,20 L120,25 L160,28 L200,30',
+    chartPath: 'M 4 14 L 52 18 L 96 14 L 132 21 L 166 16 L 196 18',
     history: [
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.50%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-    ]
+      { date: '2026.02.26(2월)', current: '5.10%', previous: '5.15%' },
+      { date: '2026.01.26(1월)', current: '5.15%', previous: '5.20%' },
+      { date: '2025.11.26(11월)', current: '5.50%', previous: '5.35%' },
+      { date: '2025.09.26(9월)', current: '5.35%', previous: '5.40%' },
+      { date: '2025.07.26(7월)', current: '5.40%', previous: '5.38%' },
+    ],
   },
   {
     title: '마이너스 신용대출 금리',
     rate: '5.45',
+    trendDisplay: 'down' as TrendDisplay,
     change: '0.15',
-    trend: 'down',
     strokeColor: '#ef4444',
-    chartPath: 'M0,30 L30,25 L60,20 L90,22 L120,28 L150,25 L180,30 L200,28',
+    chartPath: 'M 4 11 L 46 15 L 88 24 L 118 18 L 148 26 L 174 22 L 196 29',
     history: [
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.50%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-    ]
+      { date: '2026.02.26(2월)', current: '5.45%', previous: '5.60%' },
+      { date: '2026.01.26(1월)', current: '5.60%', previous: '5.55%' },
+      { date: '2025.11.26(11월)', current: '5.50%', previous: '5.35%' },
+      { date: '2025.09.26(9월)', current: '5.35%', previous: '5.40%' },
+      { date: '2025.07.26(7월)', current: '5.40%', previous: '5.42%' },
+    ],
   },
   {
     title: '전세자금 대출 금리',
     rate: '3.95',
+    trendDisplay: 'down' as TrendDisplay,
     change: '0.15',
-    trend: 'down',
     strokeColor: '#f97316',
-    chartPath: 'M0,20 L40,18 L80,22 L120,20 L160,25 L200,22',
+    chartPath: 'M 4 13 L 58 10 L 100 36 L 146 13 L 176 17 L 196 15',
     history: [
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.50%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-      { date: '2026.02.26(2월)', current: '5.10%', previous: '3.00%' },
-    ]
+      { date: '2026.02.26(2월)', current: '3.95%', previous: '4.05%' },
+      { date: '2026.01.26(1월)', current: '4.05%', previous: '4.10%' },
+      { date: '2025.11.26(11월)', current: '4.10%', previous: '3.95%' },
+      { date: '2025.09.26(9월)', current: '3.95%', previous: '4.00%' },
+      { date: '2025.07.26(7월)', current: '4.20%', previous: '4.15%' },
+    ],
   },
 ]
 
-export default function InterestRateSection() {
+const DOWN_TREND_ICON_SRC = '/building/down.svg'
+
+function RateSparkline({ pathD, stroke }: { pathD: string; stroke: string }) {
   return (
-    <section className="py-12 bg-background border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+    <svg
+      viewBox="0 0 200 40"
+      className="h-14 w-full"
+      preserveAspectRatio="none"
+      aria-hidden
+    >
+      <line
+        x1="0"
+        y1="11"
+        x2="200"
+        y2="11"
+        stroke="#E8EAEC"
+        strokeWidth="1"
+        strokeDasharray="2 5"
+        vectorEffect="nonScalingStroke"
+      />
+      <line
+        x1="0"
+        y1="29"
+        x2="200"
+        y2="29"
+        stroke="#E8EAEC"
+        strokeWidth="1"
+        strokeDasharray="2 5"
+        vectorEffect="nonScalingStroke"
+      />
+      <path
+        d={pathD}
+        fill="none"
+        stroke={stroke}
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+export default function InterestRateSection() {
+  const [activeTab, setActiveTab] = useState<string>('base')
+
+  return (
+    <section className="border-border bg-background py-12 font-pretendard">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">금리 동향</h2>
-          <a href="#" className="flex items-center gap-1 text-primary hover:text-primary/80 text-sm font-medium">
-            더보기 <ChevronRight size={16} />
+          <a
+            href="#"
+            className="flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:text-[#1d4ed8]"
+          >
+            더보기 <ArrowRight className="size-4 shrink-0" aria-hidden strokeWidth={2} />
           </a>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex gap-3 mb-8 overflow-x-auto">
-          {filterTabs.map((tab, i) => (
-            <button
-              key={tab.id + i}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                i === 0
-                  ? 'bg-primary text-white'
-                  : 'bg-secondary text-foreground hover:bg-secondary/80'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div className="mb-8 flex flex-wrap gap-2 overflow-x-auto pb-1">
+          {filterTabs.map((tab, i) => {
+            const active = activeTab === tab.id
+            return (
+              <button
+                key={`${tab.id}-${i}`}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  active
+                    ? 'bg-[#2563EB] text-white hover:bg-[#1d4ed8]'
+                    : 'bg-[#EFF1F4] text-[#374151] hover:bg-[#E5E8EC]'
+                }`}
+              >
+                {tab.label}
+              </button>
+            )
+          })}
         </div>
 
-        {/* Rate Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {rateCards.map((card, idx) => (
-            <div key={idx} className="border border-border rounded-lg p-5 bg-card">
-              {/* Card Header */}
-              <p className="text-sm text-muted-foreground mb-2">{card.title}</p>
-              
-              {/* Rate Display */}
-              <div className="flex items-baseline gap-1 mb-6">
-                <span className="text-4xl font-bold text-foreground">{card.rate}</span>
-                <span className="text-sm text-muted-foreground">%</span>
-                <div className="flex items-center gap-1 ml-2">
-                  {card.trend === 'down' ? (
-                    <span className="text-green-500 text-sm">↘</span>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+          {rateCards.map(card => (
+            <article
+              key={card.title}
+              className="rounded-xl border border-[#E8EAED] bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+            >
+              <p className="mb-3 text-sm font-medium text-[#6B7280]">{card.title}</p>
+
+              <div className="mb-5 flex flex-wrap items-baseline gap-x-1 gap-y-1">
+                <span className="text-4xl font-bold tracking-tight text-foreground">{card.rate}</span>
+                <span className="text-xl font-semibold text-[#9CA3AF]">%</span>
+                <span className="ml-1 inline-flex items-center gap-1 text-sm">
+                  {card.trendDisplay === 'neutral' ? (
+                    <span className="inline-flex items-center gap-0.5 text-[#9CA3AF]">
+                      <span aria-hidden>-</span>
+                      <span>{card.change}</span>
+                    </span>
                   ) : (
-                    <span className="text-muted-foreground text-sm">-</span>
+                    <span className="inline-flex items-center gap-1 font-medium text-[#2563EB]">
+                      <img
+                        src={DOWN_TREND_ICON_SRC}
+                        alt=""
+                        width={28}
+                        height={14}
+                        className="h-3.5 w-auto shrink-0 object-contain"
+                        aria-hidden
+                      />
+                      <span>{card.change}</span>
+                    </span>
                   )}
-                  <span className={`text-sm ${card.trend === 'down' ? 'text-green-500' : 'text-muted-foreground'}`}>
-                    {card.change}
-                  </span>
-                </div>
+                </span>
               </div>
 
-              {/* Line Chart */}
-              <div className="mb-2">
-                <svg viewBox="0 0 200 50" className="w-full h-16">
-                  <path
-                    d={card.chartPath}
-                    fill="none"
-                    stroke={card.strokeColor}
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              
-              {/* X-axis Labels */}
-              <div className="flex justify-between text-xs text-muted-foreground mb-6 px-1">
-                <span>10<br/>월</span>
-                <span>12<br/>월</span>
-                <span>2<br/>월</span>
+              <div className="-mx-1 mb-2">
+                <RateSparkline pathD={card.chartPath} stroke={card.strokeColor} />
               </div>
 
-              {/* History Table */}
-              <div className="pt-4">
-                <p className="text-sm font-medium text-foreground mb-3">최근 5회 변동</p>
+              <div className="mb-5 flex justify-between px-0.5 text-xs text-[#9CA3AF]">
+                <span className="flex flex-col items-center leading-tight">
+                  <span>10</span>
+                  <span>월</span>
+                </span>
+                <span className="flex flex-col items-center leading-tight">
+                  <span>12</span>
+                  <span>월</span>
+                </span>
+                <span className="flex flex-col items-center leading-tight">
+                  <span>2</span>
+                  <span>월</span>
+                </span>
+              </div>
+
+              <div className="border-t border-[#EEF1F4] pt-4">
+                <p className="mb-3 text-sm font-semibold text-foreground">최근 5회 변동</p>
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="text-muted-foreground">
-                      <th className="text-left font-normal pb-2">발표일</th>
-                      <th className="text-center font-normal pb-2">발표</th>
-                      <th className="text-right font-normal pb-2">이전</th>
+                    <tr className="text-black">
+                      <th className="pb-2 text-left font-normal">발표일</th>
+                      <th className="pb-2 text-center font-normal">발표</th>
+                      <th className="pb-2 text-right font-normal">이전</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {card.history.map((item, i) => (
-                      <tr key={i} className="border-t border-border/50">
-                        <td className="text-foreground py-2 font-medium">{item.date}</td>
-                        <td className={`text-center py-2 font-medium ${
-                          item.current.includes('5.50') ? 'text-red-500' : 
-                          idx === 0 ? 'text-blue-500' : 
-                          idx === 1 ? 'text-green-500' : 
-                          idx === 2 ? 'text-red-500' : 'text-orange-500'
-                        }`}>{item.current}</td>
-                        <td className="text-right text-muted-foreground py-2">{item.previous}</td>
+                    {card.history.map((item, i) => {
+                      const isLatest = i === 0
+                      return (
+                      <tr key={`${item.date}-${i}`} className="border-t border-[#F3F4F6]">
+                        <td
+                          className={`py-2.5 ${isLatest ? 'font-medium text-black' : 'font-normal text-[#9CA3AF]'}`}
+                        >
+                          {item.date}
+                        </td>
+                        <td
+                          className={`py-2.5 text-center font-medium ${announceCellClass(item.current, item.previous)}`}
+                        >
+                          {item.current}
+                        </td>
+                        <td
+                          className={`py-2.5 text-right ${isLatest ? 'font-medium text-black' : 'font-normal text-[#9CA3AF]'}`}
+                        >
+                          {item.previous}
+                        </td>
                       </tr>
-                    ))}
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

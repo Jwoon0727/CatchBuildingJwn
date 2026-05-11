@@ -1,38 +1,55 @@
 'use client'
 
-import { Search, Star, MessageSquare, Building2, Heart, MessageCircle, TrendingUp, FileText, Building } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import {
+  Search,
+  Star,
+  MessageSquare,
+  Map,
+  CircleHelp,
+  MessageCircle,
+  CreditCard,
+  TrendingUp,
+  ClipboardList,
+  DoorOpen,
+} from 'lucide-react'
+
+/** 필터 버튼 아이콘 — `public` 기준 경로(예: `/icons/filter.png`) 또는 이미지 URL */
+const FILTER_ICON_SRC = ''
 
 const categories = [
-  { icon: Search, label: '매물검색', color: 'text-blue-500' },
-  { icon: Star, label: '추천매물', color: 'text-yellow-500' },
-  { icon: MessageSquare, label: '커뮤니티', color: 'text-purple-500' },
-  { icon: Building2, label: '지도검색', color: 'text-teal-500' },
-  { icon: Heart, label: 'Q&A', color: 'text-pink-500' },
-  { icon: MessageCircle, label: '카통방', color: 'text-orange-500' },
-  { icon: TrendingUp, label: '자금획보', color: 'text-blue-600' },
-  { icon: FileText, label: '분석도직', color: 'text-gray-500' },
-  { icon: Building, label: '입장요청', color: 'text-indigo-500' },
+  { icon: Search, label: '매물검색', color: 'text-blue-500', bg: 'bg-blue-50' },
+  { icon: Star, label: '추천매물', color: 'text-yellow-500', bg: 'bg-yellow-50' },
+  { icon: MessageSquare, label: '커뮤니티', color: 'text-purple-500', bg: 'bg-purple-50' },
+  { icon: Map, label: '지도검색', color: 'text-green-500', bg: 'bg-green-50' },
+  { icon: CircleHelp, label: 'Q&A', color: 'text-pink-500', bg: 'bg-pink-50' },
+  { icon: MessageCircle, label: '카톡방', color: 'text-orange-500', bg: 'bg-orange-50' },
+  { icon: CreditCard, label: '자금확보', color: 'text-blue-600', bg: 'bg-blue-50' },
+  { icon: TrendingUp, label: '현금흐름', color: 'text-red-500', bg: 'bg-red-50' },
+  { icon: ClipboardList, label: '분석요청', color: 'text-blue-600', bg: 'bg-sky-50' },
+  { icon: DoorOpen, label: '입장요청', color: 'text-violet-600', bg: 'bg-violet-50' },
 ]
 
 export default function CategoryNav() {
   return (
-    <section className="bg-background">
+    <section className="bg-background font-pretendard">
       {/* Category Icons */}
-      <div className="border-b border-border py-8">
+      <div className="py-8">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-wrap gap-6 justify-center">
             {categories.map((cat, i) => {
               const Icon = cat.icon
               return (
-                <button 
+                <button
                   key={i}
-                  className="flex flex-col items-center gap-2 hover:opacity-80 transition-opacity text-center"
+                  type="button"
+                  className="flex flex-col items-center gap-2 text-center font-pretendard transition-opacity hover:opacity-80"
                 >
-                  <div className={`w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center ${cat.color} hover:bg-gray-200 transition-colors`}>
-                    <Icon size={24} />
+                  <div
+                    className={`flex size-14 shrink-0 items-center justify-center rounded-2xl ${cat.bg} ${cat.color} transition-colors hover:brightness-[0.97]`}
+                  >
+                    <Icon className="size-6 stroke-[1.75]" aria-hidden />
                   </div>
-                  <span className="text-xs font-medium text-foreground whitespace-nowrap">{cat.label}</span>
+                  <span className="text-xs font-medium font-pretendard text-foreground whitespace-nowrap">{cat.label}</span>
                 </button>
               )
             })}
@@ -40,23 +57,45 @@ export default function CategoryNav() {
         </div>
       </div>
 
-      {/* Search Bar */}
-      <div className="border-b border-border py-4">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-border rounded-lg hover:bg-secondary transition-colors whitespace-nowrap">
-              <FileText size={16} />
-              필터
-            </button>
-            <input 
-              type="text" 
-              placeholder="지역, 건물형, 도로변 주소 검색" 
-              className="flex-1 px-4 py-2 text-sm border border-border rounded-lg bg-background placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-            />
-            <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-2 h-auto">
+      {/* 필터 + 입력 한 박스 / 검색 버튼 분리 (시안) */}
+      <div className="py-6 md:py-8">
+        <div className="mx-auto max-w-[52rem] px-4">
+          <form
+            className="flex items-stretch gap-2 font-pretendard sm:gap-3"
+            onSubmit={(e) => {
+              e.preventDefault()
+            }}
+          >
+            <div className="flex min-h-11 flex-1 overflow-hidden rounded-xl border border-border bg-white">
+              <button
+                type="button"
+                className="flex shrink-0 items-center gap-2 px-4 py-2.5 text-sm font-medium font-pretendard text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+              >
+                <img
+                  src="/building/filter.png"
+                  alt="필터"
+                  width={18}
+                  height={18}
+                  className="size-[18px] shrink-0 object-contain"
+                  draggable={false}
+                />
+                필터
+              </button>
+              <div className="w-px shrink-0 self-stretch bg-border" aria-hidden />
+              <input
+                type="search"
+                name="q"
+                placeholder="지역, 건물명, 도로명 주소 검색"
+                className="min-w-0 flex-1 border-0 bg-transparent px-3 py-2 text-sm font-pretendard text-foreground placeholder:text-muted-foreground placeholder:font-pretendard focus:outline-none focus:ring-0"
+              />
+            </div>
+            <button
+              type="submit"
+              className="shrink-0 rounded-xl bg-[#2B6BE5] px-2 py-2 text-sm font-bold font-pretendard text-white shadow-sm transition-colors hover:bg-[#2566d4] sm:px-5"
+            >
               검색
-            </Button>
-          </div>
+            </button>
+          </form>
         </div>
       </div>
     </section>
