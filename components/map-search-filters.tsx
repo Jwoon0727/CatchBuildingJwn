@@ -1,5 +1,13 @@
 'use client'
 
+import { Checkbox } from '@/components/ui/checkbox'
+
+/** 활성(선택) · 비활성 칩/체크 — 검색 사이드바와 동일 톤 */
+const FILTER_CHIP_ACTIVE = 'bg-[#2567E7] text-white'
+const FILTER_CHIP_INACTIVE = 'bg-[#F8F8F8] text-foreground hover:bg-[#EEEEEE]'
+const FILTER_ACCENT_CHECKBOX =
+  'border-input bg-[#F8F8F8] data-[state=checked]:border-[#2567E7] data-[state=checked]:bg-[#2567E7] data-[state=checked]:text-white dark:bg-[#F8F8F8] dark:data-[state=checked]:border-[#2567E7] dark:data-[state=checked]:bg-[#2567E7]'
+
 export default function MapSearchFilters() {
   const propertyTypes = [
     { id: 'sanggajutaek', label: '상가주택', checked: false },
@@ -18,7 +26,7 @@ export default function MapSearchFilters() {
   const regions = [
     { id: 'all', label: '전체', active: true },
     { id: 'haeundae', label: '해운대', active: false },
-    { id: 'gwanin', label: '광안리', active: false },
+    { id: 'gwangan', label: '광안리', active: false },
     { id: 'seomun', label: '서면', active: false },
     { id: 'songjeong', label: '송정', active: false },
     { id: 'gijang', label: '기장', active: false },
@@ -36,19 +44,15 @@ export default function MapSearchFilters() {
   ]
 
   return (
-    <div className="bg-white border-b border-border px-6 py-4">
+    <div className="border-b border-border bg-white px-6 py-4">
       <div className="flex flex-wrap gap-8">
         {/* Property Type */}
         <div>
-          <h4 className="text-sm font-bold text-foreground mb-2">매물 유형</h4>
+          <h4 className="mb-2 text-sm font-bold text-foreground">매물 유형</h4>
           <div className="flex flex-wrap gap-3">
             {propertyTypes.map(type => (
-              <label key={type.id} className="flex items-center gap-2 cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  defaultChecked={type.checked}
-                  className="w-4 h-4 rounded border-border accent-primary"
-                />
+              <label key={type.id} className="flex cursor-pointer items-center gap-2">
+                <Checkbox defaultChecked={type.checked} className={FILTER_ACCENT_CHECKBOX} />
                 <span className="text-sm text-foreground">{type.label}</span>
               </label>
             ))}
@@ -57,15 +61,11 @@ export default function MapSearchFilters() {
 
         {/* Transaction Type */}
         <div>
-          <h4 className="text-sm font-bold text-foreground mb-2">거래 유형</h4>
+          <h4 className="mb-2 text-sm font-bold text-foreground">거래 유형</h4>
           <div className="flex flex-wrap gap-3">
             {transactionTypes.map(type => (
-              <label key={type.id} className="flex items-center gap-2 cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  defaultChecked={type.checked}
-                  className="w-4 h-4 rounded border-border accent-primary"
-                />
+              <label key={type.id} className="flex cursor-pointer items-center gap-2">
+                <Checkbox defaultChecked={type.checked} className={FILTER_ACCENT_CHECKBOX} />
                 <span className="text-sm text-foreground">{type.label}</span>
               </label>
             ))}
@@ -74,15 +74,14 @@ export default function MapSearchFilters() {
 
         {/* Region */}
         <div>
-          <h4 className="text-sm font-bold text-foreground mb-2">지역</h4>
+          <h4 className="mb-2 text-sm font-bold text-foreground">지역</h4>
           <div className="flex flex-wrap gap-2">
             {regions.map(region => (
               <button
                 key={region.id}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                  region.active
-                    ? 'bg-primary text-white'
-                    : 'bg-secondary text-foreground hover:bg-secondary/80'
+                type="button"
+                className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                  region.active ? FILTER_CHIP_ACTIVE : FILTER_CHIP_INACTIVE
                 }`}
               >
                 {region.label}
@@ -93,15 +92,16 @@ export default function MapSearchFilters() {
       </div>
 
       {/* Second Row */}
-      <div className="flex flex-wrap gap-8 mt-4">
+      <div className="mt-4 flex flex-wrap gap-8">
         {/* Hashtags */}
         <div>
-          <h4 className="text-sm font-bold text-foreground mb-2">#투자 포인트</h4>
+          <h4 className="mb-2 text-sm font-bold text-foreground">#투자 포인트</h4>
           <div className="flex flex-wrap gap-2">
             {hashtags.map(tag => (
               <button
                 key={tag}
-                className="px-3 py-1 rounded-full text-xs bg-secondary text-foreground hover:bg-secondary/80 transition-colors"
+                type="button"
+                className={`rounded-full px-3 py-1 text-xs transition-colors ${FILTER_CHIP_INACTIVE}`}
               >
                 #{tag}
               </button>
@@ -111,33 +111,33 @@ export default function MapSearchFilters() {
 
         {/* Price */}
         <div>
-          <div className="flex items-center gap-2 mb-2">
+          <div className="mb-2 flex items-center gap-2">
             <h4 className="text-sm font-bold text-foreground">가격</h4>
             <span className="text-xs text-muted-foreground">예산 기준</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <div className="flex flex-wrap gap-2">
               {priceButtons.map(btn => (
                 <button
                   key={btn.id}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                    btn.active
-                      ? 'bg-primary text-white'
-                      : 'bg-secondary text-foreground hover:bg-secondary/80'
+                  type="button"
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                    btn.active ? FILTER_CHIP_ACTIVE : FILTER_CHIP_INACTIVE
                   }`}
                 >
                   {btn.label}
                 </button>
               ))}
             </div>
-            <input 
-              type="range" 
-              min="0" 
-              max="100" 
+            <input
+              type="range"
+              min="0"
+              max="100"
               defaultValue="50"
-              className="w-32 h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
+              className="h-2 w-32 cursor-pointer appearance-none rounded-lg bg-[#F8F8F8] accent-[#2567E7]"
+              aria-label="가격 범위"
             />
-            <span className="text-sm text-primary font-medium">1.5억원 ~ 12억원</span>
+            <span className="text-sm font-medium text-[#2567E7]">1.5억원 ~ 12억원</span>
           </div>
         </div>
       </div>

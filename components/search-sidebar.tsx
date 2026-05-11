@@ -1,6 +1,29 @@
 'use client'
 
+import { useState } from 'react'
 import { RotateCcw } from 'lucide-react'
+
+import { Checkbox } from '@/components/ui/checkbox'
+import { Slider } from '@/components/ui/slider'
+
+/** 슬라이더: 0.1억 단위 (max 300 = 30억) */
+const PRICE_SLIDER_MAX = 300
+
+/** 필터 강조색(남색·선택·슬라이더·체크) */
+const FILTER_ACCENT_CHIP = 'bg-[#2567E7] text-white'
+const FILTER_ACCENT_TEXT = 'text-[#2567E7]'
+const FILTER_ACCENT_CHECKBOX =
+  'border-input bg-[#F8F8F8] data-[state=checked]:border-[#2567E7] data-[state=checked]:bg-[#2567E7] data-[state=checked]:text-white dark:bg-[#F8F8F8] dark:data-[state=checked]:border-[#2567E7] dark:data-[state=checked]:bg-[#2567E7]'
+/** Slider 트랙(비선택)·선택 구간·썸 — 트랙은 #F8F8F8, 구간은 강조색 */
+const FILTER_ACCENT_SLIDER =
+  '[&_[data-slot=slider-track]]:!bg-[#F8F8F8] [&_[data-slot=slider-range]]:!bg-[#2567E7] [&_[data-slot=slider-thumb]]:!border-[#2567E7] [&_[data-slot=slider-thumb]]:!bg-white [&_[data-slot=slider-thumb]]:focus-visible:ring-[#2567E7]/40'
+/** 비선택 칩·칩형 버튼 */
+const FILTER_INACTIVE_CHIP = 'bg-[#F8F8F8] text-foreground hover:bg-[#EEEEEE]'
+
+function formatPriceEok(tenths: number) {
+  const eok = tenths / 10
+  return Number.isInteger(eok) ? `${eok}` : eok.toFixed(1)
+}
 
 export default function SearchSidebar() {
   const propertyTypes = [
@@ -11,15 +34,12 @@ export default function SearchSidebar() {
     { id: 'toji', label: '토지', checked: false },
   ]
 
-  const priceRanges = [
-    { id: 'all', label: '전체', active: true },
-    { id: 'under1b', label: '10억 이하', active: false },
-  ]
-
-  const priceDetails = [
-    { id: 'under10', label: '10억대' },
+  const pricePresets = [
+    { id: 'all', label: '전체' },
+    { id: 'under10', label: '10억 이하' },
+    { id: 'band10', label: '10억대' },
     { id: 'over20', label: '20억 이상' },
-  ]
+  ] as const
 
   const transactionTypes = [
     { id: 'maemae', label: '매매', checked: false },
@@ -28,45 +48,60 @@ export default function SearchSidebar() {
   ]
 
   const regions = [
-    { id: 'all', label: '전체', active: true },
-    { id: 'haeundae', label: '해운대', active: false },
-    { id: 'gwanin', label: '광인지', active: false },
-    { id: 'seomun', label: '서면', active: false },
-    { id: 'songjeong', label: '송정', active: false },
-    { id: 'gijang', label: '기장', active: false },
-    { id: 'nampo', label: '남포', active: false },
-    { id: 'sentum', label: '센텀', active: false },
+    { id: 'all', label: '전체' },
+    { id: 'haeundae', label: '해운대' },
+    { id: 'gwangan', label: '광안리' },
+    { id: 'seomun', label: '서면' },
+    { id: 'songjeong', label: '송정' },
+    { id: 'gijang', label: '기장' },
+    { id: 'nampo', label: '남포' },
+    { id: 'sentum', label: '센텀' },
   ]
 
   const hashtags = [
-    '추시입주',
-    '주차기능',
-    '면세권',
+    '즉시입주',
+    '주차가능',
+    '역세권',
     '수익형',
     '신축',
     '대로변',
   ]
 
+  const [pricePreset, setPricePreset] = useState<(typeof pricePresets)[number]['id']>('all')
+  const [priceRange, setPriceRange] = useState<number[]>([15, 120])
+  const [regionId, setRegionId] = useState<string>('all')
+
+  const chipBase =
+    'rounded-full text-xs font-medium transition-colors px-3 py-2 sm:px-4'
+  const chipInactive = FILTER_INACTIVE_CHIP
+  const chipActive = FILTER_ACCENT_CHIP
+
   return (
-    <div className="bg-white rounded-lg border border-border p-5 h-fit sticky top-32">
+    <div className="sticky top-32 h-fit w-full max-w-[15rem] rounded-lg border border-border bg-white p-5">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6 pb-6 border-b border-border">
+      <div className="mb-6 flex items-center justify-between border-b border-border pb-6">
         <h2 className="text-lg font-bold text-foreground">필터</h2>
-        <button className="p-1 hover:bg-secondary rounded transition-colors">
+        <button
+          type="button"
+          className="rounded p-1 transition-colors hover:bg-secondary"
+          aria-label="필터 초기화"
+        >
           <RotateCcw size={18} className="text-muted-foreground" />
         </button>
       </div>
 
       {/* Property Type */}
-      <div className="mb-6 pb-6 border-b border-border">
-        <h3 className="font-bold text-foreground mb-3 text-sm">매물 유형</h3>
+      <div className="mb-6 border-b border-border pb-6">
+        <h3 className="mb-3 text-sm font-bold text-foreground">매물 유형</h3>
         <div className="space-y-2">
           {propertyTypes.map(option => (
-            <label key={option.id} className="flex items-center gap-3 cursor-pointer hover:opacity-80">
-              <input 
-                type="checkbox" 
+            <label
+              key={option.id}
+              className="flex cursor-pointer items-center gap-3 hover:opacity-80"
+            >
+              <Checkbox
                 defaultChecked={option.checked}
-                className="w-4 h-4 rounded border border-border cursor-pointer accent-primary"
+                className={FILTER_ACCENT_CHECKBOX}
               />
               <span className="text-sm text-foreground">{option.label}</span>
             </label>
@@ -75,65 +110,57 @@ export default function SearchSidebar() {
       </div>
 
       {/* Price Range */}
-      <div className="mb-6 pb-6 border-b border-border">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-bold text-foreground text-sm">가격</h3>
+      <div className="mb-6 border-b border-border pb-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h3 className="text-sm font-bold text-foreground">가격</h3>
           <span className="text-xs text-muted-foreground">예산 기준</span>
         </div>
-        
-        {/* Price Type Buttons */}
-        <div className="flex gap-2 mb-4">
-          {priceRanges.map(range => (
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          {pricePresets.map(preset => (
             <button
-              key={range.id}
-              className={`px-4 py-2 rounded-full text-xs font-medium transition-colors ${
-                range.active
-                  ? 'bg-primary text-white'
-                  : 'bg-secondary text-foreground hover:bg-secondary/80'
+              key={preset.id}
+              type="button"
+              className={`${chipBase} ${
+                pricePreset === preset.id ? chipActive : chipInactive
               }`}
+              onClick={() => setPricePreset(preset.id)}
             >
-              {range.label}
+              {preset.label}
             </button>
           ))}
         </div>
 
-        {/* Price Detail Buttons */}
-        <div className="flex gap-2 mb-4">
-          {priceDetails.map(detail => (
-            <button
-              key={detail.id}
-              className="px-3 py-1 rounded-full text-xs bg-secondary text-foreground hover:bg-secondary/80 transition-colors"
-            >
-              {detail.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Slider */}
-        <div className="mb-4">
-          <input 
-            type="range" 
-            min="0" 
-            max="100" 
-            defaultValue="50"
-            className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
+        <div className={`mb-1 px-0.5 ${FILTER_ACCENT_SLIDER}`}>
+          <Slider
+            min={0}
+            max={PRICE_SLIDER_MAX}
+            step={1}
+            value={priceRange}
+            onValueChange={setPriceRange}
+            minStepsBetweenThumbs={1}
+            className="py-2"
+            aria-label="가격 범위"
           />
         </div>
 
-        {/* Price Display */}
-        <p className="text-sm font-medium text-primary">1.5억원 ~ 12억원</p>
+        <p className={`text-sm font-medium ${FILTER_ACCENT_TEXT}`}>
+          {formatPriceEok(priceRange[0])}억원 ~ {formatPriceEok(priceRange[1])}억원
+        </p>
       </div>
 
       {/* Transaction Type */}
-      <div className="mb-6 pb-6 border-b border-border">
-        <h3 className="font-bold text-foreground mb-3 text-sm">거래 유형</h3>
+      <div className="mb-6 border-b border-border pb-6">
+        <h3 className="mb-3 text-sm font-bold text-foreground">거래 유형</h3>
         <div className="space-y-2">
           {transactionTypes.map(option => (
-            <label key={option.id} className="flex items-center gap-3 cursor-pointer hover:opacity-80">
-              <input 
-                type="checkbox" 
+            <label
+              key={option.id}
+              className="flex cursor-pointer items-center gap-3 hover:opacity-80"
+            >
+              <Checkbox
                 defaultChecked={option.checked}
-                className="w-4 h-4 rounded border border-border cursor-pointer accent-primary"
+                className={FILTER_ACCENT_CHECKBOX}
               />
               <span className="text-sm text-foreground">{option.label}</span>
             </label>
@@ -142,17 +169,17 @@ export default function SearchSidebar() {
       </div>
 
       {/* Region */}
-      <div className="mb-6 pb-6 border-b border-border">
-        <h3 className="font-bold text-foreground mb-3 text-sm">지역</h3>
+      <div className="mb-6 border-b border-border pb-6">
+        <h3 className="mb-3 text-sm font-bold text-foreground">지역</h3>
         <div className="flex flex-wrap gap-2">
           {regions.map(region => (
             <button
               key={region.id}
-              className={`px-4 py-2 rounded-full text-xs font-medium transition-colors ${
-                region.active
-                  ? 'bg-primary text-white'
-                  : 'bg-secondary text-foreground hover:bg-secondary/80'
+              type="button"
+              className={`${chipBase} ${
+                regionId === region.id ? chipActive : chipInactive
               }`}
+              onClick={() => setRegionId(region.id)}
             >
               {region.label}
             </button>
@@ -162,10 +189,14 @@ export default function SearchSidebar() {
 
       {/* Investment Tips */}
       <div>
-        <h3 className="font-bold text-foreground mb-3 text-sm">#투자 포인트</h3>
+        <h3 className="mb-3 text-sm font-bold text-foreground">#투자 포인트</h3>
         <div className="flex flex-wrap gap-2">
-          {hashtags.map((tag) => (
-            <button key={tag} className="px-3 py-1 rounded-full text-xs bg-secondary text-foreground hover:bg-secondary/80 transition-colors">
+          {hashtags.map(tag => (
+            <button
+              key={tag}
+              type="button"
+              className={`rounded-full px-3 py-1.5 text-xs ${FILTER_INACTIVE_CHIP}`}
+            >
               #{tag}
             </button>
           ))}

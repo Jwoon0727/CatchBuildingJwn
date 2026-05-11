@@ -28,7 +28,7 @@ export default function MapSearchSidebar({ results, selectedId, onSelect }: MapS
   }
 
   return (
-    <div className="w-64 bg-white border-r border-border flex flex-col">
+    <div className="flex w-72 flex-col border-r border-border bg-white">
       {/* Header Tabs */}
       <div className="flex">
         <button 
@@ -41,7 +41,7 @@ export default function MapSearchSidebar({ results, selectedId, onSelect }: MapS
         >
           검색결과{results.length}
           {activeTab === 'search' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2567E7]" />
           )}
         </button>
         <button 
@@ -54,7 +54,7 @@ export default function MapSearchSidebar({ results, selectedId, onSelect }: MapS
         >
           최근조회
           {activeTab === 'recent' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2567E7]" />
           )}
         </button>
       </div>
@@ -62,7 +62,7 @@ export default function MapSearchSidebar({ results, selectedId, onSelect }: MapS
       {/* Sort - only show for search tab */}
       {activeTab === 'search' && (
         <div className="p-3 border-b border-border">
-          <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground ml-auto">
+          <button className="flex items-center gap-1 text-sm text-black hover:text-foreground ml-auto">
             추천순 <ChevronDown size={16} />
           </button>
         </div>
@@ -93,40 +93,50 @@ export default function MapSearchSidebar({ results, selectedId, onSelect }: MapS
                 <p className="text-xs text-muted-foreground mb-1">{result.location}</p>
                 <h4 className="text-sm font-medium text-foreground mb-1 truncate">{result.title}</h4>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-primary">{result.price}</span>
+                  <span className="text-sm font-bold text-[#2567E7]">{result.price}</span>
                   <span className="text-xs text-muted-foreground">{result.discount}</span>
                 </div>
               </div>
             </div>
           ))
         ) : (
-          // Recent Views
-          recentItems.map((item) => (
+          // Recent Views — 검색결과 탭과 동일 스타일 + 상단 우측 삭제
+          recentItems.map(item => (
             <div
               key={item.id}
-              onClick={() => onSelect(item.id)}
-              className="flex gap-3 p-4 border-b border-border cursor-pointer hover:bg-secondary/30 transition-colors"
+              className={`flex border-b border-border transition-colors ${
+                selectedId === item.id
+                  ? 'border-l-4 border-l-primary bg-primary/5'
+                  : 'hover:bg-secondary/50'
+              }`}
             >
-              <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-                <img 
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-muted-foreground mb-1">{item.location}</p>
-                <h4 className="text-sm font-bold text-foreground mb-2">{item.title}</h4>
-                <div className="flex items-center gap-2">
-                  <span className="text-base font-bold text-primary">{item.price}</span>
-                  <span className="text-xs text-muted-foreground">{item.discount}</span>
+              <div
+                className="flex min-w-0 flex-1 cursor-pointer gap-3 p-3"
+                onClick={() => onSelect(item.id)}
+              >
+                <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg">
+                  <img
+                    src="/building/building_type04.png"
+                    alt={item.title}
+                    className="size-full object-cover"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="mb-1 text-xs text-muted-foreground">{item.location}</p>
+                  <h4 className="mb-1 truncate text-sm font-medium text-foreground">{item.title}</h4>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-[#2567E7]">{item.price}</span>
+                    <span className="text-xs text-muted-foreground">{item.discount}</span>
+                  </div>
                 </div>
               </div>
-              <button 
-                onClick={(e) => handleRemoveRecent(item.id, e)}
-                className="text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
+              <button
+                type="button"
+                className="shrink-0 self-start p-2 text-muted-foreground/45 transition-colors hover:text-muted-foreground/80"
+                aria-label="최근 조회에서 삭제"
+                onClick={e => handleRemoveRecent(item.id, e)}
               >
-                <X size={18} />
+                <X size={15} aria-hidden />
               </button>
             </div>
           ))

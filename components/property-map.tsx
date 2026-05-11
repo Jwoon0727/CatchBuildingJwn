@@ -115,24 +115,25 @@ export default function PropertyMap({ selectedId, onMarkerClick }: PropertyMapPr
       )}
       <div ref={mapRef} className="absolute inset-0" />
       
-      {/* Custom Popup */}
+      {/* Custom Popup — 지도 위 매물 카드 */}
       {popupData && (
-        <div 
-          className="absolute bg-white rounded-lg shadow-xl p-4 w-56 z-[1000] transform -translate-x-1/2"
-          style={{ 
+        <div
+          className="absolute z-[1000] w-60 max-w-[calc(100vw-2rem)] -translate-x-1/2 transform rounded-2xl rounded-bl-none bg-white p-4 shadow-[0_8px_30px_rgba(0,0,0,0.12)] ring-1 ring-black/5"
+          style={{
             left: popupData.position.x,
-            top: popupData.position.y - 180
+            top: popupData.position.y - 180,
           }}
         >
-          <h4 className="font-bold text-foreground mb-2">{popupData.title}</h4>
-          <div className="space-y-1 text-sm text-muted-foreground mb-3">
+          <h4 className="text-base font-bold tracking-tight text-neutral-900">{popupData.title}</h4>
+          <div className="my-3 h-px bg-neutral-200" aria-hidden />
+          <div className="mb-4 space-y-2 text-sm leading-snug text-neutral-900">
             <p>매매 1.25억 ~ 5.6억</p>
             <p>전세 4.2억</p>
             <p>월세 60만 ~ 1.65만</p>
           </div>
-          <Link 
+          <Link
             href={`/property/${popupData.id}`}
-            className="block w-full py-2 border border-border rounded-lg text-sm font-medium text-foreground hover:bg-secondary transition-colors text-center"
+            className="block w-full rounded-lg border border-[#2567E7] bg-transparent py-2 text-center text-md font-bold text-[#2567E7] transition-colors hover:bg-[#2567E7]/5"
           >
             상세보기
           </Link>

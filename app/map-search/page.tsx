@@ -14,7 +14,7 @@ export default function MapSearchPage() {
   const searchResults = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=100&h=80&fit=crop',
+      image: '/building/building_type04.png',
       location: '서울 강남구 역삼동',
       title: '강남역 초역세권 오피스텔',
       price: '14.5억',
@@ -22,7 +22,7 @@ export default function MapSearchPage() {
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=100&h=80&fit=crop',
+      image: '/building/building_type04.png',
       location: '서울 강남구 역삼동',
       title: '강남역 초역세권 오피스텔',
       price: '14.5억',
@@ -30,7 +30,7 @@ export default function MapSearchPage() {
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=100&h=80&fit=crop',
+      image: '/building/building_type04.png',
       location: '서울 강남구 역삼동',
       title: '강남역 초역세권 오피스텔',
       price: '14.5억',
@@ -38,7 +38,7 @@ export default function MapSearchPage() {
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=100&h=80&fit=crop',
+      image: '/building/building_type04.png',
       location: '서울 강남구 역삼동',
       title: '강남역 초역세권 오피스텔',
       price: '14.5억',
@@ -49,7 +49,7 @@ export default function MapSearchPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-background pt-32">
+      <div className="min-h-screen bg-background pt-0">
         <div className="flex h-[calc(100vh-8rem)]">
           {/* Left Sidebar - Results List */}
           <MapSearchSidebar 
@@ -70,10 +70,10 @@ export default function MapSearchPage() {
                     className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
-                <Button className="bg-primary hover:bg-primary/90 text-white px-8">
+                <Button className="bg-[#2567E7] hover:bg-[#2567E7] text-white px-5">
                   검색
                 </Button>
-                <button className="p-2 hover:bg-secondary rounded-lg transition-colors border border-border">
+                <button className="p-2 px-5 hover:bg-secondary rounded-lg transition-colors border border-border">
                   <Menu size={20} className="text-foreground" />
                 </button>
               </div>
