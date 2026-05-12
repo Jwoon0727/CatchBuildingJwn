@@ -92,6 +92,12 @@ export default function Header() {
               <a href="#" className={subNavLink}>
                 입장요청
               </a>
+              <a href="/my-page" className={subNavLink}>
+                [임시 마이페이지]
+              </a>
+              <a href="/building-search" className={subNavLink}>
+                [임시 건물검색]
+              </a>
             </div>
           </div>
         </nav>

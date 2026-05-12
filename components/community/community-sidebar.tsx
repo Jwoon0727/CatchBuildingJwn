@@ -1,7 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { Home, Heart, TrendingUp, GraduationCap, FileText, DollarSign, MoreHorizontal, Eye, MessageCircle, ThumbsUp, Edit } from 'lucide-react'
+import { Home, Heart, TrendingUp, BookOpen, FileText, DollarSign, MoreHorizontal, Eye, MessageSquare, Edit } from 'lucide-react'
+
+const actionBtnClass =
+  'flex-1 rounded border border-[#BEDBFF] bg-white px-1 py-1.5 text-[11px] font-medium leading-tight text-[#2567E7] transition-colors hover:bg-[#BEDBFF]/30'
 
 const stats = [
   { label: '팔로워', value: '128' },
@@ -39,7 +42,7 @@ const categories = [
     ],
   },
   {
-    icon: GraduationCap,
+    icon: BookOpen,
     title: '경매/학습',
     posts: [
       { title: '노후 준비를 위한 소액 아파트 투자 전략 3가지', views: 123, comments: 123, likes: 123 },
@@ -78,80 +81,97 @@ const categories = [
 
 export default function CommunitySidebar() {
   return (
-    <div className="w-72 flex-shrink-0">
-      {/* User Profile Card */}
-      <div className="bg-white rounded-xl border border-border p-5 mb-4">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-lg font-bold text-foreground border-2 border-gray-200">
+    <div className="w-60 shrink-0">
+    <div className="mb-6 rounded-xl border border-border bg-white p-5">
+      <div className="mb-5 flex gap-3">
+        <div className="relative shrink-0">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-lg font-bold text-gray-800">
             홍
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-foreground">홍길동</span>
-              <span className="px-2 py-0.5 bg-amber-400 text-white text-xs font-bold rounded">BRONZE 1</span>
-            </div>
-            <p className="text-xs text-muted-foreground">카카오 계정으로 가입</p>
+          <button
+            type="button"
+            aria-label="프로필 사진 변경"
+            className="absolute -bottom-0.5 -right-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#2567E7] shadow-sm ring-2 ring-white"
+          >
+            <Edit className="h-3 w-3 text-white" strokeWidth={2.5} />
+          </button>
+        </div>
+
+        <div className="min-w-0 flex-1 pt-0.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-base font-bold text-foreground mb-2">홍길동</span>
+            <span className="rounded-full bg-[#432DD7] px-2 py-1.5 mb-3.5 text-[10px] font-bold uppercase tracking-wide text-white">
+              BRONZE 1
+            </span>
           </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex gap-2 mb-4">
-          <button className="flex-1 px-3 py-1.5 border border-primary text-primary text-xs rounded-full hover:bg-primary/5 transition-colors">
-            게시글
-          </button>
-          <button className="flex-1 px-3 py-1.5 border border-border text-muted-foreground text-xs rounded-full hover:bg-secondary transition-colors">
-            댓글
-          </button>
-          <button className="flex-1 px-3 py-1.5 border border-border text-muted-foreground text-xs rounded-full hover:bg-secondary transition-colors">
-            구독하기
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div className="flex justify-between text-center">
-          {stats.map((stat, index) => (
-            <div key={index}>
-              <p className="text-lg font-bold text-foreground">{stat.value}</p>
-              <p className="text-xs text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
+          <p className="mt-1 text-xs text-muted-foreground">카카오 계정으로 가입</p>
         </div>
       </div>
 
-      {/* Write Button */}
-      <Link href="/community/write" className="w-full py-3 bg-primary text-white rounded-full font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors mb-6">
+      <div className="flex gap-1.5">
+        <button type="button" className={actionBtnClass}>
+          게시글
+        </button>
+        <button type="button" className={actionBtnClass}>
+          댓글
+        </button>
+        <button type="button" className={actionBtnClass}>
+          구독하기
+        </button>
+      </div>
+
+      {/* Stats */}
+      <div className="mt-5 flex justify-between border-t border-border pt-5 text-center">
+        {stats.map((stat, index) => (
+          <div key={index}>
+            <p className="mb-3 text-lg font-semibold text-foreground">{stat.value}</p>
+            <p className="text-xs text-muted-foreground">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+      <Link href="/community/write" className="w-full py-3 bg-[#2567E7] text-white rounded-[8px] font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors mb-6">
         <Edit size={18} />
         글쓰기
       </Link>
 
       {/* Categories */}
-      <div className="space-y-6 max-h-[calc(100vh-400px)] overflow-y-auto pr-2">
-        {categories.map((category, categoryIndex) => (
-          <div key={categoryIndex}>
-            <div className="flex items-center gap-2 mb-3">
-              <category.icon size={18} className="text-muted-foreground" />
-              <h3 className="font-bold text-foreground">{category.title}</h3>
-            </div>
-            <div className="space-y-3">
-              {category.posts.map((post, postIndex) => (
-                <div key={postIndex} className="cursor-pointer hover:bg-secondary/50 rounded-lg p-2 -mx-2 transition-colors">
-                  <p className="text-sm text-foreground line-clamp-2 mb-1">{post.title}</p>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Eye size={12} /> {post.views}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <MessageCircle size={12} /> {post.comments}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <ThumbsUp size={12} /> {post.likes}
-                    </span>
+      <div className="mb-6 max-h-[calc(500vh-400px)] overflow-y-auto rounded-xl border border-border bg-white">
+        <div className="p-4">
+          {categories.map((category, categoryIndex) => (
+            <div
+              key={categoryIndex}
+              className={categoryIndex > 0 ? 'mt-5 border-t border-border pt-5' : undefined}
+            >
+              <div className="mb-4 flex items-center gap-2">
+                <category.icon size={18} className="shrink-0 text-[#2567E7]" strokeWidth={2} />
+                <h3 className="text-[14px] font-semibold leading-tight text-foreground">{category.title}</h3>
+              </div>
+              <div className="flex flex-col gap-4">
+                {category.posts.map((post, postIndex) => (
+                  <div
+                    key={postIndex}
+                    className="cursor-pointer rounded-lg px-1 py-0.5 transition-colors hover:bg-muted/50"
+                  >
+                    <p className="mb-2 line-clamp-2 text-[13px] font-medium leading-snug text-foreground">{post.title}</p>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Eye size={14} strokeWidth={1.75} aria-hidden /> {post.views}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <MessageSquare size={14} strokeWidth={1.75} aria-hidden /> {post.comments}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Heart size={14} strokeWidth={1.75} aria-hidden /> {post.likes}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )

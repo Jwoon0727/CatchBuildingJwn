@@ -49,7 +49,7 @@ export default function CommunityWritePage() {
     <>
       <Header />
       <main className="min-h-screen bg-background pt-32 pb-16">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-[75rem] mx-auto px-4">
           {/* Topic Selects */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div>

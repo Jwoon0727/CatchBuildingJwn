@@ -8,8 +8,8 @@ export default function CommunityArticlePage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background pt-32 pb-16">
-        <div className="max-w-5xl mx-auto px-4">
+      <main className="min-h-screen bg-[#F8F8F8] pt-6 pb-16">
+        <div className="max-w-[75rem] mx-auto px-4">
           <div className="flex gap-8">
             {/* Main Content */}
             <CommunityArticle />
