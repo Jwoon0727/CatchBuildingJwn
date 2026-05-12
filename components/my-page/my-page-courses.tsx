@@ -1,12 +1,19 @@
 'use client'
 
-import { Star, MessageSquare, Calendar } from 'lucide-react'
+import { Star } from 'lucide-react'
+
+/** 하단 정보 행 아이콘 — `public` 기준 경로를 원하는 이미지로 바꿔 주세요. */
+const COURSE_DETAIL_ICONS = {
+  lessons: '/icon/airplay.svg',
+  period: '/icon/book4.svg',
+} as const
 
 const courses = [
   {
     id: 1,
     title: '처음 하는 상업용 부동산 투자 완전정복',
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=120&h=80&fit=crop',
+    image:
+      '/building/building_type02.png',
     rating: 4.0,
     instructor: '강사 김영호',
     progress: 64,
@@ -18,7 +25,8 @@ const courses = [
   {
     id: 2,
     title: '처음 하는 상업용 부동산 투자 완전정복',
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=120&h=80&fit=crop',
+    image:
+      '/building/building_type02.png',
     rating: 4.0,
     instructor: '강사 김영호',
     progress: 20,
@@ -30,7 +38,8 @@ const courses = [
   {
     id: 3,
     title: '처음 하는 상업용 부동산 투자 완전정복',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=120&h=80&fit=crop',
+    image:
+      '/building/building_type02.png',
     rating: 4.0,
     instructor: '강사 김영호',
     progress: 20,
@@ -43,80 +52,95 @@ const courses = [
 
 export default function MyPageCourses() {
   return (
-    <div className="flex-1 min-w-0">
-      {/* Header */}
-      <h1 className="text-2xl font-bold text-foreground mb-6">마이페이지</h1>
+    <div className="min-w-0 flex-1 text-left ">
+      <h1 className="mt-5  border-border pb-9 text-xl font-bold text-foreground">수강목록</h1>
 
-      {/* Subtitle */}
-      <p className="text-sm text-foreground mb-6">
-        수강 중인 강의 <span className="text-primary font-medium">2건</span>
+      <p className="mb-2 text-sm font-bold text-foreground">
+        수강 중인 강의{' '}
+        <span className="font-bold text-[#2B7FFF]">{courses.length}건</span>
       </p>
 
-      {/* Course Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {courses.map((course) => (
-          <div key={course.id} className="border-b border-border pb-6">
-            {/* Course Header */}
-            <div className="flex gap-4 mb-4">
-              {/* Thumbnail */}
-              <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0">
+          <div
+            key={course.id}
+            className="border-b border-border bg-white py-5 pl-0 pr-2 sm:pr-4"          >
+            <div className="mb-4 flex items-start gap-4">
+              <div className="relative aspect-[2/2] w-[4rem] shrink-0 overflow-hidden rounded-lg bg-muted">
                 <img
                   src={course.image}
-                  alt={course.title}
-                  className="w-full h-full object-cover"
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
 
-              {/* Course Info */}
-              <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-foreground text-sm leading-tight mb-2">
+              <div className="min-w-0 flex-1 text-left">
+                <h3 className="mt-0.5 mb-5 text-left text-sm font-semibold leading-snug text-foreground">
                   {course.title}
                 </h3>
-                <div className="flex items-center gap-1">
+                <div className="flex flex-wrap items-center justify-start gap-1">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      size={12}
-                      className={i < Math.floor(course.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 fill-gray-200'}
+                      size={14}
+                      className={
+                        i < Math.floor(course.rating)
+                          ? 'fill-amber-400 text-amber-400'
+                          : 'fill-gray-200 text-gray-200'
+                      }
                     />
                   ))}
-                  <span className="text-xs text-muted-foreground ml-1">
+                  <span className="ml-1 text-left text-xs text-muted-foreground">
                     {course.rating} | {course.instructor}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Progress Section */}
-            <div className="mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-muted-foreground">수강 진행률</span>
-                <span className="text-xs text-primary font-medium">{course.progress}%</span>
+            <div className="mb-4 text-left">
+              <div className="mb-2 flex items-center justify-between text-xs">
+                <span className="font-semibold text-foreground">수강 진행률</span>
+                <span className="shrink-0 font-semibold text-[#2B7FFF]">
+                  {course.progress}%
+                </span>
               </div>
-              <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-1 overflow-hidden rounded-full bg-[#E8E8E8]">
                 <div
-                  className="h-full bg-primary rounded-full transition-all"
+                  className="h-full rounded-full bg-[#2B7FFF] transition-all"
                   style={{ width: `${course.progress}%` }}
                 />
               </div>
             </div>
 
-            {/* Course Details */}
-            <div className="space-y-1 mb-4">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <MessageSquare size={12} />
-                <span>총 {course.totalLessons}강 중 {course.completedLessons}강 완료</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Calendar size={12} />
+            <div className="mb-5 space-y-2 text-left">
+              <div className="flex items-center justify-start gap-2 text-xs text-muted-foreground">
+                <img
+                  src={COURSE_DETAIL_ICONS.lessons}
+                  alt=""
+                  className="size-4 shrink-0 object-contain"
+                />
                 <span>
-                  {course.isExpired ? '수강기간 만료' : `수강기간 ~${course.expiryDate}`}
+                  총 {course.totalLessons}강 중 {course.completedLessons}강 완료
+                </span>
+              </div>
+              <div className="flex items-center justify-start gap-2 text-xs text-muted-foreground">
+                <img
+                  src={COURSE_DETAIL_ICONS.period}
+                  alt=""
+                  className="size-4 shrink-0 object-contain"
+                />
+                <span>
+                  {course.isExpired
+                    ? '수강기간 만료'
+                    : `수강기간 ~${course.expiryDate}`}
                 </span>
               </div>
             </div>
 
-            {/* Continue Button */}
-            <button className="w-full py-3 border border-primary text-primary rounded-lg text-sm font-medium hover:bg-primary/5 transition-colors">
+            <button
+              type="button"
+              className="flex w-full items-center justify-center rounded-lg border border-[#2B7FFF] px-2.5 py-2.5 text-center text-sm font-semibold text-[#2567E7] transition-colors hover:bg-[#2B7FFF]/5"
+            >
               이어보기
             </button>
           </div>

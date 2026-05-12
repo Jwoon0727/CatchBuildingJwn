@@ -32,11 +32,11 @@ const bookmarkedProperties = [
 
 export default function MyPageBookmarks() {
   return (
-    <div className="w-64 flex-shrink-0">
+    <div className="w-56 shrink-0">
       <div className="bg-white rounded-xl border border-border p-5 sticky top-32">
         {/* Header */}
         <h3 className="font-bold text-foreground mb-4">
-          북마크 목록 <span className="text-primary">8</span>
+          북마크 목록 <span className="text-[#2567E7]">8</span>
         </h3>
 
         {/* Bookmarked Properties List */}

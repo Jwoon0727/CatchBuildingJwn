@@ -60,30 +60,33 @@ const paymentHistory = [
 
 export default function MyPageSubscription() {
   return (
-    <div className="flex-1 min-w-0">
-      {/* Header */}
-      <h1 className="text-2xl font-bold text-foreground mb-8">매물 알림</h1>
+    <div className="min-w-0 flex-1">
+      <h1 className="mt-5  border-border pb-9 mb-2 text-xl font-bold text-foreground">구독 정보</h1>
 
       {/* Pricing Plans */}
-      <div className="grid grid-cols-4 gap-4 mb-10">
+      <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className="border border-border rounded-xl p-6 text-center"
+            className="rounded-xl border border-border bg-white p-6 text-center"
           >
-            <p className="text-sm text-muted-foreground mb-2">{plan.name}</p>
-            <p className="text-2xl font-bold text-foreground mb-1">{plan.price}</p>
-            <p className="text-xs text-muted-foreground mb-4">{plan.period}</p>
-            
-            <div className="space-y-2 mb-6">
+            <p className="mb-2 text-sm text-muted-foreground">{plan.name}</p>
+            <p className="mb-1 text-base font-bold text-foreground">{plan.price}</p>
+            <p className="mb-4 text-xs text-muted-foreground">{plan.period}</p>
+
+            <div className="mb-2 space-y-2 text-left">
               {plan.features.map((feature, index) => (
                 <div key={index} className="flex items-center gap-2 text-sm">
                   {feature.included ? (
-                    <Check size={16} className="text-green-500" />
+                    <Check size={16} className="shrink-0 text-green-500" />
                   ) : (
-                    <X size={16} className="text-gray-300" />
+                    <X size={16} className="shrink-0 text-gray-300" />
                   )}
-                  <span className={feature.included ? 'text-foreground' : 'text-muted-foreground'}>
+                  <span
+                    className={
+                      feature.included ? 'text-foreground' : 'text-muted-foreground'
+                    }
+                  >
                     {feature.name}
                   </span>
                 </div>
@@ -92,62 +95,82 @@ export default function MyPageSubscription() {
 
             {plan.current ? (
               <button
+                type="button"
                 disabled
-                className="w-full py-2.5 border border-border rounded-full text-sm text-muted-foreground"
+                className="w-full rounded-lg border border-border bg-white py-2.5 text-sm text-muted-foreground"
               >
                 현재 플랜
               </button>
             ) : (
-              <button className="w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-white rounded-full text-sm font-medium transition-colors">
+              <button
+                type="button"
+                className="w-full rounded-lg bg-[#2567E7] py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2567E7]/90"
+              >
                 플랜 변경
               </button>
             )}
           </div>
         ))}
       </div>
-
-      {/* Current Subscription */}
-      <div className="mb-8">
-        <h2 className="font-bold text-foreground mb-4">구독중인 상품</h2>
-      </div>
-
+      <h2 className="text-lg font-bold text-foreground mb-8">구독중인 상품</h2>
       {/* Payment Method */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
+      <div className="mb-10">
+        <div className="mb-4 flex items-center justify-between">
           <h2 className="font-bold text-foreground">결제 수단</h2>
-          <button className="text-sm text-primary hover:underline">변경</button>
+          <button
+            type="button"
+            className="text-sm font-medium text-[#2567E7] transition-colors hover:text-[#2567E7]/80 hover:underline"
+          >
+            변경
+          </button>
         </div>
-        <div className="border border-border rounded-xl p-4 flex items-center gap-4">
-          <div className="w-12 h-8 bg-gradient-to-r from-blue-600 to-blue-400 rounded flex items-center justify-center">
-            <CreditCard size={20} className="text-white" />
-          </div>
-          <div>
-            <p className="font-medium text-foreground">국민카드 VISA</p>
-            <p className="text-sm text-muted-foreground">•••• •••• •••• 4827</p>
+        <div className="flex items-center gap-4 rounded-xl bg-[#F8F8F8] p-4">
+          <CreditCard className="size-14 shrink-0 text-[#2567E7]" strokeWidth={0.7} />
+          <div className="min-w-0 text-left">
+            <p className="font-semibold text-foreground mb-1">국민카드 VISA</p>
+            <p className="text-sm font-medium tabular-nums text-muted-foreground">
+              .... .... .... 4827
+            </p>
           </div>
         </div>
       </div>
 
       {/* Payment History */}
       <div>
-        <h2 className="font-bold text-foreground mb-4">결제 내역</h2>
-        <div className="border border-border rounded-xl overflow-hidden">
+        <h2 className="mb-4 font-bold text-foreground">결제 내역</h2>
+        <div className="overflow-hidden rounded-xl border-y border-border">
           <table className="w-full">
             <thead>
-              <tr className="bg-secondary/50">
-                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">결제일</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">상품명</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">금액</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">상태</th>
+              <tr className="bg-[#F8F8F8]">
+                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                  결제일
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                  상품명
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                  금액
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                  상태
+                </th>
               </tr>
             </thead>
             <tbody>
               {paymentHistory.map((payment, index) => (
                 <tr key={index} className="border-t border-border">
-                  <td className="py-3 px-4 text-sm text-foreground">{payment.date}</td>
-                  <td className="py-3 px-4 text-sm text-foreground">{payment.product}</td>
-                  <td className="py-3 px-4 text-sm text-foreground">{payment.amount}</td>
-                  <td className="py-3 px-4 text-sm text-foreground">{payment.status}</td>
+                  <td className="px-4 py-3 text-left text-xs text-foreground">
+                    {payment.date}
+                  </td>
+                  <td className="px-4 py-3 text-left text-xs text-foreground">
+                    {payment.product}
+                  </td>
+                    <td className="px-4 py-3 text-left text-xs text-foreground">
+                    {payment.amount}
+                  </td>
+                  <td className="px-4 py-3 text-left text-xs text-foreground">
+                    {payment.status}
+                  </td>
                 </tr>
               ))}
             </tbody>

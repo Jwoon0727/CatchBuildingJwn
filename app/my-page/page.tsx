@@ -17,8 +17,8 @@ export default function MyPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background pt-32 pb-16">
-        <div className="max-w-6xl mx-auto px-4">
+      <main className="min-h-screen bg-background pt-5 pb-16">
+        <div className="max-w-[77rem] mx-auto px-4">
           <div className="flex gap-8">
             {/* Left Sidebar */}
             <MyPageSidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} />

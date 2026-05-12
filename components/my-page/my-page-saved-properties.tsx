@@ -1,6 +1,16 @@
 'use client'
 
-import { Search, MapPin, Layers, Maximize, Eye, MessageCircle, Heart } from 'lucide-react'
+import Image from 'next/image'
+import { Eye, MessageCircle, Heart } from 'lucide-react'
+
+/** `public` 기준 이미지 경로를 넣어 주세요. */
+const SEARCH_FIELD_LEADING_IMAGE_SRC = '/icon/filter.svg'
+
+/** `public/icon/`에 파일을 두거나 경로만 바꿔 주세요. */
+const PROPERTY_DETAIL_ICONS = {
+  location: '/building/loca01.svg',
+  area: '/building/loca02.svg',
+} as const
 
 const savedProperties = [
   {
@@ -65,101 +75,137 @@ const savedProperties = [
   },
 ]
 
+function badgeClass(label: string) {
+  if (label === 'NEW') return 'bg-[#2567E7]'
+  if (label === '매매') return 'bg-[#003883]'
+  return 'bg-gray-800'
+}
+
 export default function MyPageSavedProperties() {
   return (
-    <div className="flex-1 min-w-0">
-      {/* Header */}
-      <h1 className="text-2xl font-bold text-foreground mb-6">마이페이지</h1>
+    <div className="min-w-0 flex-1">
+      <h1 className="mt-5 border-b border-border pb-9 mb-2 text-xl font-bold text-foreground">
+        찜한 목록
+      </h1>
 
-      {/* Search Results Header */}
-      <p className="text-sm text-foreground mb-4">
-        부산 매물 결과 <span className="text-primary font-bold">8건</span>
+      <p className="mb-4 text-sm text-foreground">
+        부산 매물 결과 <span className="font-bold text-[#2567E7]">8건</span>
       </p>
 
-      {/* Search Bar */}
-      <div className="flex gap-2 mb-8">
-        <div className="flex-1 flex items-center gap-3 px-4 py-3 border border-border rounded-lg">
-          <Search size={20} className="text-muted-foreground" />
+      <div className="mb-8 flex gap-2">
+        <div className="flex flex-1 items-center gap-3 rounded-lg border border-border px-4 py-3">
+          {SEARCH_FIELD_LEADING_IMAGE_SRC ? (
+            <span className="relative inline-flex size-5 shrink-0">
+              <Image
+                src={SEARCH_FIELD_LEADING_IMAGE_SRC}
+                alt=""
+                width={20}
+                height={20}
+                className="object-contain"
+              />
+            </span>
+          ) : null}
           <input
-            type="text"
+            type="search"
             placeholder="매물을 검색해 주세요."
-            className="flex-1 text-sm outline-none bg-transparent"
+            className="flex-1 bg-transparent text-sm outline-none"
           />
         </div>
-        <button className="px-6 py-3 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+        <button
+          type="button"
+          className="rounded-lg bg-[#2567E7] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2567E7]/90"
+        >
           검색
         </button>
       </div>
 
-      {/* Property List */}
       <div className="space-y-6">
         {savedProperties.map((property) => (
-          <div key={property.id} className="flex gap-4 pb-6 border-b border-border last:border-b-0">
-            {/* Thumbnail */}
-            <div className="relative w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
-              <img
-                src={property.image}
-                alt={property.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-2 left-2 flex flex-col gap-1">
-                {property.badges.map((badge, index) => (
-                  <span
-                    key={index}
-                    className={`px-2 py-0.5 text-white text-xs font-medium rounded ${
-                      badge === 'NEW' ? 'bg-primary' : 'bg-gray-800'
-                    }`}
-                  >
-                    {badge}
-                  </span>
-                ))}
+          <div
+            key={property.id}
+            className="flex gap-4 border-b border-border pb-6"
+          >
+            <div className="flex shrink-0 flex-col gap-2">
+              <div className="relative h-36 w-35 shrink-0 overflow-hidden rounded-lg">
+                <img
+                  src={property.image}
+                  alt={property.title}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute left-2 top-2 flex flex-col gap-1">
+                  {property.badges.map((badge, index) => (
+                    <span
+                      key={index}
+                      className={`rounded px-2 py-0.5 text-xs font-medium text-white ${badgeClass(badge)}`}
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  aria-label="찜하기"
+                  className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/35 backdrop-blur-[2px]"
+                >
+                  <Heart className="size-4 fill-red-500 stroke-red-500 text-red-500" />
+                </button>
+              </div>
+              <div className="mt-2 flex flex-nowrap items-center justify-start gap-2">
+                <span className="whitespace-nowrap rounded bg-[#FFC83B] px-3 py-1 text-xs font-medium text-foreground">
+                  수익률 {property.yield}
+                </span>
+                <span className="whitespace-nowrap rounded border border-border bg-white px-3 py-1 text-xs text-foreground">
+                  평단가 {property.pricePerPyeong}
+                </span>
               </div>
             </div>
 
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-              {/* Title */}
-              <h3 className="font-bold text-foreground mb-2">{property.title}</h3>
+            <div className="-ml-13 -mt-1 flex min-h-[8rem] min-w-0 flex-1 flex-col">
+              <h3 className="mb-2 text-base font-bold text-foreground">{property.title}</h3>
 
-              {/* Details */}
-              <div className="space-y-1 mb-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <MapPin size={14} />
-                  <span>{property.location}</span>
+              <div className="mb-3 space-y-1 text-xs text-muted-foreground">
+                <div className="flex items-start gap-2">
+                  <span className="relative -mt-0.5 inline-flex size-5 shrink-0">
+                    <Image
+                      src={PROPERTY_DETAIL_ICONS.location}
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="object-contain"
+                    />
+                  </span>
+                  <span className="leading-snug">{property.location}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Layers size={14} />
-                  <span>{property.floors}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Maximize size={14} />
-                  <span>{property.area}</span>
+                <p className="pl-7 leading-snug">{property.floors}</p>
+                <div className="flex items-start gap-2">
+                  <span className="relative -mt-0.5 inline-flex size-5 shrink-0">
+                    <Image
+                      src={PROPERTY_DETAIL_ICONS.area}
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="object-contain"
+                    />
+                  </span>
+                  <span className="leading-snug">{property.area}</span>
                 </div>
               </div>
 
-              {/* Stats */}
-              <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
-                <span className="flex items-center gap-1">
-                  <Eye size={12} /> {property.views}
-                </span>
-                <span className="flex items-center gap-1">
-                  <MessageCircle size={12} /> {property.comments}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Heart size={12} /> {property.likes}
-                </span>
-              </div>
-
-              {/* Tags and Price */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 bg-primary text-white text-xs font-medium rounded">
-                    수익율 {property.yield}
+              <div className="mb-3 w-fit self-start rounded-lg bg-[#F8F8F8] px-3 py-1">
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Eye className="size-3" strokeWidth={1.75} /> {property.views}
                   </span>
-                  <span className="px-3 py-1 border border-border text-foreground text-xs rounded">
-                    평단가 {property.pricePerPyeong}
+                  <span className="flex items-center gap-1">
+                    <MessageCircle className="size-3" strokeWidth={1.75} /> {property.comments}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Heart className="size-3" strokeWidth={1.75} /> {property.likes}
                   </span>
                 </div>
+              </div>
+
+              <div className="mt-auto flex justify-end pt-1">
                 <p className="text-xl font-bold text-foreground">{property.price}</p>
               </div>
             </div>

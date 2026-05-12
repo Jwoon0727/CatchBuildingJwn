@@ -11,43 +11,46 @@ const notificationSettings = [
 
 export default function MyPageSettings() {
   const [settings, setSettings] = useState<Record<string, boolean>>(
-    notificationSettings.reduce((acc, setting) => {
-      acc[setting.id] = setting.defaultValue
-      return acc
-    }, {} as Record<string, boolean>)
+    notificationSettings.reduce(
+      (acc, setting) => {
+        acc[setting.id] = setting.defaultValue
+        return acc
+      },
+      {} as Record<string, boolean>,
+    ),
   )
 
   const toggleSetting = (id: string) => {
-    setSettings(prev => ({
+    setSettings((prev) => ({
       ...prev,
-      [id]: !prev[id]
+      [id]: !prev[id],
     }))
   }
 
   return (
-    <div className="flex-1 min-w-0">
-      {/* Header */}
-      <h1 className="text-2xl font-bold text-foreground mb-8">마이페이지</h1>
+    <div className="min-w-0 flex-1">
+      <h1 className="mt-5  border-border pb-9 text-xl font-bold text-foreground">설정</h1>
 
-      {/* Notification Settings */}
       <div>
         {notificationSettings.map((setting) => (
-          <div 
-            key={setting.id} 
-            className="flex items-center justify-between py-5 border-b border-border"
+          <div
+            key={setting.id}
+            className="flex items-center justify-between gap-4 border-b border-border py-5"
           >
             <span className="text-sm text-foreground">{setting.label}</span>
-            
-            {/* Toggle Switch */}
+
             <button
+              type="button"
+              role="switch"
+              aria-checked={settings[setting.id]}
               onClick={() => toggleSetting(setting.id)}
-              className={`relative w-14 h-8 rounded-full transition-colors ${
-                settings[setting.id] ? 'bg-primary' : 'bg-gray-300'
+              className={`relative h-8 w-14 shrink-0 rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2567E7] ${
+                settings[setting.id] ? 'bg-[#2567E7]' : 'bg-gray-200'
               }`}
             >
               <span
-                className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow transition-transform ${
-                  settings[setting.id] ? 'translate-x-7' : 'translate-x-1'
+                className={`pointer-events-none absolute top-1 left-1 h-6 w-6 rounded-full bg-white transition-transform ${
+                  settings[setting.id] ? 'translate-x-6' : 'translate-x-0'
                 }`}
               />
             </button>
