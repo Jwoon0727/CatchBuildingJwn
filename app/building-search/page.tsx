@@ -20,8 +20,8 @@ export default function BuildingSearchPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background pt-32 pb-16">
-        <div className="max-w-6xl mx-auto px-4">
+      <main className="min-h-screen bg-background pt-6 pb-16">
+        <div className="max-w-[77rem] mx-auto px-4">
           <div className="flex gap-8">
             {/* Left Sidebar */}
             <BuildingSearchSidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
@@ -33,7 +33,7 @@ export default function BuildingSearchPage() {
             <div className="w-56 flex-shrink-0 hidden lg:block">
               <div className="bg-white rounded-xl border border-border p-4 sticky top-32">
                 <h3 className="font-bold text-foreground mb-4">
-                  북마크 목록 <span className="text-primary">8</span>
+                  북마크 목록 <span className="text-[#2567E7]">8</span>
                 </h3>
                 <div className="space-y-4">
                   {bookmarks.map((item, index) => (

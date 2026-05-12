@@ -72,7 +72,7 @@ export default function CategoryNav() {
                 className="flex shrink-0 items-center gap-2 px-4 py-2.5 text-sm font-medium font-pretendard text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
               >
                 <img
-                  src="/building/filter.png"
+                  src="/icon/filter.svg"
                   alt="필터"
                   width={18}
                   height={18}
