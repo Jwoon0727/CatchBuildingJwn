@@ -72,19 +72,15 @@
     "typescript": "5.7.3"
   },
   "pnpm": {
-  "overrides": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "peerDependencyRules": {
-    "ignoreMissing": [
-      "react",
-      "react-dom"
-    ],
-    "allowAny": [
-      "react",
-      "react-dom"
-    ]
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "react",
+        "react-dom"
+      ],
+      "allowAny": [
+        "react",
+        "react-dom"
+      ]
+    }
   }
-}
 }
