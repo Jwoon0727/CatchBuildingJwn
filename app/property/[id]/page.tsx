@@ -3,10 +3,8 @@
 import { use } from 'react'
 import Header from '@/components/header'
 import PropertyGallery from '@/components/property-detail/property-gallery'
-import PropertyHeader from '@/components/property-detail/property-header'
 import PropertyAgent from '@/components/property-detail/property-agent'
 import PropertyAgentDetail from '@/components/property-detail/property-agent-detail'
-import PropertyAIAnalysis from '@/components/property-detail/property-ai-analysis'
 import PropertyDetails from '@/components/property-detail/property-details'
 import PropertyIncomeStructure from '@/components/property-detail/property-income-structure'
 import PropertyBuildingInfo from '@/components/property-detail/property-building-info'
@@ -21,38 +19,32 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background pt-32">
+      <main className="min-h-screen bg-background pt-4">
         {/* Breadcrumb */}
-        <div className="max-w-7xl mx-auto px-4 mb-4">
-          <nav className="text-sm text-muted-foreground flex items-center gap-2">
+        <div className="mx-auto mb-4 max-w-[75rem] px-1">
+          <nav className="text-md font-semibold text-black flex items-center gap-2">
             <span className="hover:text-foreground cursor-pointer">홈</span>
-            <span className="text-muted-foreground/50">&gt;</span>
+            <span className="text-black/50">&gt;</span>
             <span className="hover:text-foreground cursor-pointer">서울특별시</span>
-            <span className="text-muted-foreground/50">&gt;</span>
+            <span className="text-black/50">&gt;</span>
             <span className="hover:text-foreground cursor-pointer">강남구</span>
-            <span className="text-muted-foreground/50">&gt;</span>
+            <span className="text-black/50">&gt;</span>
             <span className="text-primary font-medium">역삼동</span>
           </nav>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 pb-16">
+        <div className="mx-auto max-w-[75rem] px-1 pb-16">
           {/* Main Layout: Content + Sticky Sidebar */}
           <div className="flex gap-6">
             {/* Left Content */}
             <div className="flex-1 min-w-0">
               {/* Gallery */}
-              <div className="mb-6">
-                <PropertyGallery />
-              </div>
-
-              {/* Property Header Info */}
-              <PropertyHeader />
+              <PropertyGallery />
 
               {/* Agent Detail Section */}
               <PropertyAgentDetail />
 
-              {/* AI Analysis */}
-              <PropertyAIAnalysis />
+
 
               {/* Property Details Table */}
               <PropertyDetails />
@@ -77,7 +69,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             </div>
 
             {/* Right Sidebar - Sticky Agent Card */}
-            <div className="w-80 flex-shrink-0 hidden lg:block">
+            <div className="hidden w-62 shrink-0 lg:block">
               <PropertyAgent />
             </div>
           </div>

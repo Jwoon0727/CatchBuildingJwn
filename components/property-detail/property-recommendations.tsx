@@ -1,12 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { MapPin, Maximize } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+
+/** 위치·면적 줄 아이콘 (`public/` 기준, 필요 시 경로만 수정) */
+const RECOMMEND_LOCATION_ICON_SRC = '/building/loca01.svg'
+const RECOMMEND_SPECS_ICON_SRC = '/building/loca02.svg'
 
 const recommendations = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&h=200&fit=crop',
+    image: '/building/building_type06.jpg',
     badge: 'NEW',
     title: '백현동 상가주택',
     location: '서울 강남구 역삼동 · 15층',
@@ -15,7 +19,7 @@ const recommendations = [
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=300&h=200&fit=crop',
+    image: '/building/building_type03.jpg',
     badge: 'HOT',
     title: '백현동 상가주택',
     location: '서울 강남구 역삼동 · 15층',
@@ -24,7 +28,7 @@ const recommendations = [
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=300&h=200&fit=crop',
+    image: '/building/building_type03.jpg',
     badge: 'HOT',
     title: '백현동 상가주택',
     location: '서울 강남구 역삼동 · 15층',
@@ -33,7 +37,7 @@ const recommendations = [
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=300&h=200&fit=crop',
+    image: '/building/building_type06.jpg',
     badge: 'NEW',
     title: '백현동 상가주택',
     location: '서울 강남구 역삼동 · 15층',
@@ -48,9 +52,12 @@ export default function PropertyRecommendations() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-foreground">같은 지역 추천 매물</h3>
-        <button className="text-sm text-primary hover:underline flex items-center gap-1">
-          더보기 <span>&rarr;</span>
-        </button>
+        <a
+            href="#"
+            className="flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:text-[#1d4ed8]"
+          >
+            더보기 <ArrowRight className="size-4 shrink-0" aria-hidden strokeWidth={2} />
+          </a>
       </div>
 
       {/* Property Grid */}
@@ -68,12 +75,12 @@ export default function PropertyRecommendations() {
                 alt={item.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
               />
-              <div className="absolute top-3 left-3 flex gap-1">
-                <span className="px-2.5 py-1 bg-gray-800 text-white text-xs font-medium rounded">
+              <div className="absolute top-1.5 left-1.5 flex gap-1">
+                <span className="px-2.5 py-1 bg-[#003883] text-white text-xs font-medium rounded">
                   매매
                 </span>
                 <span className={`px-2.5 py-1 text-white text-xs font-medium rounded ${
-                  item.badge === 'HOT' ? 'bg-red-500' : 'bg-primary'
+                  item.badge === 'HOT' ? 'bg-[#E84040]' : 'bg-[#2567E7]'
                 }`}>
                   {item.badge}
                 </span>
@@ -81,19 +88,31 @@ export default function PropertyRecommendations() {
             </div>
 
             {/* Info */}
-            <h4 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+            <h4 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
               {item.title}
             </h4>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
-              <MapPin size={12} />
+            <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <img
+                src={RECOMMEND_LOCATION_ICON_SRC}
+                alt=""
+                width={12}
+                height={12}
+                className="h-5 w-5 shrink-0 object-contain"
+              />
               <span>{item.location}</span>
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
-              <Maximize size={12} />
+            <div className="mb-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <img
+                src={RECOMMEND_SPECS_ICON_SRC}
+                alt=""
+                width={12}
+                height={12}
+                className="h-5 w-5 shrink-0 object-contain"
+              />
               <span>{item.specs}</span>
             </div>
             <p className="text-sm">
-              <span className="text-muted-foreground">매매</span>{' '}
+              <span className="text-foreground font-bold">매매</span>{' '}
               <span className="font-bold text-foreground">{item.price}</span>
             </p>
           </Link>

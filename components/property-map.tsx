@@ -19,23 +19,31 @@ const propertyLocations = [
 export default function PropertyMap({ selectedId, onMarkerClick }: PropertyMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<any>(null)
+  const onMarkerClickRef = useRef(onMarkerClick)
+  onMarkerClickRef.current = onMarkerClick
   const [isLoaded, setIsLoaded] = useState(false)
   const [popupData, setPopupData] = useState<{ id: number; title: string; position: { x: number; y: number } } | null>(null)
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !mapRef.current || mapInstanceRef.current) return
+    if (typeof window === 'undefined' || !mapRef.current) return
 
-    // Dynamically import Leaflet
+    let cancelled = false
+
     const initMap = async () => {
       const L = (await import('leaflet')).default
       await import('leaflet/dist/leaflet.css')
 
+      if (cancelled || !mapRef.current) return
+
+      const container = mapRef.current
+
       // Initialize map centered on Gangnam, Seoul
-      const map = L.map(mapRef.current!, {
+      const map = L.map(container, {
         center: [37.4990, 127.0400],
         zoom: 15,
         zoomControl: false,
       })
+      mapInstanceRef.current = map
 
       // Add OpenStreetMap tiles (free)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -45,7 +53,7 @@ export default function PropertyMap({ selectedId, onMarkerClick }: PropertyMapPr
       // Add zoom control to bottom right
       L.control.zoom({ position: 'bottomright' }).addTo(map)
 
-      mapInstanceRef.current = map
+      if (cancelled) return
 
       // Create custom markers
       propertyLocations.forEach((location) => {
@@ -66,7 +74,7 @@ export default function PropertyMap({ selectedId, onMarkerClick }: PropertyMapPr
         L.marker([location.lat, location.lng], { icon: markerIcon })
           .addTo(map)
           .on('click', (e: any) => {
-            onMarkerClick(location.id)
+            onMarkerClickRef.current(location.id)
             const point = map.latLngToContainerPoint(e.latlng)
             setPopupData({
               id: location.id,
@@ -76,18 +84,22 @@ export default function PropertyMap({ selectedId, onMarkerClick }: PropertyMapPr
           })
       })
 
-      setIsLoaded(true)
+      if (!cancelled) {
+        setIsLoaded(true)
+      }
     }
 
     initMap()
 
     return () => {
+      cancelled = true
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove()
         mapInstanceRef.current = null
       }
+      setIsLoaded(false)
     }
-  }, [onMarkerClick])
+  }, [])
 
   // Update popup position when selectedId changes
   useEffect(() => {

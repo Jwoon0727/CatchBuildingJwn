@@ -1,32 +1,54 @@
 'use client'
 
-import { FileText, Video, ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
+
+/** `public/` 기준 이미지 경로 (아래 문자열만 원하는 경로로 수정) */
+const FLOOR_PLAN_THUMB_SRC = '/building/file.svg'
+const VIDEO_THUMB_SRC = '/building/video.svg'
 
 export default function PropertyDocuments() {
   return (
-    <div className="grid grid-cols-2 gap-4 mb-6">
+    <div className="mb-6 grid grid-cols-2 gap-4">
       {/* Floor Plan PDF */}
-      <button className="flex items-center gap-4 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
-        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-          <FileText className="text-primary" size={24} />
+      <button
+        type="button"
+        className="flex items-center gap-4 rounded-lg bg-[#EBF1FD] p-4 transition-colors hover:bg-primary/10"
+      >
+        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-muted/40">
+          <img
+            src={FLOOR_PLAN_THUMB_SRC}
+            alt=""
+            width={48}
+            height={48}
+            className="h-full w-full object-cover"
+          />
         </div>
-        <div className="text-left flex-1">
+        <div className="min-w-0 flex-1 text-left">
           <p className="font-medium text-foreground">전체 평면도 보기</p>
           <p className="text-sm text-muted-foreground">PDF · 8페이지 · 2.1MB</p>
         </div>
-        <ChevronRight className="text-muted-foreground" size={20} />
+        <ChevronRight className="shrink-0 text-muted-foreground" size={20} />
       </button>
 
       {/* Video Tour */}
-      <button className="flex items-center gap-4 p-4 bg-red-50 border border-red-100 rounded-lg hover:bg-red-100 transition-colors">
-        <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-          <Video className="text-red-500" size={24} />
+      <button
+        type="button"
+        className="flex items-center gap-4 rounded-lg bg-[#EBF1FD] p-4 transition-colors hover:bg-red-100"
+      >
+        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-muted/40">
+          <img
+            src={VIDEO_THUMB_SRC}
+            alt=""
+            width={48}
+            height={48}
+            className="h-full w-full object-cover"
+          />
         </div>
-        <div className="text-left flex-1">
+        <div className="min-w-0 flex-1 text-left">
           <p className="font-medium text-foreground">매물 영상 보러</p>
           <p className="text-sm text-muted-foreground">8분 21초</p>
         </div>
-        <ChevronRight className="text-muted-foreground" size={20} />
+        <ChevronRight className="shrink-0 text-muted-foreground" size={20} />
       </button>
     </div>
   )

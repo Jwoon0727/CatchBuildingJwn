@@ -42,7 +42,7 @@ export default function PropertyBuildingInfo() {
   const [isExpanded, setIsExpanded] = useState(true)
 
   return (
-    <div className="mb-8">
+    <div className="mt-15 mb-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-foreground">건물 층별 안내</h3>
@@ -59,14 +59,14 @@ export default function PropertyBuildingInfo() {
           {/* Floor List */}
           <div className="space-y-6">
             {floorInfo.map((floor, index) => (
-              <div key={index} className="border-b border-border pb-6 last:border-b-0">
+              <div key={index} className="border-b border-border pb-6">
                 {/* Floor Header */}
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="font-bold text-foreground">{floor.floor}</h4>
                   <p className="text-sm">
-                    보증금 <span className="text-primary font-bold">{floor.deposit}</span>
+                    보증금 <span className="text-[#2567E7] font-bold">{floor.deposit}</span>
                     <span className="text-muted-foreground mx-1">|</span>
-                    월세 <span className="text-primary font-bold">{floor.rent}</span>
+                    월세 <span className="text-[#2567E7] font-bold">{floor.rent}</span>
                   </p>
                 </div>
 
@@ -88,7 +88,7 @@ export default function PropertyBuildingInfo() {
                       {floor.tags.map((tag, tagIndex) => (
                         <span
                           key={tagIndex}
-                          className="px-3 py-1 border border-border text-foreground text-xs rounded-full"
+                          className="bg-[#EBF1FD] px-3 py-1 border border-border text-foreground text-xs rounded-[4px]"
                         >
                           {tag}
                         </span>
@@ -102,30 +102,8 @@ export default function PropertyBuildingInfo() {
             ))}
           </div>
 
-          {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <button className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors">
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                <FileText size={24} className="text-primary" />
-              </div>
-              <div className="text-left">
-                <p className="font-bold text-foreground">전체 평면도 보기</p>
-                <p className="text-xs text-muted-foreground">PDF · 8페이지 · 2.1MB</p>
-              </div>
-              <span className="ml-auto text-muted-foreground">&gt;</span>
-            </button>
-
-            <button className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors">
-              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                <Video size={24} className="text-orange-500" />
-              </div>
-              <div className="text-left">
-                <p className="font-bold text-foreground">매물 영상 투어</p>
-                <p className="text-xs text-muted-foreground">8분 21초</p>
-              </div>
-              <span className="ml-auto text-muted-foreground">&gt;</span>
-            </button>
-          </div>
+          
+          
         </>
       )}
     </div>

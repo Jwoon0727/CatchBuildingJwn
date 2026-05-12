@@ -1,6 +1,6 @@
 'use client'
 
-import { Star, Edit } from 'lucide-react'
+import { ArrowRight, Pencil, Star } from 'lucide-react'
 
 const reviews = [
   {
@@ -8,21 +8,21 @@ const reviews = [
     author: '투자자A',
     rating: 4,
     date: '2026. 02. 22',
-    content: '매물 설명이 실제와 그대로 맞고, 수익률 게산도 투명하게 공개해줘서 신뢰가 갔어요.',
+    content: '매물 설명이 실제와 그대로 맞고, 수익률 계산도 투명하게 공개해줘서 신뢰가 갔어요.',
   },
   {
     id: 2,
     author: '투자자A',
     rating: 4,
     date: '2026. 02. 22',
-    content: '매물 설명이 실제와 그대로 맞고, 수익률 게산도 투명하게 공개해줘서 신뢰가 갔어요.',
+    content: '매물 설명이 실제와 그대로 맞고, 수익률 계산도 투명하게 공개해줘서 신뢰가 갔어요.',
   },
   {
     id: 3,
     author: '투자자A',
     rating: 4,
     date: '2026. 02. 22',
-    content: '매물 설명이 실제와 그대로 맞고, 수익률 게산도 투명하게 공개해줘서 신뢰가 갔어요.',
+    content: '매물 설명이 실제와 그대로 맞고, 수익률 계산도 투명하게 공개해줘서 신뢰가 갔어요.',
   },
 ]
 
@@ -34,9 +34,12 @@ export default function PropertyReviews() {
         <h3 className="text-lg font-bold text-foreground">
           관심 후기 <span className="text-primary">17</span>
         </h3>
-        <button className="text-sm text-primary hover:underline flex items-center gap-1">
-          더보기 <span>&rarr;</span>
-        </button>
+        <a
+            href="#"
+            className="flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:text-[#1d4ed8]"
+          >
+            더보기 <ArrowRight className="size-4 shrink-0" aria-hidden strokeWidth={2} />
+          </a>
       </div>
 
       {/* Reviews Card */}
@@ -44,8 +47,11 @@ export default function PropertyReviews() {
         <div className="space-y-6">
           {reviews.map((review) => (
             <div key={review.id} className="flex gap-4">
-              {/* Avatar */}
-              <div className="w-12 h-12 rounded-full border-2 border-primary/20 bg-white flex items-center justify-center text-primary font-bold flex-shrink-0">
+              {/* Avatar — 연한 파란 원 + 진한 파란 이니셜 */}
+              <div
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EBF1FD] text-base font-bold text-[#2563EB]"
+                aria-hidden
+              >
                 이
               </div>
 
@@ -64,7 +70,7 @@ export default function PropertyReviews() {
                       ))}
                     </div>
                   </div>
-                  <span className="text-sm text-muted-foreground">{review.date}</span>
+                  <span className="text-xs text-muted-foreground mb-5">{review.date}</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2">{review.content}</p>
               </div>
@@ -73,8 +79,11 @@ export default function PropertyReviews() {
         </div>
 
         {/* Write Review Button */}
-        <button className="w-full mt-6 py-3 border border-border rounded-lg text-sm font-medium text-foreground hover:bg-secondary transition-colors flex items-center justify-center gap-2">
-          <Edit size={16} />
+        <button
+          type="button"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg border border-border py-4 text-base font-bold text-foreground transition-colors hover:bg-secondary"
+        >
+          <Pencil size={16} className="shrink-0" aria-hidden strokeWidth={2} />
           후기 남기기
         </button>
       </div>

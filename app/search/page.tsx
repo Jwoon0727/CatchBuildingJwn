@@ -1,6 +1,6 @@
 'use client'
 
-import { Search, Map } from 'lucide-react'
+import { Search, Map, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Header from '@/components/header'
 import SearchSidebar from '@/components/search-sidebar'
@@ -60,14 +60,14 @@ export default function PropertySearchPage() {
       <Header />
       <div className="min-h-screen bg-background pt-5">
         <div className="max-w-[77rem] mx-auto px-1 py-1">
-          <div className="grid grid-cols-1 gap-1 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-x-0 lg:gap-y-0 lg:items-start">
             {/* Sidebar */}
-            <div className="lg:col-span-1">
+            <div>
               <SearchSidebar />
             </div>
 
             {/* Main Content */}
-            <div className="lg:col-span-3">
+            <div className="min-w-0">
               {/* Search Bar — 메인 상단 */}
               <div className="sticky top-16 z-30 mb-6 bg-white">
                 <div className="flex items-center gap-3">
@@ -79,12 +79,12 @@ export default function PropertySearchPage() {
                       className="w-full rounded-lg border border-border bg-white py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
-                  <Button className="bg-primary hover:bg-primary/90 text-white">
+                  <Button className="bg-[#2567E7] hover:bg-primary/90 text-white px-5 rounded-[8px]">
                     검색
                   </Button>
                   <button
                     type="button"
-                    className="rounded-lg border border-border bg-white p-2 transition-colors hover:bg-muted/40"
+                    className="rounded-lg border border-border bg-white p-2 px-5 transition-colors hover:bg-muted/40"
                     aria-label="지도로 보기"
                   >
                     <Map className="size-5 text-[#2563EB]" strokeWidth={2} aria-hidden />
@@ -93,13 +93,15 @@ export default function PropertySearchPage() {
               </div>
 
               {/* Results Header */}
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-foreground">부산 매물 결과 8건</h2>
-                <select className="px-3 py-2 border border-border rounded-lg text-sm bg-background cursor-pointer">
-                  <option>추천순</option>
-                  <option>최신순</option>
-                  <option>가격순</option>
-                </select>
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-lg font-bold text-foreground">
+                  부산 매물 결과 <span className="text-[#2567E7]">8건</span>
+                </h2>
+                <div className="p-3  border-border">
+          <button className="flex items-center gap-1 text-sm text-black hover:text-foreground ml-auto">
+            추천순 <ChevronDown size={25} />
+          </button>
+        </div>
               </div>
 
               {/* Search Results */}

@@ -39,7 +39,7 @@ function MetaLineIcon({ src }: { src: string }) {
       alt=""
       width={18}
       height={18}
-      className="mt-0.5 size-[18px] shrink-0 object-contain"
+      className="-translate-y-px size-[18px] shrink-0 object-contain"
       draggable={false}
       aria-hidden
     />
@@ -50,10 +50,10 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
   return (
     <Link
       href={`/map-search?id=${result.id}`}
-      className="group flex cursor-pointer gap-5 border-b border-border px-4 py-5 font-pretendard transition-colors hover:bg-muted/25"
+      className="group flex cursor-pointer gap-5 border-b border-border py-5 pr-4 pl-0 font-pretendard transition-colors hover:bg-muted/25"
     >
       {/* 이미지 */}
-      <div className="relative h-44 w-52 shrink-0 overflow-hidden rounded-lg bg-muted sm:w-60 md:h-48 md:w-64 lg:h-52 lg:w-72">
+      <div className="relative h-40 w-48 shrink-0 overflow-hidden rounded-lg bg-muted sm:w-60 md:h-48 md:w-64 lg:h-52 lg:w-72">
         <img
           src={result.image}
           alt={result.title}
@@ -83,11 +83,11 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
       {/* 본문 */}
       <div className="flex min-h-[10rem] min-w-0 flex-1 flex-col justify-between lg:min-h-[12rem]">
         <div className="space-y-3">
-          <h3 className="text-base font-bold leading-snug tracking-tight text-foreground md:text-lg">
+          <h3 className="text-base font-bold leading-snug tracking-tight text-foreground md:text-md">
             {result.title}
           </h3>
 
-          <div className="space-y-2 text-xs text-[#6B7280] md:text-sm">
+          <div className="space-y-2 text-xs text-[#6B7280] md:text-xs">
             {/* 위치·건물 — 핀 하나 + 여러 줄 */}
             <div className={metaRow}>
               <MetaLineIcon src={SEARCH_ICON_LOCATION} />
@@ -109,7 +109,7 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
             </div>
           </div>
 
-          <div className="inline-flex w-fit items-center gap-5 rounded-[7px] bg-[#F3F4F6] px-4 py-2 text-xs text-[#9CA3AF]">
+          <div className="inline-flex w-fit items-center gap-5 rounded-[7px] bg-[#F3F4F6] px-3 py-1.5 text-xs text-[#9CA3AF]">
             <span className="flex items-center gap-1">
               <Eye className="size-3.5 shrink-0" strokeWidth={2} aria-hidden />
               {result.views}
@@ -126,13 +126,13 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
         </div>
 
         <div className="mt-4 flex flex-wrap items-center justify-end gap-2 md:mt-3">
-          <span className="rounded border border-[#e5e7eb] bg-white px-2.5 py-1 text-[12px] font-semibold text-neutral-900 shadow-none">
+          <span className="rounded border border-[#e5e7eb] bg-white px-2 py-1 text-[10px] font-semibold text-neutral-900 shadow-none">
             {result.deposit}
           </span>
-          <span className="rounded bg-[#facc15] px-2.5 py-1 text-[12px] font-bold text-neutral-900">
+          <span className="rounded bg-[#facc15] px-2 py-1 text-[10px] font-bold text-neutral-900">
             {result.discount}
           </span>
-          <span className="ml-1 text-2xl font-bold tracking-tight text-neutral-900 md:text-[26px]">
+          <span className="ml-1 text-2xl font-bold tracking-tight text-neutral-900 md:text-[20px]">
             {result.price}
           </span>
         </div>

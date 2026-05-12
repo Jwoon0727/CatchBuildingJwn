@@ -1,12 +1,34 @@
 'use client'
 
+import { useState } from 'react'
+
 import { Checkbox } from '@/components/ui/checkbox'
+import { Slider } from '@/components/ui/slider'
+
+/** 슬라이더: 0.1억 단위 (max 300 = 30억) — search-sidebar와 동일 */
+const PRICE_SLIDER_MAX = 300
+
+const FILTER_ACCENT_SLIDER =
+  '[&_[data-slot=slider-track]]:!bg-[#F8F8F8] [&_[data-slot=slider-range]]:!bg-[#2567E7] [&_[data-slot=slider-thumb]]:!border-[#2567E7] [&_[data-slot=slider-thumb]]:!bg-white [&_[data-slot=slider-thumb]]:focus-visible:ring-[#2567E7]/40'
+const FILTER_ACCENT_TEXT = 'text-[#2567E7]'
 
 /** 활성(선택) · 비활성 칩/체크 — 검색 사이드바와 동일 톤 */
 const FILTER_CHIP_ACTIVE = 'bg-[#2567E7] text-white'
 const FILTER_CHIP_INACTIVE = 'bg-[#F8F8F8] text-foreground hover:bg-[#EEEEEE]'
 const FILTER_ACCENT_CHECKBOX =
   'border-input bg-[#F8F8F8] data-[state=checked]:border-[#2567E7] data-[state=checked]:bg-[#2567E7] data-[state=checked]:text-white dark:bg-[#F8F8F8] dark:data-[state=checked]:border-[#2567E7] dark:data-[state=checked]:bg-[#2567E7]'
+
+function formatPriceEok(tenths: number) {
+  const eok = tenths / 10
+  return Number.isInteger(eok) ? `${eok}` : eok.toFixed(1)
+}
+
+const pricePresets = [
+  { id: 'all', label: '전체' },
+  { id: 'under10', label: '10억 이하' },
+  { id: 'band10', label: '10억대' },
+  { id: 'over20', label: '20억 이상' },
+] as const
 
 export default function MapSearchFilters() {
   const propertyTypes = [
@@ -36,12 +58,8 @@ export default function MapSearchFilters() {
 
   const hashtags = ['즉시입주', '주차가능', '역세권', '수익형', '신축', '대로변']
 
-  const priceButtons = [
-    { id: 'all', label: '전체', active: true },
-    { id: 'under10', label: '10억 이하', active: false },
-    { id: '10s', label: '10억대', active: false },
-    { id: 'over20', label: '20억 이상', active: false },
-  ]
+  const [pricePreset, setPricePreset] = useState<(typeof pricePresets)[number]['id']>('all')
+  const [priceRange, setPriceRange] = useState<number[]>([15, 120])
 
   return (
     <div className="border-b border-border bg-white px-6 py-4">
@@ -117,27 +135,36 @@ export default function MapSearchFilters() {
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex flex-wrap gap-2">
-              {priceButtons.map(btn => (
+              {pricePresets.map(preset => (
                 <button
-                  key={btn.id}
+                  key={preset.id}
                   type="button"
                   className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-                    btn.active ? FILTER_CHIP_ACTIVE : FILTER_CHIP_INACTIVE
+                    pricePreset === preset.id ? FILTER_CHIP_ACTIVE : FILTER_CHIP_INACTIVE
                   }`}
+                  onClick={() => setPricePreset(preset.id)}
                 >
-                  {btn.label}
+                  {preset.label}
                 </button>
               ))}
             </div>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              defaultValue="50"
-              className="h-2 w-32 cursor-pointer appearance-none rounded-lg bg-[#F8F8F8] accent-[#2567E7]"
-              aria-label="가격 범위"
-            />
-            <span className="text-sm font-medium text-[#2567E7]">1.5억원 ~ 12억원</span>
+            <div
+              className={`min-w-[10rem] max-w-xs flex-1 px-0.5 basis-[10rem] ${FILTER_ACCENT_SLIDER}`}
+            >
+              <Slider
+                min={0}
+                max={PRICE_SLIDER_MAX}
+                step={1}
+                value={priceRange}
+                onValueChange={setPriceRange}
+                minStepsBetweenThumbs={1}
+                className="py-2"
+                aria-label="가격 범위"
+              />
+            </div>
+            <span className={`text-sm font-medium whitespace-nowrap ${FILTER_ACCENT_TEXT}`}>
+              {formatPriceEok(priceRange[0])}억원 ~ {formatPriceEok(priceRange[1])}억원
+            </span>
           </div>
         </div>
       </div>
