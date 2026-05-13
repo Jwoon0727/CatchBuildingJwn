@@ -29,33 +29,24 @@ export default function MapSearchSidebar({ results, selectedId, onSelect }: MapS
 
   return (
     <div className="flex w-72 flex-col border-r border-border bg-white">
-      {/* Header Tabs */}
-      <div className="flex">
-        <button 
+      {/* 탭 — 모바일 map-search 페이지와 동일 스타일 */}
+      <div className="flex border-b border-border">
+        <button
+          type="button"
           onClick={() => setActiveTab('search')}
-          className={`flex-1 py-4 text-sm font-medium transition-colors relative ${
-            activeTab === 'search' 
-              ? 'text-foreground' 
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
+          className={`flex-1 py-4 text-base font-bold text-[#333333] transition-colors ${activeTab === 'search' ? 'border-b-2 border-[#2567E7]' : ''}`}
         >
-          검색결과{results.length}
-          {activeTab === 'search' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2567E7]" />
-          )}
+          검색결과{' '}
+          <span className="text-[#2567E7]">{results.length}</span>
         </button>
-        <button 
+        <button
+          type="button"
           onClick={() => setActiveTab('recent')}
-          className={`flex-1 py-4 text-sm font-medium transition-colors relative ${
-            activeTab === 'recent' 
-              ? 'text-foreground' 
-              : 'text-muted-foreground hover:text-foreground'
+          className={`flex-1 py-4 text-base font-bold transition-colors ${
+            activeTab === 'recent' ? 'border-b-2 border-[#2567E7] text-[#333333]' : 'text-[#CCCCCC]'
           }`}
         >
           최근조회
-          {activeTab === 'recent' && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2567E7]" />
-          )}
         </button>
       </div>
 

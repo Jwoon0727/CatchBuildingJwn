@@ -50,16 +50,16 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
   return (
     <Link
       href={`/map-search?id=${result.id}`}
-      className="group flex cursor-pointer gap-5 border-b border-border py-5 pr-4 pl-0 font-pretendard transition-colors hover:bg-muted/25"
+      className="group flex cursor-pointer gap-5 border-b border-border py-5 pr-4 pl-0 font-pretendard antialiased transition-colors hover:bg-muted/25 [&_*]:font-pretendard"
     >
-      {/* 이미지 */}
-      <div className="relative h-40 w-48 shrink-0 overflow-hidden rounded-lg bg-muted sm:w-60 md:h-48 md:w-64 lg:h-52 lg:w-72">
+      {/* 이미지 — 모바일만 크기 축소, lg+ 는 기존과 동일 */}
+      <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-lg bg-muted sm:h-40 sm:w-60 md:h-48 md:w-64 lg:h-52 lg:w-72">
         <img
           src={result.image}
           alt={result.title}
           className="size-full object-cover transition-transform group-hover:scale-[1.02]"
         />
-        <div className="absolute left-3 top-3 flex gap-1">
+        <div className="absolute left-3 top-3 flex flex-col gap-1 lg:flex-row lg:gap-1">
           <span className="rounded bg-[#1e3a8a] px-2 py-0.5 text-[11px] font-bold text-white">
             매매
           </span>
@@ -83,7 +83,7 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
       {/* 본문 */}
       <div className="flex min-h-[10rem] min-w-0 flex-1 flex-col justify-between lg:min-h-[12rem]">
         <div className="space-y-3">
-          <h3 className="text-base font-bold leading-snug tracking-tight text-foreground md:text-md">
+          <h3 className="text-lg font-bold leading-snug tracking-tight text-foreground md:text-md">
             {result.title}
           </h3>
 
@@ -102,8 +102,8 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
               <MetaLineIcon src={SEARCH_ICON_AREA} />
               <span className="min-w-0 flex-1 leading-snug">{result.area}</span>
             </div>
-            {/* 승인일 — 달력 */}
-            <div className={metaRow}>
+            {/* 승인일 — 달력 (모바일 숨김) */}
+            <div className="hidden w-full min-w-0 items-start gap-2 md:flex">
               <MetaLineIcon src={SEARCH_ICON_CALENDAR} />
               <span className="min-w-0 flex-1 leading-snug">{result.date}</span>
             </div>
@@ -125,14 +125,14 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center justify-end gap-2 md:mt-3">
-          <span className="rounded border border-[#e5e7eb] bg-white px-2 py-1 text-[10px] font-semibold text-neutral-900 shadow-none">
+        <div className="mt-4 flex max-w-full flex-nowrap items-center justify-end gap-2 md:mt-3">
+          <span className="shrink-0 rounded border border-[#e5e7eb] bg-white px-3 py-1 text-[11px] font-semibold text-neutral-900 shadow-none">
             {result.deposit}
           </span>
-          <span className="rounded bg-[#facc15] px-2 py-1 text-[10px] font-bold text-neutral-900">
+          <span className="shrink-0 rounded bg-[#facc15] px-3 py-1 text-[11px] font-bold text-neutral-900">
             {result.discount}
           </span>
-          <span className="ml-1 text-2xl font-bold tracking-tight text-neutral-900 md:text-[20px]">
+          <span className="ml-1 shrink-0 text-lg font-bold tracking-tight text-neutral-900 md:text-[20px]">
             {result.price}
           </span>
         </div>

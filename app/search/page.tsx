@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import {
-  Search, Map, ChevronDown, SlidersHorizontal,
-  RotateCcw, ArrowLeft, Menu, X,
+  Search, Map, ChevronDown,
+  RotateCcw, ChevronLeft, Menu, X, History,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -12,6 +12,9 @@ import { Slider } from '@/components/ui/slider'
 import Header from '@/components/header'
 import SearchSidebar from '@/components/search-sidebar'
 import SearchResultCard from '@/components/search-result-card'
+
+/** 모바일 검색바 필터 버튼 (`public/` 기준, 원하는 경로로 수정) */
+const MOBILE_SEARCH_FILTER_ICON_SRC = '/icon/filter.svg'
 
 /* ── 필터 데이터 ── */
 const pricePresets = [
@@ -128,49 +131,56 @@ export default function PropertySearchPage() {
   ]
 
   return (
-    <div className="font-pretendard">
+    <div className="font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
       {/* ───── 모바일 레이아웃 (lg 미만) ───── */}
       <div className="flex min-h-screen flex-col bg-white lg:hidden">
         {/* 모바일 헤더 */}
-        <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center gap-3 px-4 py-3">
           <Link href="/" aria-label="뒤로가기">
-            <ArrowLeft className="size-5 text-foreground" strokeWidth={2} />
+            <ChevronLeft className="size-7 text-foreground" strokeWidth={2} />
           </Link>
-          <span className="text-base font-bold text-foreground">검색</span>
+          <span className="text-xl font-bold text-foreground">검색</span>
+          <div className="min-w-0 flex-1" />
           <button type="button" aria-label="메뉴">
             <Menu className="size-5 text-foreground" strokeWidth={2} />
           </button>
         </div>
 
-        {/* 모바일 검색바 */}
+        {/* 모바일 검색바 — 필터+입력 하나의 카드 형태 */}
         <div className="px-4 pb-3">
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              aria-label="필터"
-              onClick={() => setFilterOpen(true)}
-              className="flex shrink-0 items-center justify-center rounded-lg border border-border bg-white p-2.5"
-            >
-              <SlidersHorizontal className="size-4 text-foreground" strokeWidth={2} />
-            </button>
-            <div className="relative flex-1">
+            <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-border bg-white px-1 py-1 focus-within:ring-2 focus-within:ring-primary/40">
+              <button
+                type="button"
+                aria-label="필터"
+                onClick={() => setFilterOpen(true)}
+                className="flex shrink-0 items-center justify-center rounded-lg p-2 text-foreground hover:bg-muted/50"
+              >
+                <img
+                  src={MOBILE_SEARCH_FILTER_ICON_SRC}
+                  alt=""
+                  width={18}
+                  height={18}
+                  className="size-5 object-contain"
+                />
+              </button>
               <input
                 type="text"
                 defaultValue="부산"
                 placeholder="지역, 건물명, 도로명 주소 검색"
-                className="w-full rounded-lg border border-border bg-white py-2.5 pl-4 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="min-w-0 flex-1 border-0 bg-transparent py-2 pr-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
               />
             </div>
-            <Button className="shrink-0 rounded-lg bg-[#2567E7] px-4 text-sm text-white hover:bg-[#2567E7]/90">
+            <Button className="shrink-0 rounded-xl bg-[#2567E7] px-4 text-sm text-white hover:bg-[#2567E7]/90">
               검색
             </Button>
             <button
               type="button"
               aria-label="최근 검색"
               onClick={() => setHistoryOpen(true)}
-              className="flex shrink-0 items-center justify-center rounded-lg border border-border bg-white p-2.5"
+              className="flex shrink-0 items-center justify-center rounded-xl border border-border bg-white p-2.5"
             >
-              <RotateCcw className="size-4 text-foreground" strokeWidth={2} />
+              <History className="size-5 text-[#2567E7]" strokeWidth={2} />
             </button>
           </div>
         </div>
@@ -189,12 +199,12 @@ export default function PropertySearchPage() {
           ))}
         </div>
 
-        {/* 결과 헤더 */}
+        {/*모바일  결과 헤더 */}
         <div className="flex items-center justify-between px-4 py-3">
-          <h2 className="text-sm font-bold text-foreground">
+          <h2 className="text-lg font-bold text-foreground">
             부산 매물 결과 <span className="text-[#2567E7]">8건</span>
           </h2>
-          <button className="flex items-center gap-1 text-sm text-foreground">
+          <button className="border border-border rounded-[4px] px-2 py-1 flex items-center gap-1 text-sm text-foreground">
             추천순 <ChevronDown className="size-4" strokeWidth={2} />
           </button>
         </div>
@@ -212,7 +222,7 @@ export default function PropertySearchPage() {
             href="/map-search"
             className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1a1a1a] px-5 py-3 text-sm font-semibold text-white shadow-lg"
           >
-            <Map className="size-4" strokeWidth={2} aria-hidden />
+            <Map className="size-5" strokeWidth={2} aria-hidden />
             지도보기
           </Link>
         </div>
@@ -230,7 +240,7 @@ export default function PropertySearchPage() {
             </div>
 
             {/* 목록 */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="px-4 flex-1 overflow-y-auto">
               {history.length === 0 ? (
                 <p className="py-20 text-center text-sm text-muted-foreground">최근 기록이 없습니다.</p>
               ) : (
@@ -257,7 +267,7 @@ export default function PropertySearchPage() {
         {filterOpen && (
           <div className="fixed inset-0 z-50 flex flex-col bg-white">
             {/* 드로어 헤더 */}
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
+            <div className="flex items-center justify-between  border-border px-4 py-3">
               <button
                 type="button"
                 aria-label="닫기"
@@ -284,7 +294,7 @@ export default function PropertySearchPage() {
 
               {/* 가격 */}
               <section>
-                <div className="mb-3 flex items-center justify-between">
+                <div className="mb-6 flex items-center justify-between">
                   <h3 className="text-sm font-bold text-foreground">가격</h3>
                   <span className="text-xs text-muted-foreground">예산 기준</span>
                 </div>

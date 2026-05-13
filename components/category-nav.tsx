@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import {
   Search,
   Star,
@@ -17,10 +18,16 @@ import {
 const FILTER_ICON_SRC = ''
 
 const categories = [
-  { icon: Search, label: '매물검색', color: 'text-blue-500', bg: 'bg-blue-50' },
+  {
+    icon: Search,
+    label: '매물검색',
+    color: 'text-blue-500',
+    bg: 'bg-blue-50',
+    href: '/search',
+  },
   { icon: Star, label: '추천매물', color: 'text-yellow-500', bg: 'bg-yellow-50' },
-  { icon: MessageSquare, label: '커뮤니티', color: 'text-purple-500', bg: 'bg-purple-50' },
-  { icon: Map, label: '지도검색', color: 'text-green-500', bg: 'bg-green-50' },
+  { icon: MessageSquare, label: '커뮤니티', color: 'text-purple-500', bg: 'bg-purple-50', href: '/community' },
+  { icon: Map, label: '지도검색', color: 'text-green-500', bg: 'bg-green-50', href: '/map-search' },
   { icon: CircleHelp, label: 'Q&A', color: 'text-pink-500', bg: 'bg-pink-50' },
   { icon: MessageCircle, label: '카톡방', color: 'text-orange-500', bg: 'bg-orange-50' },
   { icon: CreditCard, label: '자금확보', color: 'text-blue-600', bg: 'bg-blue-50' },
@@ -38,12 +45,10 @@ export default function CategoryNav() {
           <div className="grid grid-cols-5 justify-items-center gap-x-2 gap-y-5 md:flex md:flex-wrap md:justify-center md:gap-6">
             {categories.map((cat, i) => {
               const Icon = cat.icon
-              return (
-                <button
-                  key={i}
-                  type="button"
-                  className="flex w-full max-w-[4.25rem] flex-col items-center gap-1.5 text-center font-pretendard transition-opacity hover:opacity-80 md:w-auto md:max-w-none md:gap-2"
-                >
+              const tileClass =
+                'flex w-full max-w-[4.25rem] flex-col items-center gap-1.5 text-center font-pretendard transition-opacity hover:opacity-80 md:w-auto md:max-w-none md:gap-2'
+              const inner = (
+                <>
                   <div
                     className={`flex size-12 shrink-0 items-center justify-center rounded-2xl md:size-14 ${cat.bg} ${cat.color} transition-colors hover:brightness-[0.97]`}
                   >
@@ -52,6 +57,18 @@ export default function CategoryNav() {
                   <span className="text-[0.65rem] font-medium font-pretendard text-foreground leading-tight whitespace-nowrap md:text-xs">
                     {cat.label}
                   </span>
+                </>
+              )
+              if ('href' in cat && cat.href) {
+                return (
+                  <Link key={i} href={cat.href} className={tileClass}>
+                    {inner}
+                  </Link>
+                )
+              }
+              return (
+                <button key={i} type="button" className={tileClass}>
+                  {inner}
                 </button>
               )
             })}
