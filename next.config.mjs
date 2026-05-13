@@ -9,7 +9,6 @@ const nextConfig = {
   experimental: {
     webpackMemoryOptimizations: true,
   },
-  turbopack: {},
 }
 
 export default nextConfig

@@ -146,15 +146,21 @@ export default function InterestRateSection() {
           </a>
         </div>
 
-        <div className="mb-8 flex flex-wrap gap-2 overflow-x-auto pb-1">
+        <div
+          className="mb-8 flex flex-wrap gap-2 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] max-md:-mx-6 max-md:flex-nowrap max-md:overflow-x-auto max-md:scroll-smooth max-md:px-6 max-md:scroll-pl-6 max-md:pr-6 max-md:snap-x max-md:snap-mandatory max-md:touch-pan-x [&::-webkit-scrollbar]:hidden md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:scroll-pl-0"
+          role="tablist"
+          aria-label="금리 종류"
+        >
           {filterTabs.map((tab, i) => {
             const active = activeTab === tab.id
             return (
               <button
                 key={`${tab.id}-${i}`}
                 type="button"
+                role="tab"
+                aria-selected={active}
                 onClick={() => setActiveTab(tab.id)}
-                className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                className={`inline-flex max-md:snap-start shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                   active
                     ? 'bg-[#2563EB] text-white hover:bg-[#1d4ed8]'
                     : 'bg-[#EFF1F4] text-[#374151] hover:bg-[#E5E8EC]'
@@ -170,7 +176,7 @@ export default function InterestRateSection() {
           {rateCards.map(card => (
             <article
               key={card.title}
-              className="rounded-xl border border-[#E8EAED] bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+              className="rounded-xl border border-[#E8EAED] bg-white p-5 "
             >
               <p className="mb-3 text-sm font-medium text-[#6B7280]">{card.title}</p>
 

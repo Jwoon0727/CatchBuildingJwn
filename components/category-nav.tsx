@@ -35,21 +35,23 @@ export default function CategoryNav() {
       {/* Category Icons */}
       <div className="py-8">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-wrap gap-6 justify-center">
+          <div className="grid grid-cols-5 justify-items-center gap-x-2 gap-y-5 md:flex md:flex-wrap md:justify-center md:gap-6">
             {categories.map((cat, i) => {
               const Icon = cat.icon
               return (
                 <button
                   key={i}
                   type="button"
-                  className="flex flex-col items-center gap-2 text-center font-pretendard transition-opacity hover:opacity-80"
+                  className="flex w-full max-w-[4.25rem] flex-col items-center gap-1.5 text-center font-pretendard transition-opacity hover:opacity-80 md:w-auto md:max-w-none md:gap-2"
                 >
                   <div
-                    className={`flex size-14 shrink-0 items-center justify-center rounded-2xl ${cat.bg} ${cat.color} transition-colors hover:brightness-[0.97]`}
+                    className={`flex size-12 shrink-0 items-center justify-center rounded-2xl md:size-14 ${cat.bg} ${cat.color} transition-colors hover:brightness-[0.97]`}
                   >
-                    <Icon className="size-6 stroke-[1.75]" aria-hidden />
+                    <Icon className="size-5 stroke-[1.75] md:size-6" aria-hidden />
                   </div>
-                  <span className="text-xs font-medium font-pretendard text-foreground whitespace-nowrap">{cat.label}</span>
+                  <span className="text-[0.65rem] font-medium font-pretendard text-foreground leading-tight whitespace-nowrap md:text-xs">
+                    {cat.label}
+                  </span>
                 </button>
               )
             })}
@@ -66,10 +68,10 @@ export default function CategoryNav() {
               e.preventDefault()
             }}
           >
-            <div className="flex min-h-11 flex-1 overflow-hidden rounded-xl border border-border bg-white">
+            <div className="flex min-h-11 min-w-0 flex-1 overflow-hidden rounded-xl border border-border bg-white">
               <button
                 type="button"
-                className="flex shrink-0 items-center gap-2 px-4 py-2.5 text-sm font-medium font-pretendard text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+                className="flex shrink-0 items-center gap-2 px-3 py-2.5 text-sm font-medium font-pretendard text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground md:px-4"
               >
                 <img
                   src="/icon/filter.svg"
@@ -79,19 +81,19 @@ export default function CategoryNav() {
                   className="size-[18px] shrink-0 object-contain"
                   draggable={false}
                 />
-                필터
+                <span className="hidden md:inline">필터</span>
               </button>
-              <div className="w-px shrink-0 self-stretch bg-border" aria-hidden />
+              <div className="hidden w-px shrink-0 self-stretch bg-border md:block" aria-hidden />
               <input
                 type="search"
                 name="q"
                 placeholder="지역, 건물명, 도로명 주소 검색"
-                className="min-w-0 flex-1 border-0 bg-transparent px-3 py-2 text-sm font-pretendard text-foreground placeholder:text-muted-foreground placeholder:font-pretendard focus:outline-none focus:ring-0"
+                className="min-w-0 flex-1 border-0 bg-transparent px-2 py-2 text-sm font-pretendard text-foreground placeholder:text-muted-foreground placeholder:font-pretendard focus:outline-none focus:ring-0 md:px-3"
               />
             </div>
             <button
               type="submit"
-              className="shrink-0 rounded-xl bg-[#2B6BE5] px-2 py-2 text-sm font-bold font-pretendard text-white shadow-sm transition-colors hover:bg-[#2566d4] sm:px-5"
+              className="shrink-0 rounded-xl bg-[#2B6BE5] py-2 text-sm font-bold font-pretendard text-white shadow-sm transition-colors hover:bg-[#2566d4] max-md:min-w-[4rem] px-4 md:px-5"
             >
               검색
             </button>

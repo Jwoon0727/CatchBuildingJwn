@@ -38,26 +38,26 @@ export default function Footer() {
       {/* 회사 정보 */}
       <div className="py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <h2 className="mb-4 text-2xl font-bold text-black">에이치에스씨앤디</h2>
+          <h2 className="mb-4 text-2xl font-bold text-[#636363]">에이치에스씨앤디</h2>
 
           <div className="mb-8 flex gap-3">
             <a
               href="#"
-              className="flex size-11 items-center justify-center rounded-full bg-[#EFF1F4] text-[#6B7280] transition-colors hover:bg-[#E5E8EC] hover:text-[#374151]"
+              className="flex size-11 items-center justify-center rounded-full bg-[#F2F2F2] text-[#636363] transition-colors hover:bg-[#E5E8EC] hover:text-[#424242]"
               aria-label="YouTube"
             >
               <Youtube className="size-[18px]" strokeWidth={2} />
             </a>
             <a
               href="#"
-              className="flex size-11 items-center justify-center rounded-full bg-[#EFF1F4] text-[#6B7280] transition-colors hover:bg-[#E5E8EC] hover:text-[#374151]"
+              className="flex size-11 items-center justify-center rounded-full bg-[#F2F2F2] text-[#636363] transition-colors hover:bg-[#E5E8EC] hover:text-[#424242]"
               aria-label="Instagram"
             >
               <Instagram className="size-[18px]" strokeWidth={2} />
             </a>
           </div>
 
-          <div className="space-y-1.5 text-[13px] leading-relaxed text-[#9CA3AF]">
+          <div className="space-y-1.5 text-[13px] leading-relaxed text-[#636363]">
             <p>대표 | 이한솔</p>
             <p>사업장 | 경기도 성남시 분당구 판교역로 136, 101동 13층 1305호</p>
             <p>사업자등록번호 | 739-20-01051</p>
@@ -68,22 +68,22 @@ export default function Footer() {
             className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-b border-[#EEF1F4] py-8 text-sm"
             aria-label="약관 및 정책"
           >
-            <a href="#" className="text-[#9CA3AF] transition-colors hover:text-[#374151]">
+            <a href="#" className="text-[#636363] transition-colors hover:text-[#424242]">
               이용약관
             </a>
-            <span className="text-[#D1D5DB]" aria-hidden>
+            <span className="text-[#636363]/50" aria-hidden>
               |
             </span>
             <a
               href="#"
-              className="font-semibold text-[#6B7280] transition-colors hover:text-[#111827]"
+              className="font-semibold text-[#636363] transition-colors hover:text-[#424242]"
             >
               개인정보처리방침
             </a>
-            <span className="text-[#D1D5DB]" aria-hidden>
+            <span className="text-[#636363]/50" aria-hidden>
               |
             </span>
-            <a href="#" className="text-[#9CA3AF] transition-colors hover:text-[#374151]">
+            <a href="#" className="text-[#636363] transition-colors hover:text-[#424242]">
               환불정책
             </a>
           </nav>

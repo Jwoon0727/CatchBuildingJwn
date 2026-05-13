@@ -142,9 +142,9 @@ export default function PropertySection({
     <section
       className={`py-12 ${hideBottomBorder ? '' : 'border-b border-border '} ${className ?? 'bg-background'}`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl font-bold text-foreground">{title}</h2>
             {badge ? (
@@ -160,15 +160,21 @@ export default function PropertySection({
         </div>
 
         {showFilterTabs ? (
-          <div className="mb-8 flex flex-wrap gap-2">
+          <div
+            className="mb-8 flex max-md:-mx-6 flex-nowrap gap-2 overflow-x-auto scroll-smooth pb-1 [-ms-overflow-style:none] [scrollbar-width:none] max-md:snap-x max-md:snap-mandatory max-md:scroll-pl-6 max-md:touch-pan-x max-md:pl-6 max-md:pr-6 md:mx-0 md:flex-wrap md:scroll-pl-0 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden"
+            role="tablist"
+            aria-label="매물 유형 필터"
+          >
             {filterTabs.map(tab => {
               const active = activeFilterTab === tab.id
               return (
                 <button
                   key={tab.id}
                   type="button"
+                  role="tab"
+                  aria-selected={active}
                   onClick={() => setActiveFilterTab(tab.id)}
-                  className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium font-pretendard transition-colors ${
+                  className={`inline-flex shrink-0 snap-start items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium font-pretendard transition-colors ${
                     active
                       ? 'bg-[#2563EB] text-white hover:bg-[#1d4ed8]'
                       : 'bg-[#EFF1F4] text-[#374151] hover:bg-[#E5E8EC]'
@@ -181,11 +187,22 @@ export default function PropertySection({
           </div>
         ) : null}
 
-        {/* Property Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {displayProperties.map(property => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
+        {/* Property list — 모바일: 가로 스크롤 + 다음 카드 미리보기(peek), md+: 그리드 */}
+        <div className="max-md:-mx-6">
+          <div
+            className="flex flex-nowrap gap-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory max-md:scroll-smooth max-md:px-6 max-md:scroll-pl-6 max-md:pr-6 max-md:touch-pan-x [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 md:pr-0 md:scroll-pl-0 lg:grid-cols-4"
+            role="list"
+            aria-label="매물 목록"
+          >
+            {displayProperties.map(property => (
+              <div
+                key={property.id}
+                className="max-md:w-[calc(100vw-8rem)] max-md:max-w-[18.5rem] max-md:shrink-0 max-md:snap-start md:w-auto md:max-w-none"
+              >
+                <PropertyCard property={property} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

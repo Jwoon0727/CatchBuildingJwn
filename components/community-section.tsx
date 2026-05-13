@@ -123,7 +123,7 @@ export default function CommunitySection() {
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between gap-3">
                   <span
-                    className={`shrink-0 rounded px-2 py-0.5 text-xs font-bold text-white ${post.badgeColor}`}
+                    className={`shrink-0 rounded px-2 py-1 text-xs font-bold text-white ${post.badgeColor}`}
                   >
                     {post.badge}
                   </span>
@@ -132,10 +132,10 @@ export default function CommunitySection() {
 
                 <div className="flex gap-3">
                   <div className="min-w-0 flex-1">
-                    <h3 className="mb-1.5 line-clamp-2 text-[15px] font-bold leading-snug text-foreground">
+                    <h3 className="mb-1.5 line-clamp-2 text-[11.7px] font-bold leading-snug text-foreground md:text-[15px]">
                       {post.title}
                     </h3>
-                    <p className="line-clamp-4 text-sm leading-relaxed text-[#6B7280]">
+                    <p className="line-clamp-4 text-[10px] leading-relaxed text-[#6B7280] md:text-sm">
                       {splitDescriptionHtmlBreaks(post.description).map((part, i) => (
                         <span key={i}>
                           {i > 0 ? <br /> : null}
@@ -153,7 +153,7 @@ export default function CommunitySection() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 text-xs text-[#9CA3AF]">
+                <div className="flex max-md:-mt-6 items-center gap-4 text-xs text-[#9CA3AF]">
                   <span className="flex items-center gap-1">
                     <Eye className="size-3.5 shrink-0" strokeWidth={2} aria-hidden />
                     {post.views}
