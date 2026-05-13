@@ -31,7 +31,7 @@ function PeekSlide({
   miniOverlay?: boolean
 }) {
   return (
-    <div className={`relative min-h-0 min-w-0 flex-1 overflow-hidden bg-neutral-200 ${className ?? ''}`}>
+    <div className={`relative min-h-0 min-w-0 w-16 flex-none md:flex-1 overflow-hidden bg-neutral-200 ${className ?? ''}`}>
       <Image
         src={src}
         alt={alt}
@@ -67,7 +67,7 @@ export default function Hero() {
           className="rounded-r-[12px]"
         />
 
-        <div className="relative aspect-[1133/340] min-h-0 min-w-0 max-w-[1133px] flex-[1_1_1133px] shrink overflow-hidden rounded-[12px] bg-neutral-200">
+        <div className="relative aspect-[16/7] md:aspect-[1133/340] min-h-0 min-w-0 max-w-[1133px] flex-[1_1_1133px] shrink overflow-hidden rounded-[12px] bg-neutral-200">
           <Image
             src={heroImages.center}
             alt="메인 프로모션"
@@ -107,7 +107,7 @@ export default function Hero() {
           src={heroImages.right}
           alt="다음 슬라이드 미리보기"
           position="right"
-          className="hidden rounded-l-[12px] sm:block"
+          className="rounded-l-[12px]"
           miniOverlay
         />
       </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Menu, User } from 'lucide-react'
+import { Menu, Search, User } from 'lucide-react'
 import Image from 'next/image'
 
 export default function Header() {
@@ -33,30 +33,36 @@ export default function Header() {
                   <a href="/community" className="text-muted-foreground hover:text-foreground font-medium">커뮤니티</a>
                 </nav>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 lg:gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   asChild
-                  className="h-9 rounded-lg border-border bg-white px-4 text-foreground shadow-none hover:bg-muted/50"
+                  className="hidden lg:flex h-9 rounded-lg border-border bg-white px-4 text-foreground shadow-none hover:bg-muted/50"
                 >
                   <a href="/login" className="gap-2">
                     <User className="size-[18px] stroke-[1.75]" aria-hidden />
                     로그인
                   </a>
                 </Button>
-                <Button size="sm" asChild className="h-9 rounded-lg bg-[#2C62EB] px-4 text-white hover:bg-primary/90">
+                <Button size="sm" asChild className="hidden lg:flex h-9 rounded-lg bg-[#2C62EB] px-4 text-white hover:bg-primary/90">
                   <a href="/login">무료 회원가입</a>
                 </Button>
-                <button type="button" className="lg:hidden p-2" aria-label="메뉴">
-                  <Menu size={20} />
+                <button type="button" className="lg:hidden p-1" aria-label="프로필">
+                  <User size={20} strokeWidth={1.75} />
+                </button>
+                <button type="button" className="lg:hidden p-1" aria-label="검색">
+                  <Search size={20} strokeWidth={1.75} />
+                </button>
+                <button type="button" className="lg:hidden p-1" aria-label="메뉴">
+                  <Menu size={20} strokeWidth={1.75} />
                 </button>
               </div>
             </div>
           </div>
         </header>
 
-        <nav className="-mt-2 bg-white border-b border-border text-sm font-medium leading-5 tracking-normal">
+        <nav className="hidden lg:block -mt-2 bg-white border-b border-border text-sm font-medium leading-5 tracking-normal">
           <div className="w-full px-4 py-0">
             <div className="max-w-[74rem] mx-auto flex items-center gap-5 overflow-x-auto">
               <a href="/" className={`${subNavLink} border-b-2 border-primary`}>
