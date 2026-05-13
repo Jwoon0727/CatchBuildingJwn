@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="sticky top-0 z-50 font-pretendard">
+      <div className="sticky top-0 z-50 font-pretendard [&_button]:font-pretendard [&_[data-slot=button]]:font-pretendard">
         <header className="bg-white border-border">
           <div className="w-full px-4 py-3">
             <div className="mx-auto flex max-w-[75rem] items-center justify-between">

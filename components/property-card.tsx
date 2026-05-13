@@ -9,6 +9,10 @@ const PROPERTY_LOCATION_ICON_SRC = '/building/loca01.svg'
 const PROPERTY_AREA_ICON_SRC = '/building/loca02.svg'
 
 interface PropertyCardProps {
+  /** true면 "추천하는 이유" 블록 숨김 */
+  hideRecommendation?: boolean
+  /** true면 모바일에서 평단가 위, 수익률+가격 가로 한 줄 레이아웃 */
+  mobileCompactPricing?: boolean
   property: {
     id: number
     image: string
@@ -38,7 +42,7 @@ interface PropertyCardProps {
   }
 }
 
-export default function PropertyCard({ property }: PropertyCardProps) {
+export default function PropertyCard({ property, hideRecommendation = false, mobileCompactPricing = false }: PropertyCardProps) {
   const title = property.title || property.name || '매물'
   const stars = property.rating ? Math.round(property.rating) : 4
 
@@ -145,26 +149,73 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           )}
         </div>
 
-        {/* 평단가 · 수익률 — 우측 정렬 */}
-        {(property.deposit || property.discountRate || property.discount) && (
-          <div className="mb-3 flex flex-wrap items-center justify-end gap-2">
-            {property.deposit ? (
-              <span className="rounded-[4px] border border-[#e5e7eb] bg-white px-2.5 py-1 text-[12px] font-semibold text-foreground shadow-none">
-                {property.deposit}
-              </span>
-            ) : null}
-            {(property.discountRate || property.discount) ? (
-              <span className="rounded-[4px] bg-[#facc15] px-2.5 py-1 text-[12px] font-bold text-neutral-900">
-                {property.discountRate || property.discount}
-              </span>
-            ) : null}
-          </div>
+        {mobileCompactPricing ? (
+          /* 모바일 전용: 평단가 위 / 수익률+가격 가로 한 줄, PC는 기존 레이아웃 */
+          <>
+            {/* 평단가 — 모바일: 단독 행 우측, PC: 기존 flex 행 */}
+            {(property.deposit || property.discountRate || property.discount) && (
+              <>
+                {/* 모바일 */}
+                <div className="mb-1 flex justify-end md:hidden">
+                  {property.deposit ? (
+                    <span className="rounded-[4px] border border-[#e5e7eb] bg-white px-2 py-0.5 text-[11px] font-semibold text-foreground">
+                      {property.deposit}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="mb-3 flex items-center justify-end gap-1.5 md:hidden">
+                  {(property.discountRate || property.discount) ? (
+                    <span className="rounded-[4px] bg-[#facc15] px-2 py-0.5 text-[11px] font-bold text-neutral-900">
+                      {property.discountRate || property.discount}
+                    </span>
+                  ) : null}
+                  <span className="text-xl font-bold tracking-tight text-foreground">
+                    {property.price}
+                  </span>
+                </div>
+                {/* PC — 기존 */}
+                <div className="mb-3 hidden flex-wrap items-center justify-end gap-2 md:flex">
+                  {property.deposit ? (
+                    <span className="rounded-[4px] border border-[#e5e7eb] bg-white px-2.5 py-1 text-[12px] font-semibold text-foreground shadow-none">
+                      {property.deposit}
+                    </span>
+                  ) : null}
+                  {(property.discountRate || property.discount) ? (
+                    <span className="rounded-[4px] bg-[#facc15] px-2.5 py-1 text-[12px] font-bold text-neutral-900">
+                      {property.discountRate || property.discount}
+                    </span>
+                  ) : null}
+                </div>
+              </>
+            )}
+            {/* 매매가 — PC만 */}
+            <div className="mb-5 hidden text-right text-2xl font-bold tracking-tight text-foreground md:block">
+              {property.price}
+            </div>
+          </>
+        ) : (
+          <>
+            {/* 평단가 · 수익률 — 우측 정렬 */}
+            {(property.deposit || property.discountRate || property.discount) && (
+              <div className="mb-3 flex flex-wrap items-center justify-end gap-2">
+                {property.deposit ? (
+                  <span className="rounded-[4px] border border-[#e5e7eb] bg-white px-2.5 py-1 text-[12px] font-semibold text-foreground shadow-none">
+                    {property.deposit}
+                  </span>
+                ) : null}
+                {(property.discountRate || property.discount) ? (
+                  <span className="rounded-[4px] bg-[#facc15] px-2.5 py-1 text-[12px] font-bold text-neutral-900">
+                    {property.discountRate || property.discount}
+                  </span>
+                ) : null}
+              </div>
+            )}
+            {/* 매매가 */}
+            <div className="mb-5 text-right text-2xl font-bold tracking-tight text-foreground">
+              {property.price}
+            </div>
+          </>
         )}
-
-        {/* 매매가 */}
-        <div className="mb-5 text-right text-2xl font-bold tracking-tight text-foreground">
-          {property.price}
-        </div>
 
         {/* 공인중개사 */}
         {property.agent && (
@@ -184,7 +235,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
         {/* 추천하는 이유 */}
         {(property.recommendationReason || property.agent?.description) && (
-          <div className="rounded-lg bg-[#eef0f3] p-3">
+          <div className={`rounded-lg bg-[#eef0f3] p-3 ${hideRecommendation ? 'hidden md:block' : ''}`}>
             <p className="mb-1.5 text-xs font-bold text-foreground">추천하는 이유</p>
             <p className="text-xs leading-relaxed text-muted-foreground">
               {property.recommendationReason ?? property.agent?.description}

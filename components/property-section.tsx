@@ -48,6 +48,8 @@ interface PropertySectionProps {
   showFilterTabs?: boolean
   /** false면 섹션 하단 구분선(`border-b`) 없음 — 연속 배치 시 사용 */
   hideBottomBorder?: boolean
+  /** true면 모바일에서 가로 스크롤 대신 2열 그리드로 표시 */
+  mobileGrid?: boolean
 }
 
 export default function PropertySection({
@@ -57,6 +59,7 @@ export default function PropertySection({
   className,
   showFilterTabs = true,
   hideBottomBorder = false,
+  mobileGrid = false,
 }: PropertySectionProps) {
   const [activeFilterTab, setActiveFilterTab] = useState<string>('all')
 
@@ -140,7 +143,7 @@ export default function PropertySection({
 
   return (
     <section
-      className={`py-12 ${hideBottomBorder ? '' : 'border-b border-border '} ${className ?? 'bg-background'}`}
+      className={`py-12 font-pretendard [&_button]:font-pretendard ${hideBottomBorder ? '' : 'border-b border-border '} ${className ?? 'bg-background'}`}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         {/* Header */}
@@ -187,23 +190,39 @@ export default function PropertySection({
           </div>
         ) : null}
 
-        {/* Property list — 모바일: 가로 스크롤 + 다음 카드 미리보기(peek), md+: 그리드 */}
-        <div className="max-md:-mx-6">
+        {/* Property list */}
+        {mobileGrid ? (
+          /* 모바일 2열 그리드 모드 */
           <div
-            className="flex flex-nowrap gap-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory max-md:scroll-smooth max-md:px-6 max-md:scroll-pl-6 max-md:pr-6 max-md:touch-pan-x [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 md:pr-0 md:scroll-pl-0 lg:grid-cols-4"
+            className="grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-4"
             role="list"
             aria-label="매물 목록"
           >
             {displayProperties.map(property => (
-              <div
-                key={property.id}
-                className="max-md:w-[calc(100vw-8rem)] max-md:max-w-[18.5rem] max-md:shrink-0 max-md:snap-start md:w-auto md:max-w-none"
-              >
-                <PropertyCard property={property} />
+              <div key={property.id}>
+                <PropertyCard property={property} hideRecommendation mobileCompactPricing />
               </div>
             ))}
           </div>
-        </div>
+        ) : (
+          /* 기본: 모바일 가로 스크롤 + peek */
+          <div className="max-md:-mx-6">
+            <div
+              className="flex flex-nowrap gap-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory max-md:scroll-smooth max-md:px-6 max-md:scroll-pl-6 max-md:pr-6 max-md:touch-pan-x [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 md:pr-0 md:scroll-pl-0 lg:grid-cols-4"
+              role="list"
+              aria-label="매물 목록"
+            >
+              {displayProperties.map(property => (
+                <div
+                  key={property.id}
+                  className="max-md:w-[calc(100vw-8rem)] max-md:max-w-[18.5rem] max-md:shrink-0 max-md:snap-start md:w-auto md:max-w-none"
+                >
+                  <PropertyCard property={property} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

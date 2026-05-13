@@ -5,7 +5,7 @@ import { MessageCircle, ChevronRight } from 'lucide-react'
 
 export default function AppPromotion() {
   return (
-    <section className="py-16 bg-[#003884]">
+    <section className="py-16 bg-[#003884] font-pretendard [&_button]:font-pretendard">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col items-center text-center">
           {/* Icon and Label */}

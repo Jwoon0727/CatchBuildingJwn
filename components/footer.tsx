@@ -4,7 +4,7 @@ import { Instagram, Youtube, Send } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-white font-pretendard">
+    <footer className="bg-white font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard">
       {/* 뉴스레터 — 구분선은 컨테이너 너비에만 표시 */}
       <div className="py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
@@ -20,13 +20,13 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="이메일 주소 입력"
-                  className="min-h-11 flex-1 rounded-lg border border-[#E5E8EB] bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-[#9CA3AF] focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 md:w-72 md:max-w-[280px] md:flex-none"
+                  className="min-h-11 min-w-0 flex-1 max-w-[270px] rounded-lg border border-[#E5E8EB] bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-[#9CA3AF] focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 md:max-w-[280px] md:w-72 md:flex-none"
                 />
                 <button
                   type="button"
-                  className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1d4ed8]"
+                  className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-[#2563EB] px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#1d4ed8] md:gap-2 md:px-5 md:py-2.5 md:text-sm"
                 >
-                  <Send className="size-4" aria-hidden strokeWidth={2} />
+                  <Send className="size-4 md:size-4" aria-hidden strokeWidth={2} />
                   구독하기
                 </button>
               </div>

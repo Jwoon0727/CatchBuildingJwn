@@ -66,7 +66,7 @@ const supportPrograms = [
 
 export default function GovernmentSupportSection() {
   return (
-    <section className="border-b border-border bg-background py-12 font-pretendard">
+    <section className="border-b border-border bg-background py-12 font-pretendard [&_button]:font-pretendard">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">정부지원금 최신 공고</h2>

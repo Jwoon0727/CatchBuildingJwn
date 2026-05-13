@@ -134,7 +134,7 @@ export default function InterestRateSection() {
   const [activeTab, setActiveTab] = useState<string>('base')
 
   return (
-    <section className="border-border bg-background py-12 font-pretendard">
+    <section className="border-border bg-background py-12 font-pretendard [&_button]:font-pretendard">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">금리 동향</h2>

@@ -78,7 +78,7 @@ export default function CommunitySection() {
   const [activeTab, setActiveTab] = useState<string>('all')
 
   return (
-    <section className="border-border bg-background py-12 font-pretendard">
+    <section className="border-border bg-background py-12 font-pretendard [&_button]:font-pretendard">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
