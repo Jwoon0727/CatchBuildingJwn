@@ -1,11 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ChevronRight, X, Bookmark, Map } from 'lucide-react'
 
 interface BuildingSearchContentProps {
   activeMenu: string
 }
+
+interface MobileBookmarkRow {
+  address: string
+  area: string
+  floor: string
+}
+
+/** 모바일 전체화면 북마크 목록 (데모 데이터) */
+const MOBILE_BOOKMARK_LIST_ITEMS: MobileBookmarkRow[] = Array.from({ length: 8 }, () => ({
+  address: '부산광역시 동래구 사직동 153-29',
+  area: '492.4m²',
+  floor: '145.m²',
+}))
 
 interface HistoryListItem {
   type: string
@@ -77,11 +90,87 @@ const VALUEMAP_QUERY_ADDRESS_ICON_SRC = '/icon/search.svg'
 /** 자동 밸류맵 — 추론 주소 라벨 왼쪽 아이콘 */
 const VALUEMAP_INFERRED_ADDRESS_ICON_SRC = '/icon/addre.svg'
 
+/** 모바일 하단 고정 바 — 북마크 버튼 아이콘 (`public/` 기준 경로, 비우면 lucide 아이콘 사용) */
+const MOBILE_BOTTOM_BAR_BOOKMARK_ICON_SRC = '/icon/bookmark.svg'
+
+function MobileBottomBarBookmarkIcon() {
+  if (MOBILE_BOTTOM_BAR_BOOKMARK_ICON_SRC) {
+    return (
+      <img
+        src={MOBILE_BOTTOM_BAR_BOOKMARK_ICON_SRC}
+        alt=""
+        className="h-5 w-5 object-contain"
+      />
+    )
+  }
+  return <Bookmark size={20} className="text-foreground" strokeWidth={1.75} />
+}
+
+function MobileBookmarkListOverlay({
+  open,
+  onClose,
+}: {
+  open: boolean
+  onClose: () => void
+}) {
+  if (!open) return null
+
+  return (
+    <div
+      className="lg:hidden fixed inset-0 z-[80] flex flex-col bg-white"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mobile-bookmark-list-title"
+    >
+      <header className="relative flex shrink-0 items-center justify-center border-b border-border px-4 py-3.5">
+        <button
+          type="button"
+          aria-label="닫기"
+          onClick={onClose}
+          className="absolute left-4 text-foreground transition-colors hover:text-muted-foreground"
+        >
+          <X size={22} strokeWidth={2} />
+        </button>
+        <h2 id="mobile-bookmark-list-title" className="text-base font-bold text-foreground">
+          북마크 목록 <span className="text-[#2567E7]">{MOBILE_BOOKMARK_LIST_ITEMS.length}</span>
+        </h2>
+      </header>
+
+      <div className="min-h-0 flex-1 overflow-y-auto px-4">
+        <ul className="divide-y divide-transparent">
+          {MOBILE_BOOKMARK_LIST_ITEMS.map((item, index) => (
+            <li key={index}>
+              <div className="flex items-start gap-3 py-5">
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-foreground">{item.address}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {item.area} · {item.floor}
+                  </p>
+                </div>
+                <Bookmark
+                  size={20}
+                  className="mt-0.5 shrink-0 text-amber-400 fill-amber-400"
+                  aria-hidden
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
 export default function BuildingSearchContent({ activeMenu }: BuildingSearchContentProps) {
   const [selectedOption, setSelectedOption] = useState('general')
   const [url, setUrl] = useState('https://Blog.naver.com/yooniverse701/2245553365')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [historyFilter, setHistoryFilter] = useState('all')
+  const [isMobileBookmarkListOpen, setIsMobileBookmarkListOpen] = useState(false)
+
+  useEffect(() => {
+    if (activeMenu === 'url') setIsMobileBookmarkListOpen(false)
+  }, [activeMenu])
 
   if (activeMenu === 'url') {
     return (
@@ -305,6 +394,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
   if (activeMenu === 'building') {
     return (
+      <>
       <div className="flex-1 min-w-0 pb-24 lg:pb-0">
         <div className="mb-8">
           <h1 className="mt-5 pb-9 -mb-8 border-border text-xl font-bold text-foreground">건물 검색</h1>
@@ -404,9 +494,10 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           <button
             type="button"
             aria-label="북마크"
+            onClick={() => setIsMobileBookmarkListOpen(true)}
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
           >
-            <Bookmark size={20} className="text-foreground" strokeWidth={1.75} />
+            <MobileBottomBarBookmarkIcon />
           </button>
           <button
             type="button"
@@ -416,6 +507,8 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </button>
         </div>
       </div>
+      <MobileBookmarkListOverlay open={isMobileBookmarkListOpen} onClose={() => setIsMobileBookmarkListOpen(false)} />
+      </>
     )
   }
 
@@ -423,6 +516,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
   if (activeMenu === 'blog') {
     return (
+      <>
       <div className="flex-1 min-w-0 pb-24 lg:pb-0">
         {/* Header */}
         <div className="mb-6">
@@ -696,9 +790,10 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           <button
             type="button"
             aria-label="북마크"
+            onClick={() => setIsMobileBookmarkListOpen(true)}
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
           >
-            <Bookmark size={20} className="text-foreground" strokeWidth={1.75} />
+            <MobileBottomBarBookmarkIcon />
           </button>
           <button
             type="button"
@@ -708,6 +803,8 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </button>
         </div>
       </div>
+      <MobileBookmarkListOverlay open={isMobileBookmarkListOpen} onClose={() => setIsMobileBookmarkListOpen(false)} />
+      </>
     )
   }
 
@@ -716,6 +813,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
   if (activeMenu === 'history') {
     return (
+      <>
       <div className="flex-1 min-w-0 pb-24">
         {/* Filter Tabs */}
         <div className="flex items-center gap-2 mb-4 flex-wrap">
@@ -774,13 +872,14 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
         </div>
 
         {/* 하단 고정 버튼 바 */}
-        <div className="fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
           <button
             type="button"
             aria-label="북마크"
+            onClick={() => setIsMobileBookmarkListOpen(true)}
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
           >
-            <Bookmark size={20} className="text-foreground" strokeWidth={1.75} />
+            <MobileBottomBarBookmarkIcon />
           </button>
           <button
             type="button"
@@ -790,6 +889,8 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </button>
         </div>
       </div>
+      <MobileBookmarkListOverlay open={isMobileBookmarkListOpen} onClose={() => setIsMobileBookmarkListOpen(false)} />
+      </>
     )
   }
 

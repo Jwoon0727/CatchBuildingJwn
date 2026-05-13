@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Eye, EyeOff, MessageCircle } from 'lucide-react'
+import { Eye, EyeOff, MessageCircle, X } from 'lucide-react'
 import Header from '@/components/header'
 
 const fieldLabel = (text: string, required?: boolean) => (
@@ -34,10 +34,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background">
-      <Header />
+    <div className="flex min-h-dvh flex-col bg-background font-pretendard antialiased [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard">
+      {/* 데스크톱 헤더 */}
+      <div className="hidden font-pretendard lg:block">
+        <Header />
+      </div>
+
+      {/* 모바일 헤더: X 버튼만 */}
+      <div className="lg:hidden flex items-center px-6 py-6 font-pretendard">
+        <button
+          type="button"
+          aria-label="닫기"
+          onClick={() => window.history.back()}
+          className="text-foreground"
+        >
+          <X size={22} strokeWidth={2} />
+        </button>
+      </div>
       <main className="flex flex-1 min-h-0 w-full items-start justify-center overflow-y-auto px-4 pt-8 pb-6">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md px-6 font-pretendard lg:px-0">
         {/* Logo */}
         <div className="text-center mb-4">
           <Link href="/" className="inline-block">
@@ -84,7 +99,7 @@ export default function LoginPage() {
             {/* Social Login Buttons */}
             <div className="space-y-3 mb-5">
               <button className="w-full py-3 bg-[#FEE500] text-[#3C1E1E] rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-[#FDD800] transition-colors">
-                <MessageCircle size={20} fill="#3C1E1E" />
+                <MessageCircle size={15} fill="#3C1E1E" />
                 카카오톡으로 로그인
               </button>
               <button className="w-full py-3 bg-[#03C75A] text-white rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-[#02B350] transition-colors">
@@ -170,7 +185,7 @@ export default function LoginPage() {
                 type="button"
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#FEE500] py-3 font-medium text-[#3C1E1E] transition-colors hover:bg-[#FDD800]"
               >
-                <MessageCircle size={20} fill="#3C1E1E" />
+                <MessageCircle size={15} fill="#3C1E1E" />
                 카카오톡으로 로그인
               </button>
               <button

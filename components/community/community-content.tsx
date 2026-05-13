@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from 'react'
 import Link from 'next/link'
-import { LayoutGrid, Home, Heart, TrendingUp, BookOpen, FilePlus, DollarSign, PlusCircle, Search, Eye, MessageSquare, MessageCircle, ThumbsUp, ChevronDown } from 'lucide-react'
+import { LayoutGrid, Home, Heart, TrendingUp, BookOpen, FilePlus, DollarSign, PlusCircle, Search, Eye, MessageSquare, MessageCircle, ThumbsUp, ChevronDown, Pencil } from 'lucide-react'
 
 type CategoryTabItem = {
   icon: typeof LayoutGrid
@@ -249,6 +249,24 @@ export default function CommunityContent() {
           ))}
         </div>
       </div>
+
+      {/* 모바일 전용 더보기 버튼 */}
+      <button
+        type="button"
+        className="lg:hidden mt-4 w-full flex items-center justify-center gap-1.5 py-4 text-sm text-muted-foreground"
+      >
+        더보기
+        <ChevronDown size={18} strokeWidth={2} />
+      </button>
+
+      {/* 모바일 전용 글쓰기 플로팅 버튼 */}
+      <Link
+        href="/community/write"
+        className="lg:hidden fixed bottom-6 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#2567E7] shadow-lg transition-colors hover:bg-[#2567E7]/90"
+        aria-label="글쓰기"
+      >
+        <Pencil size={22} className="text-white" strokeWidth={2} />
+      </Link>
     </div>
   )
 }

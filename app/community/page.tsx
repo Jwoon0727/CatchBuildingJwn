@@ -1,5 +1,6 @@
 'use client'
 
+import { ChevronLeft, Menu } from 'lucide-react'
 import Header from '@/components/header'
 import CommunitySidebar from '@/components/community/community-sidebar'
 import CommunityContent from '@/components/community/community-content'
@@ -8,17 +9,36 @@ import CommunityMembers from '@/components/community/community-members'
 export default function CommunityPage() {
   return (
     <>
-      <Header />
-      <main className="min-h-screen bg-background pt-6 pb-16">
+      {/* 데스크톱 헤더 */}
+      <div className="hidden lg:block">
+        <Header />
+      </div>
+
+      {/* 모바일 헤더 */}
+      <div className="lg:hidden sticky top-0 z-50 bg-white border-b border-border">
+        <div className="flex items-center justify-between px-4 py-3.5">
+          <button type="button" aria-label="뒤로가기" onClick={() => window.history.back()}>
+            <ChevronLeft size={22} strokeWidth={2} />
+          </button>
+          <span className="text-base font-bold text-foreground">커뮤니티</span>
+          <button type="button" aria-label="메뉴">
+            <Menu size={22} strokeWidth={1.75} />
+          </button>
+        </div>
+      </div>
+
+      <main className="min-h-screen bg-background lg:pt-6 pb-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex gap-6">
-            {/* Left Sidebar */}
-            <CommunitySidebar />
+            {/* Left Sidebar - 모바일 숨김 */}
+            <div className="hidden lg:block">
+              <CommunitySidebar />
+            </div>
 
             {/* Main Content */}
             <CommunityContent />
 
-            {/* Right Sidebar */}
+            {/* Right Sidebar - 모바일 숨김 */}
             <div className="hidden xl:block">
               <CommunityMembers />
             </div>

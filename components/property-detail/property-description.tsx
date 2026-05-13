@@ -2,39 +2,35 @@
 
 export default function PropertyDescription() {
   return (
-    <div className="mb-6">
+    <div className="mb-6 font-pretendard [&_button]:font-pretendard">
       <h3 className="mb-4 text-lg font-bold text-foreground">매물 상세 설명</h3>
 
       <div className="rounded-lg border border-border bg-white p-6">
         {/* Summary */}
         <div className="mb-6">
-          <h4 className="mb-2 font-bold text-foreground">매물 개요</h4>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            분당 백현동 까페거리의 핵심 입지, 단독주택에 3가구 구성 수익형 건물입니다.
-            상권 내부 주거 통합 입지 구조를 갖춰 피스크각 최소화하며 입지력, 현존 리모델링된 현황 및 입지적
-            가치적 증계 요건으로 제외됩니다.닙
+          <h4 className="mb-2 font-bold text-[#333333]">매물 개요</h4>
+          <p className="text-sm leading-relaxed text-[#333333]">
+          분당 백현동 까페거리 핵심 입지, 단독주택 3가구 구성 수익형 건물입니다. 상업·사무·주거 혼합 수익 구조로 공실 리스크가 최소화되어 있으며, 전층 리모델링 완료 후 임차 계약 승계 조건으로 매매됩니다.
           </p>
         </div>
 
         {/* Checkpoints */}
         <div className="mb-6">
-          <h4 className="mb-2 font-bold text-foreground">체크 포인트</h4>
-          <ul className="space-y-1 text-sm text-muted-foreground">
-            <li>• 백현동 까페거리 도보 3분 - 분상권 지역에서 도남 상권 형성으로</li>
-            <li>• 건축 리모델링 완료(2023) - 화산 일세적 기구, 주가 공시(대비)</li>
-            <li>• 현재 만실 으이락 한복, 단골 후 최저 신입 링달</li>
-            <li>• 단일 세스프에딩(3층 이내 주 요군 레시된 입지</li>
-            <li>• 루프업 추가 임을 시 수익률 최대 31% 상승 가능</li>
+          <h4 className="mb-2 font-bold text-[#333333]">체크 포인트</h4>
+          <ul className="ml-3 space-y-1 text-sm text-[#333333]">
+            <li>• 백현동 까페거리 도보 3분 · 분당선 이매역 도보 8분 역세권</li>
+            <li>• 전층 리모델링 완료(2023) — 즉시 임대 가능, 추가 공사비 無</li>
+            <li>• 현재 전층 임차 완료, 잔금 후 즉시 수익 발생</li>
+            <li>• 판교 테크노밸리 배후 수요, 안정적 임차 유지</li>
+            <li>• 루프탑 추가 활용 시 수익률 최대 7.1% 상향 가능</li>
           </ul>
         </div>
 
         {/* Agent Comment */}
         <div>
-          <h4 className="mb-2 font-bold text-foreground">중개사 코멘트</h4>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            백현동에서 이 위치가지를 갖춘 이전 빌딩을 신규별 가격에 사입시 힙습니다.
-            전층 순 수익 법인 빈번이 가동하고도 7-8년 만 설치가 타마(비 업지 시시이가 약 1,840 상승한 지역으로 향
-            후 가지 상승 아직도 유망전 합니다.
+          <h4 className="mb-2 font-bold text-[#333333]">중개사 코멘트</h4>
+          <p className="text-sm leading-relaxed text-[#333333]">
+          백현동에서 까페거리와 접한 이런 매물은 시장에 거의 나오지 않습니다. 잔금 후 즉시 수익 발생이 가능하고, 7~8년 전 분양가 대비 현재 시세가 약 1.8배 상승한 지역으로 향후 가치 상승 여력도 충분합니다.
           </p>
         </div>
       </div>

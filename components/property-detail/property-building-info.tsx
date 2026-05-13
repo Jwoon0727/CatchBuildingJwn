@@ -42,7 +42,7 @@ export default function PropertyBuildingInfo() {
   const [isExpanded, setIsExpanded] = useState(true)
 
   return (
-    <div className="mt-15 mb-8">
+    <div className="mt-15 mb-5 font-pretendard [&_button]:font-pretendard">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-foreground">건물 층별 안내</h3>
@@ -63,7 +63,7 @@ export default function PropertyBuildingInfo() {
                 {/* Floor Header */}
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="font-bold text-foreground">{floor.floor}</h4>
-                  <p className="text-sm">
+                  <p className="text-base font-semibold">
                     보증금 <span className="text-[#2567E7] font-bold">{floor.deposit}</span>
                     <span className="text-muted-foreground mx-1">|</span>
                     월세 <span className="text-[#2567E7] font-bold">{floor.rent}</span>
@@ -73,7 +73,7 @@ export default function PropertyBuildingInfo() {
                 {/* Floor Content */}
                 <div className="flex gap-4">
                   {/* Floor Image */}
-                  <div className="w-32 h-24 rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-38 h-27 rounded-lg overflow-hidden flex-shrink-0">
                     <img
                       src={floor.image}
                       alt={floor.floor}
@@ -95,7 +95,7 @@ export default function PropertyBuildingInfo() {
                       ))}
                     </div>
                     {/* Description */}
-                    <p className="text-sm text-muted-foreground leading-relaxed">{floor.description}</p>
+                    <p className="text-base text-foreground leading-relaxed">{floor.description}</p>
                   </div>
                 </div>
               </div>

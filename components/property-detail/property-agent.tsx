@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 
 export default function PropertyAgent() {
   return (
-    <div className="sticky top-36 h-fit rounded-xl border border-border bg-white p-5 shadow-sm">
+    <div className="sticky top-36 h-fit rounded-xl border border-border bg-white p-5 font-pretendard [&_button]:font-pretendard">
       {/* Property Summary */}
       <div className="mb-5 border-b border-border pb-5">
         <h3 className="mb-2 font-bold leading-snug text-foreground">
@@ -22,9 +22,11 @@ export default function PropertyAgent() {
         >
           이
         </div>
-        <div className="min-w-0">
-          <p className="font-bold text-foreground">이진솔 공인중개사</p>
-          <p className="text-sm text-muted-foreground">010-4080-6005</p>
+        <div className="flex min-w-0 flex-row flex-wrap items-center gap-x-2 gap-y-0.5">
+          <p className="font-bold text-foreground whitespace-nowrap sm:whitespace-normal">
+            이진솔 공인중개사
+          </p>
+          <p className="text-sm text-muted-foreground tabular-nums">010-4080-6005</p>
         </div>
       </div>
 

@@ -28,7 +28,7 @@ const reviews = [
 
 export default function PropertyReviews() {
   return (
-    <div className="mb-8">
+    <div className="mb-8 font-pretendard [&_button]:font-pretendard">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-foreground">
@@ -72,7 +72,7 @@ export default function PropertyReviews() {
                   </div>
                   <span className="text-xs text-muted-foreground mb-5">{review.date}</span>
                 </div>
-                <p className="text-sm text-muted-foreground mt-2">{review.content}</p>
+                <p className="text-sm text-[#333333] mt-2">{review.content}</p>
               </div>
             </div>
           ))}

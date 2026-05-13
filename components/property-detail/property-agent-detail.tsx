@@ -7,7 +7,7 @@ const COMMENT_TEXT =
 
 export default function PropertyAgentDetail() {
   return (
-    <div className="mb-6 rounded-xl border border-border bg-white p-6 shadow-sm">
+    <div className="mb-6 rounded-xl border border-border bg-white p-6 font-pretendard [&_button]:font-pretendard">
       {/* Agent Info */}
       <div className="mb-6 flex items-start justify-between gap-3">
         <div className="flex min-w-0 flex-1 items-start gap-4">
@@ -24,15 +24,15 @@ export default function PropertyAgentDetail() {
             <p className="mb-2 text-sm text-muted-foreground">
               경기 성남시 분당구 · 영끌남 파트너
             </p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="flex min-w-0 flex-nowrap items-center gap-x-2 overflow-x-auto sm:gap-x-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <a
                 href="tel:010-4080-6005"
-                className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="flex shrink-0 items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <Phone size={16} strokeWidth={1.5} className="shrink-0 text-teal-500" />
                 010-4080-6005
               </a>
-              <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <span className="flex shrink-0 items-center gap-1.5 text-sm text-muted-foreground">
                 <Home size={16} strokeWidth={1.5} className="shrink-0 text-amber-500" />
                 다른매물 14
               </span>

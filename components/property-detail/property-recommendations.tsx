@@ -48,9 +48,9 @@ const recommendations = [
 
 export default function PropertyRecommendations() {
   return (
-    <div className="mt-12">
+    <div className="mt-12 font-pretendard [&_button]:font-pretendard">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg font-bold text-foreground">같은 지역 추천 매물</h3>
         <a
             href="#"
@@ -60,13 +60,13 @@ export default function PropertyRecommendations() {
           </a>
       </div>
 
-      {/* Property Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Property Grid — 모바일: 가로 스크롤(오른쪽 잘림) / md+: 4열 그리드 */}
+      <div className="-mr-4 flex gap-4 overflow-x-auto [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mr-0 md:grid md:grid-cols-4 md:overflow-visible">
         {recommendations.map((item) => (
           <Link
             key={item.id}
             href={`/property/${item.id}`}
-            className="group"
+            className="group w-[60vw] max-w-[14rem] shrink-0 md:w-auto md:max-w-none md:shrink"
           >
             {/* Image */}
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-3">
@@ -111,12 +111,14 @@ export default function PropertyRecommendations() {
               />
               <span>{item.specs}</span>
             </div>
-            <p className="text-sm">
+            <p className="text-base">
               <span className="text-foreground font-bold">매매</span>{' '}
               <span className="font-bold text-foreground">{item.price}</span>
             </p>
           </Link>
         ))}
+        {/* 모바일: 우측 여백 */}
+        <span className="block w-1 shrink-0 md:hidden" aria-hidden />
       </div>
     </div>
   )
