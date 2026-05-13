@@ -101,7 +101,7 @@ export default function CommunitySection() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
                   active
                     ? 'bg-[#2563EB] text-white hover:bg-[#1d4ed8]'
                     : 'bg-[#EFF1F4] text-[#374151] hover:bg-[#E5E8EC]'

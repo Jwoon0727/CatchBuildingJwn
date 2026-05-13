@@ -91,9 +91,9 @@ export default function MyPageContent() {
   })
 
   return (
-    <div className="flex-1 min-w-0">
-      {/* Header */}
-      <h1 className="mt-5 pb-9 mb-8 border-b border-border text-xl font-bold text-foreground">
+    <div className="flex-1 min-w-0 lg:pt-0">
+      {/* Header - 데스크톱 전용 */}
+      <h1 className="hidden lg:block mt-5 pb-9 mb-8 border-b border-border text-xl font-bold text-foreground">
         마이페이지
       </h1>
 

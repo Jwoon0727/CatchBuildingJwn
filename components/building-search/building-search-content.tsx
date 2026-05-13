@@ -185,114 +185,113 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
 {/* ------------------------------------------------------------------------------------------------- */}
 
-        {/* Building Info Modal */}
+        {/* Building Info - 전체화면 */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black/50 flex items-start justify-center z-50 p-4 overflow-y-auto">
-            <div className="bg-white rounded-2xl w-full max-w-2xl my-8 shadow-xl">
-              {/* Modal Header */}
-              <div className="flex items-center justify-between p-4  border-border">
-                <h2 className="text-lg font-bold text-foreground">건물 정보</h2>
-                <button 
-                  onClick={() => setIsModalOpen(false)}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <X size={24} strokeWidth={1.25} />
+          <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
+            {/* 상단 헤더 */}
+            <div className="sticky top-0 z-10 bg-white border-b border-border flex items-center justify-between px-4 py-3.5">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-foreground hover:text-muted-foreground transition-colors"
+              >
+                <X size={22} strokeWidth={2} />
+              </button>
+              <h2 className="text-base font-bold text-foreground">건물 정보</h2>
+              <div className="w-6" />
+            </div>
+
+            {/* 콘텐츠 */}
+            <div className="max-w-2xl mx-auto px-4 py-6">
+              {/* Address */}
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="font-bold text-foreground">부산광역시 동래구 사직동 153-29</h3>
+                  <p className="text-sm text-muted-foreground">492.4m² · 145.m²</p>
+                </div>
+                <Bookmark size={24} className="text-yellow-400 fill-yellow-400 shrink-0 mt-0.5" />
+              </div>
+
+              {/* Map */}
+              <div className="relative mb-6">
+                <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=300&fit=crop"
+                    alt="Map"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <button className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2 text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap">
+                  <Map size={16} />
+                  카카오지도에서 열기
                 </button>
               </div>
 
-              {/* Modal Content */}
-              <div className="p-4">
-                {/* Address */}
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-bold text-foreground">부산광역시 동래구 사직동 153-29</h3>
-                    <p className="text-sm text-muted-foreground">492.4m² · 145.m²</p>
+              {/* Property Info Cards */}
+              <div className="bg-[#F8F8F8] rounded-lg p-4 mb-4">
+                <div className="py-3 border-b border-border flex items-center justify-between">
+                  <span className="text-sm text-[#2567E7] font-medium">토지 지번</span>
+                  <div className="text-right">
+                    <span className="text-xs text-muted-foreground block">지번</span>
+                    <span className="text-xl font-bold text-foreground">153-29 m²</span>
                   </div>
-                  <Bookmark size={24} className="text-yellow-400 fill-yellow-400" />
                 </div>
+                <div className="py-3 border-b border-border flex items-center justify-between">
+                  <span className="text-sm text-[#2567E7] font-medium">총 연면적</span>
+                  <div className="text-right">
+                    <span className="text-xs text-muted-foreground block">연면적</span>
+                    <span className="text-xl font-bold text-foreground">494.4 m²</span>
+                  </div>
+                </div>
+                <div className="py-3 flex items-center justify-between">
+                  <span className="text-sm text-[#2567E7] font-medium">대지 면적</span>
+                  <div className="text-right">
+                    <span className="text-xs text-muted-foreground block">대지면적</span>
+                    <span className="text-xl font-bold text-foreground">145.8 m²</span>
+                  </div>
+                </div>
+              </div>
 
-                {/* Map */}
-                <div className="relative mb-6">
-                  <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=300&fit=crop" 
-                      alt="Map" 
-                      className="w-full h-full object-cover"
-                    />
+              {/* Price Summary */}
+              <div className="bg-[#F8F8F8] rounded-lg p-4 mb-4">
+                <h4 className="font-bold text-foreground mb-4">시세 요약</h4>
+                <div className="py-3 border-b border-border flex items-center justify-between">
+                  <span className="text-sm text-[#2567E7] font-medium">감정평가 기준</span>
+                  <div className="text-right">
+                    <span className="text-xs text-muted-foreground block">총 시세</span>
+                    <span className="text-xl font-bold text-foreground">8.7억</span>
                   </div>
-                  <button className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2 text-sm font-medium hover:bg-gray-50 transition-colors">
-                    <Map size={16} />
-                    카카오지도에서 열기
-                  </button>
                 </div>
+                <div className="py-3 border-b border-border flex items-center justify-between">
+                  <span className="text-sm text-[#2567E7] font-medium">토지 기준</span>
+                  <div className="text-right">
+                    <span className="text-xs text-muted-foreground block">총 시세</span>
+                    <span className="text-xl font-bold text-foreground">6.4억</span>
+                  </div>
+                </div>
+                <div className="py-3 border-b border-border flex items-center justify-between">
+                  <span className="text-sm text-[#2567E7] font-medium">건물 기준</span>
+                  <div className="text-right">
+                    <span className="text-xs text-muted-foreground block">총 시세</span>
+                    <span className="text-xl font-bold text-foreground">6.4억</span>
+                  </div>
+                </div>
+                <div className="py-3 flex items-center justify-between">
+                  <span className="text-sm text-[#2567E7] font-medium">평가 완료</span>
+                  <div className="text-right">
+                    <span className="text-xs text-muted-foreground block">신뢰도</span>
+                    <span className="text-xl font-bold text-foreground">76점</span>
+                  </div>
+                </div>
+              </div>
 
-                {/* Property Info Cards */}
-                <div className="bg-[#F8F8F8] rounded-lg p-4 mb-4">
-                  <div className="py-3 border-b border-border flex items-center justify-between">
-                    <span className="text-sm text-[#2567E7] font-medium">토지 지번</span>
-                    <div className="text-right">
-                      <span className="text-xs text-muted-foreground block">지번</span>
-                      <span className="text-xl font-bold text-foreground">153-29 m²</span>
-                    </div>
+              {/* Detail Table */}
+              <div>
+                {buildingDetails.map((item, index) => (
+                  <div key={index} className="py-3 border-b border-border flex">
+                    <span className="ml-5 w-28 text-sm text-muted-foreground flex-shrink-0">{item.label}</span>
+                    <span className="text-sm text-foreground">{item.value}</span>
                   </div>
-                  <div className="py-3 border-b border-border flex items-center justify-between">
-                    <span className="text-sm text-[#2567E7] font-medium">총 연면적</span>
-                    <div className="text-right">
-                      <span className="text-xs text-muted-foreground block">연면적</span>
-                      <span className="text-xl font-bold text-foreground">494.4 m²</span>
-                    </div>
-                  </div>
-                  <div className="py-3 flex items-center justify-between">
-                    <span className="text-sm text-[#2567E7] font-medium">대지 면적</span>
-                    <div className="text-right">
-                      <span className="text-xs text-muted-foreground block">대지면적</span>
-                      <span className="text-xl font-bold text-foreground">145.8 m²</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Price Summary */}
-                <div className="bg-[#F8F8F8] rounded-lg p-4 mb-4">
-                  <h4 className="font-bold text-foreground mb-4">시세 요약</h4>
-                  <div className="py-3 border-b border-border flex items-center justify-between">
-                    <span className="text-sm text-[#2567E7] font-medium">감정평가 기준</span>
-                    <div className="text-right">
-                      <span className="text-xs text-muted-foreground block">총 시세</span>
-                      <span className="text-xl font-bold text-foreground">8.7억</span>
-                    </div>
-                  </div>
-                  <div className="py-3 border-b border-border flex items-center justify-between">
-                    <span className="text-sm text-[#2567E7] font-medium">토지 기준</span>
-                    <div className="text-right">
-                      <span className="text-xs text-muted-foreground block">총 시세</span>
-                      <span className="text-xl font-bold text-foreground">6.4억</span>
-                    </div>
-                  </div>
-                  <div className="py-3 border-b border-border flex items-center justify-between">
-                    <span className="text-sm text-[#2567E7] font-medium">건물 기준</span>
-                    <div className="text-right">
-                      <span className="text-xs text-muted-foreground block">총 시세</span>
-                      <span className="text-xl font-bold text-foreground">6.4억</span>
-                    </div>
-                  </div>
-                  <div className="py-3 flex items-center justify-between">
-                    <span className="text-sm text-[#2567E7] font-medium">평가 완료</span>
-                    <div className="text-right">
-                      <span className="text-xs text-muted-foreground block">신뢰도</span>
-                      <span className="text-xl font-bold text-foreground">76점</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Detail Table */}
-                <div>
-                  {buildingDetails.map((item, index) => (
-                    <div key={index} className="py-3 border-b border-border flex">
-                      <span className="ml-5 w-28 text-sm text-muted-foreground flex-shrink-0">{item.label}</span>
-                      <span className="text-sm text-foreground">{item.value}</span>
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -306,7 +305,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
   if (activeMenu === 'building') {
     return (
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 pb-24 lg:pb-0">
         <div className="mb-8">
           <h1 className="mt-5 pb-9 -mb-8 border-border text-xl font-bold text-foreground">건물 검색</h1>
           <p className="text-sm text-muted-foreground">
@@ -400,7 +399,22 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </div>
         </div>
 
-      
+        {/* 모바일 하단 고정 버튼 바 */}
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
+          <button
+            type="button"
+            aria-label="북마크"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
+          >
+            <Bookmark size={20} className="text-foreground" strokeWidth={1.75} />
+          </button>
+          <button
+            type="button"
+            className="flex-1 h-12 rounded-xl bg-[#2567E7] text-white text-sm font-bold transition-colors hover:bg-[#2567E7]/90"
+          >
+            상담요청
+          </button>
+        </div>
       </div>
     )
   }
@@ -409,7 +423,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
   if (activeMenu === 'blog') {
     return (
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 pb-24 lg:pb-0">
         {/* Header */}
         <div className="mb-6">
           <h1 className="mt-5 pb-9 -mb-8 border-border text-xl font-bold text-foreground">네이버 블로그 검색</h1>
@@ -676,6 +690,23 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
             <p className="text-sm font-bold text-primary">79</p>
           </div>
         </div>
+
+        {/* 모바일 하단 고정 버튼 바 */}
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
+          <button
+            type="button"
+            aria-label="북마크"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
+          >
+            <Bookmark size={20} className="text-foreground" strokeWidth={1.75} />
+          </button>
+          <button
+            type="button"
+            className="flex-1 h-12 rounded-xl bg-[#2567E7] text-white text-sm font-bold transition-colors hover:bg-[#2567E7]/90"
+          >
+            상담요청
+          </button>
+        </div>
       </div>
     )
   }
@@ -685,17 +716,17 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
   if (activeMenu === 'history') {
     return (
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 pb-24">
         {/* Filter Tabs */}
-        <div className="flex items-center gap-2 mb-12">
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
           {historyFilters.map((filter) => (
             <button
               key={filter.id}
               onClick={() => setHistoryFilter(filter.id)}
-              className={`px-4 py-3 rounded-full text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 historyFilter === filter.id
                   ? 'bg-[#2567E7] text-white'
-                  : 'bg-[#F8F8F8]  text-foreground hover:bg-secondary'
+                  : 'bg-white border border-border text-foreground hover:bg-muted/50'
               }`}
             >
               {filter.label}
@@ -704,25 +735,25 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
         </div>
 
         {/* Search Bar */}
-        <div className="flex gap-2 mb-8">
+        <div className="flex gap-2 mb-6">
           <input
             type="text"
             placeholder="주소, URL, 키워드로 기록 검색"
             className="flex-1 px-4 py-2.5 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
-          <button className="px-4.5 py-2.5 bg-[#2567E7] text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+          <button className="px-5 py-2.5 bg-[#2567E7] text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
             검색
           </button>
         </div>
 
         {/* History List */}
-        <div className="space-y-4">
+        <div className="space-y-0">
           {historyItems.map((item, index) => (
-            <div key={index} className="border-b border-border pb-4">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
+            <div key={index} className="border-b border-border py-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1 min-w-0">
                   <span
-                    className="inline-block px-3 py-1.5  rounded text-xs font-medium mb-2 text-foreground"
+                    className="inline-block px-2.5 py-1 rounded text-xs font-medium mb-2"
                     style={{
                       backgroundColor: item.typeBadgeBg,
                       ...(item.typeBadgeColor ? { color: item.typeBadgeColor } : {}),
@@ -730,16 +761,33 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
                   >
                     {item.type}
                   </span>
-                  <h3 className="text-sm font-medium text-foreground mb-1">{item.address}</h3>
-                  <p className="text-xs text-muted-foreground">{item.url}</p>
+                  <h3 className="text-sm font-bold text-foreground mb-1">{item.address}</h3>
+                  <p className="text-xs text-muted-foreground truncate">{item.url}</p>
                 </div>
-                <div className="text-right ml-4">
-                  <p className="mt-2 text-sm font-bold text-[#2567E7] mb-1">{item.price}</p>
-                  <p className="mt-8 text-xs text-muted-foreground">{item.date}</p>
+                <div className="text-right shrink-0">
+                  <p className="text-sm font-bold text-[#2567E7] mb-6">{item.price}</p>
+                  <p className="text-xs text-muted-foreground">{item.date}</p>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* 하단 고정 버튼 바 */}
+        <div className="fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
+          <button
+            type="button"
+            aria-label="북마크"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
+          >
+            <Bookmark size={20} className="text-foreground" strokeWidth={1.75} />
+          </button>
+          <button
+            type="button"
+            className="flex-1 h-12 rounded-xl bg-[#2567E7] text-white text-sm font-bold transition-colors hover:bg-[#2567E7]/90"
+          >
+            상담요청
+          </button>
         </div>
       </div>
     )
