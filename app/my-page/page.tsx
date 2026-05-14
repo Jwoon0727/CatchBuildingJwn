@@ -35,13 +35,13 @@ export default function MyPage() {
       </div>
 
       {/* 모바일 헤더 */}
-      <div className="lg:hidden sticky top-0 z-50 bg-white border-b border-border">
-        <div className="flex items-center justify-between px-4 py-3.5">
+      <div className="lg:hidden sticky top-0 z-50 bg-white  border-border">
+        <div className="flex items-center gap-2 px-4 py-3.5">
           <button type="button" aria-label="뒤로가기" onClick={() => window.history.back()}>
-            <ChevronLeft size={22} strokeWidth={2} />
+            <ChevronLeft className="size-7 text-foreground" strokeWidth={2} />
           </button>
-          <span className="text-base font-bold text-foreground">마이페이지</span>
-          <button type="button" aria-label="메뉴">
+          <span className="text-xl font-bold text-foreground">마이페이지</span>
+          <button type="button" aria-label="메뉴" className="ml-auto">
             <Menu size={22} strokeWidth={1.75} />
           </button>
         </div>
@@ -49,7 +49,7 @@ export default function MyPage() {
 
       <main className="min-h-screen bg-background pb-16">
         {/* Mobile: 수평 탭 네비게이션 */}
-        <div className="lg:hidden sticky top-[53px] z-10 border-b border-border bg-white">
+        <div className="lg:hidden sticky top-[53px] z-10 border-border bg-white">
           <div className="flex overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-2">
             {menuItems.map((item) => (
               <button
@@ -58,7 +58,7 @@ export default function MyPage() {
                 onClick={() => setActiveMenu(item.id)}
                 className={`shrink-0 px-3 py-3.5 text-sm whitespace-nowrap border-b-2 transition-colors ${
                   activeMenu === item.id
-                    ? 'border-[#2567E7] font-bold text-[#2567E7]'
+                    ? 'border-[#2567E7] font-bold text-[#333333]'
                     : 'border-transparent text-muted-foreground'
                 }`}
               >
@@ -68,12 +68,18 @@ export default function MyPage() {
           </div>
         </div>
 
+        
+
         <div className="max-w-[77rem] mx-auto px-4">
           {/* Mobile: 프로필 카드 - 기본정보 탭에서만 표시 */}
-          <div className={`lg:hidden mt-4 mb-2 rounded-xl border border-border bg-white p-5 ${activeMenu !== 'basic' ? 'hidden' : ''}`}>
+        {/* ------------------------------------------------------------------------------------------------ */}
+
+          <div
+            className={`lg:hidden mt-4 mb-2 -mx-4 rounded-xl bg-white p-5 ${activeMenu !== 'basic' ? 'hidden' : ''}`}
+          >
             <div className="mb-5 flex gap-3">
               <div className="relative shrink-0">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-lg font-bold text-gray-800">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-lg font-semibold text-gray-800">
                   홍
                 </div>
                 <button
@@ -86,12 +92,12 @@ export default function MyPage() {
               </div>
               <div className="min-w-0 flex-1 pt-0.5">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-base font-bold text-foreground mb-2">홍길동</span>
-                  <span className="rounded-full bg-[#432DD7] px-2 py-1.5 mb-3.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                  <span className="text-lg font-bold text-foreground mb-2">홍길동</span>
+                  <span className="rounded-full bg-[#432DD7] px-2 py-1.5 mb-3.5 text-[11px] font-semibold uppercase tracking-wide text-white">
                     BRONZE 1
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">카카오 계정으로 가입</p>
+                <p className=" text-xs text-muted-foreground">카카오 계정으로 가입</p>
               </div>
             </div>
             <div className="flex gap-1.5">
@@ -100,6 +106,9 @@ export default function MyPage() {
               <button type="button" className={actionBtnClass}>구독하기</button>
             </div>
           </div>
+
+
+        {/* ------------------------------------------------------------------------------------------------ */}
 
           <div className="flex gap-8 lg:pt-5">
             {/* 좌측 사이드바 - 데스크톱 전용 */}

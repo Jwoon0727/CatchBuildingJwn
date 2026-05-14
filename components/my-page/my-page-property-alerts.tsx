@@ -63,7 +63,7 @@ export default function MyPagePropertyAlerts() {
   const [selectedCategory, setSelectedCategory] = useState('아파트')
 
   return (
-    <div className="min-w-0 flex-1">
+    <div className="min-w-0 flex-1 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
       <div className=" flex items-center justify-between">
         <h1 className="mt-5  border-border pb-9 mb-2 text-xl font-bold text-foreground">매물 알림</h1>
         <button
@@ -74,38 +74,38 @@ export default function MyPagePropertyAlerts() {
         </button>
       </div>
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-4 hidden flex-wrap gap-2 lg:flex">
         {categories.map((category) => (
           <button
             key={category}
             type="button"
             onClick={() => setSelectedCategory(category)}
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${categoryTabClass(selectedCategory === category)}`}
+            className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${categoryTabClass(selectedCategory === category)}`}
           >
             {category}
           </button>
         ))}
       </div>
 
-      <div className="mb-2 flex flex-wrap gap-2 pl-5">
+      <div className="mb-2 flex flex-wrap gap-2 pl-0 lg:pl-5">
         {categories.map((category) => (
           <button
             key={`sub-${category}`}
             type="button"
             onClick={() => setSelectedCategory(category)}
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${categoryTabClass(selectedCategory === category)}`}
+            className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${categoryTabClass(selectedCategory === category)}`}
           >
             {category}
           </button>
         ))}
       </div>
 
-      <div className="space-y-6 pl-5">
+      <div className="space-y-6 pl-0 lg:pl-5">
         {properties.map((property) => (
           <div key={property.id} className="bg-white">
-            <div className="p-6">
+            <div className="px-0 py-4 lg:p-6">
               <div className="flex gap-4">
-                <div className="-ml-6 flex shrink-0 flex-col">
+                <div className="ml-0 flex shrink-0 flex-col lg:-ml-6">
                   <div className="relative h-36 w-35 shrink-0 overflow-hidden rounded-lg">
                     <img
                       src={property.image}
@@ -132,7 +132,7 @@ export default function MyPagePropertyAlerts() {
                   </div>
                 </div>
 
-                <div className="-ml-1 -mt-1 flex min-h-[8rem] min-w-0 flex-1 flex-col">
+                <div className="-mt-1 ml-0 flex min-h-[8rem] min-w-0 flex-1 flex-col lg:-ml-1">
                   <h3 className="mb-2 text-base font-bold text-foreground">{property.title}</h3>
 
                   <div className="mb-3 space-y-1 text-xs text-muted-foreground">
@@ -181,7 +181,7 @@ export default function MyPagePropertyAlerts() {
 
               <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
                 <div className="flex flex-wrap items-center justify-start gap-2">
-                  <span className="-ml-6 whitespace-nowrap rounded bg-[#FFC83B] px-3 py-1 text-xs font-medium text-foreground">
+                  <span className="ml-0 whitespace-nowrap rounded bg-[#FFC83B] px-3 py-1 text-xs font-medium text-foreground lg:-ml-6">
                     수익률 {property.yield}
                   </span>
                   <span className="whitespace-nowrap rounded border border-border bg-white px-3 py-1 text-xs text-foreground">
@@ -195,7 +195,7 @@ export default function MyPagePropertyAlerts() {
               </div>
             </div>
 
-            <div className="pb-6 pl-0 pr-6">
+            <div className="px-0 pb-6 lg:pl-0 lg:pr-6">
               <button
                 type="button"
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-white py-3 text-base font-medium  text-foreground transition-colors hover:bg-secondary/40"

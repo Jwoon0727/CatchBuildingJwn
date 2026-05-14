@@ -15,7 +15,7 @@ const PROPERTY_DETAIL_ICONS = {
 const savedProperties = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=200&h=200&fit=crop',
+    image: '/building/building_type04.png',
     badges: ['매매', 'NEW'],
     title: '강남역 초역세권 오피스텔',
     location: '서울 강남구 역삼동 · 15층',
@@ -30,7 +30,7 @@ const savedProperties = [
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&h=200&fit=crop',
+    image: '/building/building_type04.png',
     badges: ['매매', 'NEW'],
     title: '강남역 초역세권 오피스텔',
     location: '서울 강남구 역삼동 · 15층',
@@ -45,7 +45,7 @@ const savedProperties = [
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=200&h=200&fit=crop',
+    image: '/building/building_type04.png',
     badges: ['매매', 'NEW'],
     title: '강남역 초역세권 오피스텔',
     location: '서울 강남구 역삼동 · 15층',
@@ -60,7 +60,7 @@ const savedProperties = [
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=200&h=200&fit=crop',
+    image: '/building/building_type04.png',
     badges: ['매매', 'NEW'],
     title: '강남역 초역세권 오피스텔',
     location: '서울 강남구 역삼동 · 15층',
@@ -83,16 +83,18 @@ function badgeClass(label: string) {
 
 export default function MyPageSavedProperties() {
   return (
-    <div className="min-w-0 flex-1">
-      <h1 className="mt-5 border-b border-border pb-9 mb-2 text-xl font-bold text-foreground">
+    <div className="min-w-0 flex-1 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
+      <h1 className="mt-5 hidden border-border pb-9 mb-2 text-xl font-bold text-foreground lg:block">
         찜한 목록
       </h1>
 
-      <p className="mb-4 text-sm text-foreground">
-        부산 매물 결과 <span className="font-bold text-[#2567E7]">8건</span>
-      </p>
+      <h3 className="-mt-4 mb-4 hidden text-lg font-bold text-foreground lg:block">
+        부산 매물 결과 <span className="text-[#2567E7]">8건</span>
+      </h3>
 
-      <div className="mb-8 flex gap-2">
+     
+
+      <div className="mt-4 mb-8 flex gap-2">
         <div className="flex flex-1 items-center gap-3 rounded-lg border border-border px-4 py-3">
           {SEARCH_FIELD_LEADING_IMAGE_SRC ? (
             <span className="relative inline-flex size-5 shrink-0">
@@ -118,6 +120,10 @@ export default function MyPageSavedProperties() {
           검색
         </button>
       </div>
+
+      <h3 className="-mt-5 mb-7 text-lg font-bold text-foreground lg:hidden">
+        부산 매물 결과 <span className="text-[#2567E7]">8건</span>
+      </h3>
 
       <div className="space-y-6">
         {savedProperties.map((property) => (

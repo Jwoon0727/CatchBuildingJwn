@@ -54,6 +54,8 @@ interface PropertySectionProps {
   compactMobileCardImage?: boolean
   /** true면 카드 외곽 보더 없음 — 모바일·PC 공통(해당 섹션에서만 켤 것) */
   borderlessCards?: boolean
+  /** true면 모바일에서 카드 본문 패딩 p-1(지역별 신규 매물 등) */
+  mobileTightCardPadding?: boolean
 }
 
 export default function PropertySection({
@@ -66,6 +68,7 @@ export default function PropertySection({
   mobileGrid = false,
   compactMobileCardImage = false,
   borderlessCards = false,
+  mobileTightCardPadding = false,
 }: PropertySectionProps) {
   const [activeFilterTab, setActiveFilterTab] = useState<string>('all')
 
@@ -212,6 +215,7 @@ export default function PropertySection({
                   mobileCompactPricing
                   compactMobileImage={compactMobileCardImage}
                   borderless={borderlessCards}
+                  mobileTightCardPadding={mobileTightCardPadding}
                 />
               </div>
             ))}

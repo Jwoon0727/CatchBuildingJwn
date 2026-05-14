@@ -52,19 +52,18 @@ const courses = [
 
 export default function MyPageCourses() {
   return (
-    <div className="min-w-0 flex-1 text-left ">
-      <h1 className="mt-5  border-border pb-9 text-xl font-bold text-foreground">수강목록</h1>
+    <div className="min-w-0 flex-1 text-left font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
+      <h1 className="mt-5 hidden border-border pb-9 text-xl font-bold text-foreground lg:block">수강목록</h1>
 
-      <p className="mb-2 text-sm font-bold text-foreground">
-        수강 중인 강의{' '}
-        <span className="font-bold text-[#2B7FFF]">{courses.length}건</span>
-      </p>
+      <h3 className="mt-8 mb-2 text-lg font-bold text-foreground">
+        수강 중인 강의 <span className="text-[#2567E7]">8건</span>
+      </h3>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {courses.map((course) => (
           <div
             key={course.id}
-            className="border-b border-border bg-white py-5 pl-0 pr-2 sm:pr-4"          >
+            className="border-b border-border bg-white py-5 pl-0 pr-0 sm:pr-0"          >
             <div className="mb-4 flex items-start gap-4">
               <div className="relative aspect-[2/2] w-[4rem] shrink-0 overflow-hidden rounded-lg bg-muted">
                 <img
@@ -75,7 +74,7 @@ export default function MyPageCourses() {
               </div>
 
               <div className="min-w-0 flex-1 text-left">
-                <h3 className="mt-0.5 mb-5 text-left text-sm font-semibold leading-snug text-foreground">
+                <h3 className="mt-0.5 mb-5 text-left text-base font-bold leading-snug text-foreground">
                   {course.title}
                 </h3>
                 <div className="flex flex-wrap items-center justify-start gap-1">

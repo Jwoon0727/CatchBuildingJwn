@@ -24,16 +24,16 @@ export default function PropertyAgentDetail() {
             <p className="mb-2 text-xs text-foreground">
               경기 성남시 분당구 · 영끌남 파트너
             </p>
-            <div className="flex min-w-0 flex-nowrap items-center gap-x-2 overflow-x-auto sm:gap-x-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex min-w-0 flex-nowrap items-center gap-x-1.5 sm:gap-x-4">
               <a
                 href="tel:010-4080-6005"
-                className="flex shrink-0 items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+                className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Phone size={14} strokeWidth={1.5} className="shrink-0 text-teal-500" />
+                <Phone className="size-3 shrink-0 text-teal-500 sm:size-[14px]" strokeWidth={1.5} />
                 010-4080-6005
               </a>
-              <span className="flex shrink-0 items-center gap-1.5 text-sm text-muted-foreground">
-                <Home size={14} strokeWidth={1.5} className="shrink-0 text-amber-500" />
+              <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-xs text-muted-foreground sm:gap-1.5">
+                <Home className="size-3 shrink-0 text-amber-500 sm:size-[14px]" strokeWidth={1.5} />
                 다른매물 14
               </span>
             </div>

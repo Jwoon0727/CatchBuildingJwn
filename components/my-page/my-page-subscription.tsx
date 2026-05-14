@@ -106,7 +106,7 @@ export default function MyPageSubscription() {
   const [modal, setModal] = useState<ModalType>(null)
 
   return (
-    <div className="min-w-0 flex-1">
+    <div className="min-w-0 flex-1 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
       <SubscriptionModal type={modal} onClose={() => setModal(null)} />
 
       {/* 데스크톱 전용 헤더 */}
@@ -114,13 +114,13 @@ export default function MyPageSubscription() {
 
       <h2 className="text-lg font-bold text-foreground mb-4 lg:mb-8">구독중인 상품</h2>
 
-      {/* 모바일: 가로 스와이프 카드 */}
-      <div className="lg:hidden mb-10 -mx-4 px-4">
-        <div className="flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory pb-2">
+      {/* 모바일: 가로 스와이프(pr-0으로 스크롤 끝 잘림 방지) */}
+      <div className="mb-5 -mx-4 pl-4 pr-0 lg:hidden">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className="snap-start shrink-0 w-[calc(50%-6px)] rounded-xl border border-border bg-white p-5 text-center"
+              className="snap-start shrink-0 w-[calc(46%-6px)] rounded-xl border border-border bg-white p-5 text-center"
             >
               <p className="mb-2 text-sm text-muted-foreground">{plan.name}</p>
               <p className="mb-1 text-base font-bold text-foreground">{plan.price}</p>
@@ -160,6 +160,7 @@ export default function MyPageSubscription() {
               )}
             </div>
           ))}
+          <span className="block w-4 shrink-0" aria-hidden />
         </div>
       </div>
 
@@ -214,7 +215,7 @@ export default function MyPageSubscription() {
         ))}
       </div>
       {/* Payment Method */}
-      <div className="mb-10">
+      <div className="mb-8">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="font-bold text-foreground">결제 수단</h2>
           <button
@@ -238,20 +239,20 @@ export default function MyPageSubscription() {
       {/* Payment History */}
       <div>
         <h2 className="mb-4 font-bold text-foreground">결제 내역</h2>
-        <div className="overflow-hidden rounded-xl border-y border-border">
+        <div className="overflow-hidden border-y border-border">
           <table className="w-full">
             <thead>
               <tr className="bg-[#F8F8F8]">
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                <th className="px-4 py-3 text-left text-xs font-medium text-foreground">
                   결제일
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                <th className="px-4 py-3 text-left text-xs font-medium text-foreground">
                   상품명
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                <th className="px-4 py-3 text-left text-xs font-medium text-foreground">
                   금액
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">
+                <th className="px-4 py-3 text-left text-xs font-medium text-foreground">
                   상태
                 </th>
               </tr>

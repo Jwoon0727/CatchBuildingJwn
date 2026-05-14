@@ -109,6 +109,7 @@ export default function Home() {
         mobileGrid
         compactMobileCardImage
         borderlessCards
+        mobileTightCardPadding
         properties={[5, 6, 7, 8].map((id) => ({
           id,
           image: '/building/building_type02.png',

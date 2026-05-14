@@ -51,7 +51,7 @@ export default function LoginPage() {
           <X size={22} strokeWidth={2} />
         </button>
       </div>
-      <main className="flex flex-1 min-h-0 w-full items-start justify-center overflow-y-auto px-4 pt-8 pb-6">
+      <main className="flex flex-1 min-h-0 w-full items-start justify-center overflow-y-auto px-4 pt-1 pb-6 md:pt-8">
         <div className="w-full max-w-md px-6 font-pretendard lg:px-0">
         {/* Logo */}
         <div className="text-center mb-4">
@@ -172,7 +172,7 @@ export default function LoginPage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-4 bg-[#2567E7] text-white rounded-lg font-medium hover:bg-primary/90 transition-colors mt-4"
+                className="w-full py-3 bg-[#2567E7] text-white rounded-lg font-medium hover:bg-primary/90 transition-colors mt-4"
               >
                 로그인
               </button>
@@ -326,7 +326,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="mt-2 w-full rounded-lg bg-[#2567E7] py-4 font-medium text-white transition-colors hover:bg-[#2567E7]/90"
+                className="mt-2 w-full rounded-lg bg-[#2567E7] py-3 font-medium text-white transition-colors hover:bg-[#2567E7]/90"
               >
                 로그인
               </button>

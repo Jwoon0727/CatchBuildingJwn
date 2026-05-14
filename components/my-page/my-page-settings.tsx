@@ -28,9 +28,10 @@ export default function MyPageSettings() {
   }
 
   return (
-    <div className="min-w-0 flex-1">
-      <h1 className="mt-5  border-border pb-9 text-xl font-bold text-foreground">설정</h1>
+    <div className="min-w-0 flex-1 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
+      <h1 className="mt-5 hidden border-border pb-9 text-xl font-bold text-foreground lg:block">설정</h1>
 
+      <h3 className="mt-8 mb-2 text-lg font-bold text-foreground lg:hidden">알림 설정</h3>
       <div>
         {notificationSettings.map((setting) => (
           <div
@@ -45,7 +46,7 @@ export default function MyPageSettings() {
               aria-checked={settings[setting.id]}
               onClick={() => toggleSetting(setting.id)}
               className={`relative h-8 w-14 shrink-0 rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2567E7] ${
-                settings[setting.id] ? 'bg-[#2567E7]' : 'bg-gray-200'
+                settings[setting.id] ? 'bg-[#2567E7]' : 'bg-[#CCCCCC]'
               }`}
             >
               <span
@@ -57,6 +58,15 @@ export default function MyPageSettings() {
           </div>
         ))}
       </div>
+
+      <p className="mt-120 flex justify-center lg:hidden">
+        <a
+          href="#"
+          className="text-sm text-[#757575] underline underline-offset-2 transition-opacity hover:opacity-80"
+        >
+          회원탈퇴
+        </a>
+      </p>
     </div>
   )
 }

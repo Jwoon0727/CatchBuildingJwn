@@ -32,7 +32,7 @@ const bookmarkedProperties = [
 
 export default function MyPageBookmarks() {
   return (
-    <div className="w-56 shrink-0">
+    <div className="w-56 shrink-0 font-pretendard">
       <div className="bg-white rounded-xl border border-border p-5 sticky top-32">
         {/* Header */}
         <h3 className="font-bold text-foreground mb-4">

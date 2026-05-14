@@ -260,7 +260,7 @@ export default function MapSearchPage() {
                       key={p.id}
                       type="button"
                       onClick={() => setPricePreset(p.id)}
-                      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${pricePreset === p.id ? ACCENT : INACTIVE}`}
+                      className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${pricePreset === p.id ? ACCENT : INACTIVE}`}
                     >
                       {p.label}
                     </button>
@@ -303,7 +303,7 @@ export default function MapSearchPage() {
                       key={r.id}
                       type="button"
                       onClick={() => setRegionId(r.id)}
-                      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${regionId === r.id ? ACCENT : INACTIVE}`}
+                      className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${regionId === r.id ? ACCENT : INACTIVE}`}
                     >
                       {r.label}
                     </button>
@@ -315,7 +315,7 @@ export default function MapSearchPage() {
                 <h3 className="mb-3 text-sm font-bold text-foreground">#투자 포인트</h3>
                 <div className="flex flex-wrap gap-2">
                   {hashtags.map(tag => (
-                    <button key={tag} type="button" className={`rounded-full px-3 py-1.5 text-sm ${INACTIVE}`}>
+                    <button key={tag} type="button" className={`rounded-full px-3 py-2.5 text-sm ${INACTIVE}`}>
                       #{tag}
                     </button>
                   ))}

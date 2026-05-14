@@ -21,7 +21,7 @@ interface MyPageSidebarProps {
 
 export default function MyPageSidebar({ activeMenu, setActiveMenu }: MyPageSidebarProps) {
   return (
-    <div className="w-60 shrink-0">
+    <div className="w-60 shrink-0 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
       <div className="mb-6 rounded-xl border border-border bg-white p-5">
         <div className="mb-5 flex gap-3">
           <div className="relative shrink-0">

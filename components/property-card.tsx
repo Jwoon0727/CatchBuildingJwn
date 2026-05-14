@@ -17,6 +17,8 @@ interface PropertyCardProps {
   mobileCompactPricing?: boolean
   /** true면 카드 외곽 보더 제거(모바일·PC 공통) */
   borderless?: boolean
+  /** true면 모바일에서 본문 영역 패딩만 p-1(md 이상은 p-4 유지) */
+  mobileTightCardPadding?: boolean
   property: {
     id: number
     image: string
@@ -52,6 +54,7 @@ export default function PropertyCard({
   compactMobileImage = false,
   mobileCompactPricing = false,
   borderless = false,
+  mobileTightCardPadding = false,
 }: PropertyCardProps) {
   const title = property.title || property.name || '매물'
   const stars = property.rating ? Math.round(property.rating) : 4
@@ -88,7 +91,11 @@ export default function PropertyCard({
       </div>
 
       {/* Content */}
-      <div className="p-4 pt-4">
+      <div
+        className={
+          mobileTightCardPadding ? 'p-1 pt-1 md:p-4 md:pt-4' : 'p-4 pt-4'
+        }
+      >
         {/* Stars */}
         <div className="mb-2 flex gap-0.5">
           {Array.from({ length: 5 }).map((_, i) => (

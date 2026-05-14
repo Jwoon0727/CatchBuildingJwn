@@ -91,18 +91,18 @@ export default function MyPageContent() {
   })
 
   return (
-    <div className="flex-1 min-w-0 lg:pt-0">
+    <div className="min-w-0 flex-1 font-pretendard lg:pt-0 [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
       {/* Header - 데스크톱 전용 */}
       <h1 className="hidden lg:block mt-5 pb-9 mb-8 border-b border-border text-xl font-bold text-foreground">
         마이페이지
       </h1>
 
-      {/* Stats */}
-      <div className="mb-6 grid w-full grid-cols-2 gap-x-6 gap-y-4 border-b border-border pb-6 sm:grid-cols-4 sm:gap-8 sm:gap-y-0">
+      {/* Stats — 모바일 4열 가로 한 줄 */}
+      <div className="-mt-4 mb-6 grid w-full grid-cols-4 gap-x-2 gap-y-0 border-t border-b border-border pt-4 pb-4 sm:gap-x-8">
         {stats.map((stat, index) => (
           <div key={index} className="min-w-0 text-left">
-            <p className="text-xl font-bold text-foreground">{stat.value}</p>
-            <p className="text-sm text-muted-foreground">{stat.label}</p>
+            <p className="text-lg font-bold text-foreground tabular-nums sm:text-xl">{stat.value}</p>
+            <p className="text-[11px] text-foreground sm:text-sm">{stat.label}</p>
           </div>
         ))}
       </div>
@@ -112,7 +112,7 @@ export default function MyPageContent() {
         <div className="flex items-center gap-4 mb-3">
           <span className="px-3 py-1.5 bg-[#432DD7] text-white text-xs font-bold rounded-full">BRONZE 1</span>
           <span className="-mb-1 text-xs text-muted-foreground">다음 등급까지</span>
-          <span className="-mb-1 ml-8 text-xs text-[#2567E7] font-medium">620 / 1,000 포인트</span>
+          <span className="-mb-1 ml-8 text-xs text-[#2567E7] font-normal">620 / 1,000 포인트</span>
         </div>
         <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-3">
           <div className="h-full bg-[#432DD7] rounded-full" style={{ width: '62%' }} />
@@ -177,11 +177,11 @@ export default function MyPageContent() {
         </div>
 
         {/* Form Buttons */}
-        <div className="flex justify-end gap-3 mt-8">
-          <button className="px-8 py-3 border border-[#2567E7] rounded-lg text-sm font-medium text-[#2567E7] hover:bg-[#BEDBFF]/30 transition-colors">
+        <div className="mt-8 flex w-full gap-3 md:justify-end">
+          <button className="min-w-0 flex-1 border border-[#2567E7] rounded-lg px-4 py-3 text-sm font-medium text-[#2567E7] transition-colors hover:bg-[#BEDBFF]/30 md:flex-none md:px-8">
             취소
           </button>
-          <button className="px-8 py-3 bg-[#2567E7] text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+          <button className="min-w-0 flex-1 rounded-lg bg-[#2567E7] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-primary/90 md:flex-none md:px-8">
             저장
           </button>
         </div>
@@ -193,14 +193,14 @@ export default function MyPageContent() {
       {/* Bookmarked Support Programs */}
       <div className="mb-10">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="flex items-center gap-2 font-bold text-foreground">
-            <span className="relative inline-flex size-6 shrink-0 items-center justify-center sm:size-7">
+          <h3 className="text-lg flex items-center gap-2 font-bold text-foreground">
+            <span className="relative inline-flex size-9 shrink-0 items-center justify-center sm:size-7">
               <Image
                 src={SECTION_ICONS.bookmarkSupport}
                 alt=""
-                width={28}
-                height={28}
-                className="size-6 object-contain sm:size-7"
+                width={36}
+                height={36}
+                className="size-9 object-contain sm:size-7"
               />
             </span>
             북마크한 지원 사업 <span className=" text-[#2567E7]">9</span>
@@ -210,20 +210,26 @@ export default function MyPageContent() {
             className="flex items-center text-[#2567E7] transition-opacity hover:opacity-80"
             aria-label="더보기"
           >
-            <ArrowRight className="size-5" strokeWidth={2} aria-hidden />
+            <ArrowRight className="size-6" strokeWidth={1.35} aria-hidden />
           </button>
         </div>
         <div className="space-y-4">
           {supportPrograms.map((program, index) => (
-            <div key={index} className="flex items-center justify-between border-b border-border py-3">
-              <div>
-                <div className="flex items-center gap-3 mb-4 ">
-                  <span className="text-xs text-primary bg-[#EFF6FF] px-2 py-1 rounded-[4px] font-medium">{program.badge}</span>
-                  <span className="font-medium text-foreground">{program.title}</span>
+            <div key={index} className="flex items-center justify-between gap-2 border-b border-border py-3 sm:gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="mb-4 flex min-w-0 items-center gap-1">
+                  <span className="shrink-0 rounded-[4px] bg-[#EFF6FF] px-2 py-1 text-xs font-medium text-[#333333]">
+                    {program.badge}
+                  </span>
+                  <span className="min-w-0 flex-1 touch-pan-x overflow-x-auto text-sm font-semibold leading-normal text-foreground whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    {program.title}
+                  </span>
                 </div>
-                <p className="text-xs text-muted-foreground">{program.amount} | {program.date}</p>
+                <p className="text-xs text-muted-foreground">
+                  {program.amount} | {program.date}
+                </p>
               </div>
-              <span className="text-xs -mb-10 text-muted-foreground">{program.daysAgo}</span>
+              <span className="-mb-10 shrink-0 text-xs text-muted-foreground">{program.daysAgo}</span>
             </div>
           ))}
         </div>
@@ -234,14 +240,14 @@ export default function MyPageContent() {
       {sections.map((section, sectionIndex) => (
         <div key={sectionIndex} className="mb-10">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="flex items-center gap-2 font-bold text-foreground">
-              <span className="relative inline-flex size-7 shrink-0 items-center justify-center sm:size-8">
+            <h3 className="text-lg flex items-center gap-2 font-bold text-foreground">
+              <span className="relative inline-flex size-9 shrink-0 items-center justify-center sm:size-8">
                 <Image
                   src={section.iconSrc}
                   alt=""
-                  width={32}
-                  height={32}
-                  className="size-6 object-contain sm:size-8"
+                  width={36}
+                  height={36}
+                  className="size-9 object-contain sm:size-8"
                 />
               </span>
               {section.title} <span className="text-[#2567E7]">{section.count}</span>
@@ -251,7 +257,7 @@ export default function MyPageContent() {
               className="flex items-center text-[#2567E7] transition-opacity hover:opacity-80"
               aria-label="더보기"
             >
-              <ArrowRight className="size-5" strokeWidth={2} aria-hidden />
+              <ArrowRight className="size-6" strokeWidth={1.35} aria-hidden />
             </button>
           </div>
           <div className="space-y-4">
@@ -259,29 +265,29 @@ export default function MyPageContent() {
               <div key={index} className="flex gap-4 border-b border-border py-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className={`px-2 py-0.5 ${post.badgeColor} text-white text-xs rounded`}>
+                    <span className={`px-2 py-1 ${post.badgeColor} text-white text-xs rounded`}>
                       {post.badge}
                     </span>
                   </div>
-                  <h4 className="font-medium text-foreground mb-2">{post.title}</h4>
-                  <p className="mb-2 line-clamp-3 text-sm text-muted-foreground">
+                  <h4 className="text-sm font-semibold text-foreground mb-2">{post.title}</h4>
+                  <p className="mb-2 line-clamp-3 text-xs text-muted-foreground">
                     {contentWithBrTags(post.content)}
                   </p>
                   <div className="flex items-center gap-4 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
-                      <Eye size={12} /> {post.views}
+                      <Eye size={15} /> {post.views}
                     </span>
                     <span className="flex items-center gap-1">
-                      <MessageCircle size={12} /> {post.comments}
+                      <MessageCircle size={15} /> {post.comments}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Heart size={12} /> {post.likes}
+                      <Heart size={15} /> {post.likes}
                     </span>
                   </div>
                 </div>
                 <div className="-mt-1 flex shrink-0 flex-col items-end justify-start gap-2 self-start mt-1">
                   <span className="text-xs text-muted-foreground">{post.date}</span>
-                  <div className="h-18 w-28 overflow-hidden rounded-lg">
+                  <div className="h-13 w-23 overflow-hidden rounded-lg">
                     <img src={post.image} alt="" className="h-full w-full object-cover" />
                   </div>
                 </div>
