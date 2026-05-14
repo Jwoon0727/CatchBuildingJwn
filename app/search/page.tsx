@@ -205,7 +205,10 @@ export default function PropertySearchPage() {
   const [pricePreset, setPricePreset] = useState<(typeof pricePresets)[number]['id']>('all')
   const [priceRange, setPriceRange] = useState<number[]>([15, 120])
   const [regionId, setRegionId] = useState('all')
-  const [searchPage, setSearchPage] = useState(1)
+  const [searchPage, setSearchPage] = useState(() => {
+    const tp = Math.ceil(searchResults.length / SEARCH_PAGE_SIZE)
+    return tp > 0 ? tp : 1
+  })
 
   const totalSearchPages = Math.ceil(searchResults.length / SEARCH_PAGE_SIZE)
   const currentSearchPage =

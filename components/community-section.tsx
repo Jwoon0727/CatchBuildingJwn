@@ -22,7 +22,7 @@ const posts = [
     badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
     description:
-      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 <br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적<br/>인  방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
@@ -36,7 +36,7 @@ const posts = [
     badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
     description:
-      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인<br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적<br/>인  방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
@@ -50,7 +50,7 @@ const posts = [
     badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
     description:
-      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인<br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적<br/>인  방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
@@ -64,7 +64,7 @@ const posts = [
     badgeColor: 'bg-[#F97316]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
     description:
-      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인<br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적<br/>인  방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 23',
     views: 123,
     comments: 123,
@@ -132,7 +132,7 @@ export default function CommunitySection() {
 
                 <div className="flex gap-3">
                   <div className="min-w-0 flex-1">
-                    <h3 className="mb-1.5 line-clamp-2 text-[14px] font-semibold leading-snug text-foreground md:text-[15px]">
+                    <h3 className="mb-1.5 line-clamp-2 text-[13px] font-semibold leading-snug text-foreground md:text-[15px]">
                       {post.title}
                     </h3>
                     <p className="line-clamp-4 text-[12px] leading-relaxed text-[#6B7280] md:text-[12px]">
@@ -144,7 +144,7 @@ export default function CommunitySection() {
                       ))}
                     </p>
                   </div>
-                  <div className="relative  h-[65px] w-[99px] shrink-0 overflow-hidden rounded-lg bg-muted">
+                  <div className="relative  h-[65px] w-[90px] shrink-0 overflow-hidden rounded-lg bg-muted">
                     <img
                       src={post.image}
                       alt={post.title}
