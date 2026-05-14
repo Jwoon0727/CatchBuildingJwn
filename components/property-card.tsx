@@ -19,6 +19,8 @@ interface PropertyCardProps {
   borderless?: boolean
   /** true면 모바일에서 본문 영역 패딩만 p-1(md 이상은 p-4 유지) */
   mobileTightCardPadding?: boolean
+  /** true면 썸네일 아래에 mb-2 (특정 섹션에서만 사용) */
+  imageMbBelow?: boolean
   property: {
     id: number
     image: string
@@ -55,6 +57,7 @@ export default function PropertyCard({
   mobileCompactPricing = false,
   borderless = false,
   mobileTightCardPadding = false,
+  imageMbBelow = false,
 }: PropertyCardProps) {
   const title = property.title || property.name || '매물'
   const stars = property.rating ? Math.round(property.rating) : 4
@@ -68,7 +71,7 @@ export default function PropertyCard({
     >
       {/* Image Container */}
       <div
-        className={`relative overflow-hidden bg-muted ${compactMobileImage ? 'h-40 md:h-56' : 'h-56'}`}
+        className={`relative overflow-hidden bg-muted ${compactMobileImage ? 'h-40 md:h-56' : 'h-56'} ${imageMbBelow ? 'mb-2' : ''}`}
       >
         <img 
           src={property.image} 

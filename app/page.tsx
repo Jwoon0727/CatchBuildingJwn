@@ -110,6 +110,7 @@ export default function Home() {
         compactMobileCardImage
         borderlessCards
         mobileTightCardPadding
+        imageMbBelow
         properties={[5, 6, 7, 8].map((id) => ({
           id,
           image: '/building/building_type02.png',

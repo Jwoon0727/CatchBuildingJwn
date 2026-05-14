@@ -56,6 +56,8 @@ interface PropertySectionProps {
   borderlessCards?: boolean
   /** true면 모바일에서 카드 본문 패딩 p-1(지역별 신규 매물 등) */
   mobileTightCardPadding?: boolean
+  /** true면 카드 썸네일 아래 mb-2(지역별 신규 매물 등) */
+  imageMbBelow?: boolean
 }
 
 export default function PropertySection({
@@ -69,6 +71,7 @@ export default function PropertySection({
   compactMobileCardImage = false,
   borderlessCards = false,
   mobileTightCardPadding = false,
+  imageMbBelow = false,
 }: PropertySectionProps) {
   const [activeFilterTab, setActiveFilterTab] = useState<string>('all')
 
@@ -216,6 +219,7 @@ export default function PropertySection({
                   compactMobileImage={compactMobileCardImage}
                   borderless={borderlessCards}
                   mobileTightCardPadding={mobileTightCardPadding}
+                  imageMbBelow={imageMbBelow}
                 />
               </div>
             ))}
@@ -233,7 +237,7 @@ export default function PropertySection({
                   key={property.id}
                   className="max-md:w-[calc(100vw-8rem)] max-md:max-w-[18.5rem] max-md:shrink-0 max-md:snap-start md:w-auto md:max-w-none"
                 >
-                  <PropertyCard property={property} />
+                  <PropertyCard property={property} imageMbBelow={imageMbBelow} />
                 </div>
               ))}
             </div>
