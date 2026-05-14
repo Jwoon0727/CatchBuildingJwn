@@ -104,6 +104,9 @@ export default function Header() {
               <a href="/building-search" className={subNavLink}>
                 [임시 건물검색]
               </a>
+              <a href="/registration" className={subNavLink}>
+                [임시 매물등록]
+              </a>
             </div>
           </div>
         </nav>
