@@ -86,24 +86,24 @@ export default function GovernmentSupportSection() {
             >
               <div className="mb-5 flex items-center justify-between gap-2 sm:mb-4 sm:gap-3">
                 <span
-                  className={`w-fit rounded-[4px] px-2 py-0.5 text-[10px] font-bold sm:px-2.5 sm:py-1 sm:text-xs ${badgeClassFor(program.badge)}`}
+                  className={`w-fit rounded-[4px] px-2 py-0.5 text-[12px] font-medium sm:px-2.5 sm:py-1 sm:text-sm ${badgeClassFor(program.badge)}`}
                 >
                   {program.badge}
                 </span>
-                <span className="inline-flex w-fit shrink-0 items-center gap-1 rounded-full bg-[#F3F4F6] px-2 py-0.5 text-[10px] font-medium text-black sm:px-2.5 sm:py-1 sm:text-xs">
+                <span className="inline-flex w-fit shrink-0 items-center gap-1 rounded-full bg-[#F3F4F6] px-2 py-0.5 text-[12px] font-semibold text-black sm:px-2.5 sm:py-1 sm:text-xs">
                   <Calendar className="size-3 shrink-0 sm:size-3.5" strokeWidth={2} aria-hidden />
                   {program.dDay}
                 </span>
               </div>
 
-              <h3 className="mb-1 line-clamp-2 text-xs font-bold leading-snug text-foreground sm:text-[15px]">
+              <h3 className="mb-1 line-clamp-2 text-sm font-semibold leading-snug text-foreground sm:text-[14px]">
                 {program.title}
               </h3>
-              <p className="mb-2 line-clamp-1 text-[11px] text-[#6B7280] sm:text-sm">{program.organization}</p>
+              <p className="mb-2 line-clamp-1 text-[12px] text-[#6B7280] sm:text-sm">{program.organization}</p>
 
               <div className="flex items-center justify-between gap-2 border-t border-[#EEF1F4] pt-2">
-                <span className="text-[11px] text-[#6B7280] sm:text-sm">지원 금액</span>
-                <span className="min-w-0 text-right text-[11px] font-bold leading-tight text-foreground sm:text-sm">{program.amount}</span>
+                <span className="text-[13px] text-[#6B7280] sm:text-sm">지원 금액</span>
+                <span className="min-w-0 text-right text-[14px] font-bold leading-tight text-foreground sm:text-sm">{program.amount}</span>
               </div>
             </article>
           ))}

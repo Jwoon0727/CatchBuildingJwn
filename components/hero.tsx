@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -22,77 +22,69 @@ const slides = [
   },
 ]
 
-function PeekSlide({
-  src,
-  alt,
-  position,
-  className,
-  miniOverlay,
-  title,
-  subtitle,
-  onClick,
-}: {
-  src: string
-  alt: string
-  position: 'left' | 'right'
-  className?: string
-  miniOverlay?: boolean
-  title?: string
-  subtitle?: string
-  onClick?: () => void
-}) {
-  return (
-    <div
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      aria-label={onClick ? (position === 'left' ? '이전 슬라이드' : '다음 슬라이드') : undefined}
-      onClick={onClick}
-      onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick() } : undefined}
-      className={`relative min-h-0 min-w-0 w-12 flex-none md:flex-1 overflow-hidden bg-neutral-200 ${onClick ? 'cursor-pointer' : ''} ${className ?? ''}`}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="45vw"
-        className={`object-cover opacity-100 ${position === 'left' ? 'object-right' : 'object-left'}`}
-      />
-      {miniOverlay ? (
-        <div className="pointer-events-none absolute inset-0 overflow-hidden bg-gradient-to-b from-black/55 via-black/20 to-transparent flex items-center justify-start px-2 md:items-start md:px-0 md:pt-8 md:pb-12 md:pl-6">
-          <div className="ml-2 min-w-0 font-pretendard text-white text-left">
-            <h3 className="overflow-hidden whitespace-nowrap text-base font-bold leading-snug md:text-sm">
-              {title}
-            </h3>
-            <p className="mt-1 overflow-hidden whitespace-nowrap text-[0.785rem] font-medium leading-snug text-white/90 md:text-[0.6875rem]">
-              {subtitle}
-            </p>
-          </div>
-        </div>
-      ) : null}
-    </div>
-  )
-}
+const TOTAL = slides.length
+const CLONE_COUNT = 2
+const extended = [...slides.slice(-CLONE_COUNT), ...slides, ...slides.slice(0, CLONE_COUNT)]
 
 const SWIPE_MIN_PX = 48
 
 export default function Hero() {
-  const [current, setCurrent] = useState(0)
+  const [pos, setPos] = useState(CLONE_COUNT)
+  const [animated, setAnimated] = useState(true)
+  const transitioning = useRef(false)
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
+  const current = ((pos - CLONE_COUNT) % TOTAL + TOTAL) % TOTAL
+
+  useEffect(() => {
+    if (!animated) {
+      const id = requestAnimationFrame(() => setAnimated(true))
+      return () => cancelAnimationFrame(id)
+    }
+  }, [animated])
+
+  const handleTransitionEnd = useCallback(() => {
+    transitioning.current = false
+    setPos(p => {
+      if (p < CLONE_COUNT) {
+        setAnimated(false)
+        return p + TOTAL
+      }
+      if (p >= CLONE_COUNT + TOTAL) {
+        setAnimated(false)
+        return p - TOTAL
+      }
+      return p
+    })
+  }, [])
+
   const prev = useCallback(() => {
-    setCurrent((i) => (i - 1 + slides.length) % slides.length)
+    if (transitioning.current) return
+    transitioning.current = true
+    setAnimated(true)
+    setPos(p => p - 1)
   }, [])
 
   const next = useCallback(() => {
-    setCurrent((i) => (i + 1) % slides.length)
+    if (transitioning.current) return
+    transitioning.current = true
+    setAnimated(true)
+    setPos(p => p + 1)
   }, [])
 
-  const onTouchStartSlides = useCallback((e: React.TouchEvent) => {
+  const goToSlide = useCallback((i: number) => {
+    if (transitioning.current) return
+    transitioning.current = true
+    setAnimated(true)
+    setPos(i + CLONE_COUNT)
+  }, [])
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
     const t = e.touches[0]
     swipeStart.current = { x: t.clientX, y: t.clientY }
   }, [])
 
-  const onTouchEndSlides = useCallback(
+  const onTouchEnd = useCallback(
     (e: React.TouchEvent) => {
       if (!swipeStart.current) return
       const t = e.changedTouches[0]
@@ -106,95 +98,88 @@ export default function Hero() {
     [next, prev],
   )
 
-  const onTouchCancelSlides = useCallback(() => {
+  const onTouchCancel = useCallback(() => {
     swipeStart.current = null
   }, [])
 
-  const prevIdx = (current - 1 + slides.length) % slides.length
-  const nextIdx = (current + 1) % slides.length
+  const peekCoeff = 1 + 2 * pos
+  const gapCoeff = 1 + pos
+  const vwCoeff = pos * 100
 
   return (
-    <section className="relative w-full bg-white font-pretendard [&_button]:font-pretendard">
-      <div className="flex w-full items-stretch gap-3 pb-3 pt-0 md:gap-4 md:pb-8 md:pt-0">
-        {/* 왼쪽 피크 — 이전 슬라이드 */}
-        <PeekSlide
-          src={slides[prevIdx].src}
-          alt="이전 슬라이드 미리보기"
-          position="left"
-          className="rounded-r-[12px]"
-          onClick={prev}
-        />
-
-        {/* 중앙 메인 슬라이드 — 좌우 스와이프로 이전/다음 */}
+    <section className="hero-carousel relative w-full bg-white font-pretendard [&_button]:font-pretendard">
+      <div className="relative overflow-hidden pb-3 pt-0 md:pb-8 md:pt-0">
         <div
-          className="relative z-10 aspect-[5/2] touch-pan-y md:aspect-[1133/408] min-h-0 min-w-0 max-w-full md:max-w-[1133px] flex-1 md:flex-[1_1_1133px] shrink rounded-[12px] bg-neutral-200"
-          onTouchStart={onTouchStartSlides}
-          onTouchEnd={onTouchEndSlides}
-          onTouchCancel={onTouchCancelSlides}
+          className={`flex touch-pan-y ${animated ? 'transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]' : ''}`}
+          style={{
+            gap: 'var(--carousel-gap)',
+            transform: `translateX(calc(${peekCoeff} * var(--carousel-peek) + ${gapCoeff} * var(--carousel-gap) - ${vwCoeff}vw))`,
+          }}
+          onTransitionEnd={handleTransitionEnd}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          onTouchCancel={onTouchCancel}
         >
-          <div className="absolute inset-0 overflow-hidden rounded-[12px]">
-            <Image
-              src={slides[current].src}
-              alt="메인 프로모션"
-              fill
-              sizes="(max-width: 808px) 100vw, 1133px"
-              className="object-cover object-center opacity-100"
-              priority
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent">
-              <div className="pointer-events-auto flex h-full flex-col justify-center px-4 py-6 text-left font-pretendard text-white md:justify-start md:p-10">
-                <h2 className="max-w-[20em] text-base font-bold leading-snug md:max-w-none md:text-xl lg:text-2xl">
-                  {slides[current].title}
-                </h2>
-                <p className="mt-2 max-w-[18rem] text-[0.785rem] font-medium leading-snug text-white/95 md:max-w-none md:text-sm lg:text-base">
-                  {slides[current].subtitle}
-                </p>
+          {extended.map((slide, i) => (
+            <div
+              key={i}
+              className="relative flex-shrink-0 aspect-[5/2] md:aspect-[1133/408] rounded-[12px] overflow-hidden bg-neutral-200"
+              style={{
+                width: 'calc(100vw - 2 * var(--carousel-peek) - 2 * var(--carousel-gap))',
+              }}
+            >
+              <Image
+                src={slide.src}
+                alt={`슬라이드 ${((i - CLONE_COUNT + TOTAL) % TOTAL) + 1}`}
+                fill
+                sizes="(max-width: 808px) 100vw, 1133px"
+                className="object-cover object-center"
+                priority={i === CLONE_COUNT}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent">
+                <div className="flex h-full flex-col justify-center px-4 py-6 text-left font-pretendard text-white md:justify-start md:p-10">
+                  <h2 className="max-w-[20em] text-base font-bold leading-snug md:max-w-none md:text-xl lg:text-2xl">
+                    {slide.title}
+                  </h2>
+                  <p className="mt-2 max-w-[18rem] text-[0.785rem] font-medium leading-snug text-white/95 md:max-w-none md:text-sm lg:text-base">
+                    {slide.subtitle}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* 이전 버튼 */}
-          <button
-            type="button"
-            onClick={prev}
-            className="absolute -left-6 top-1/2 z-10 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:left-2 md:size-10"
-            aria-label="이전 슬라이드"
-          >
-            <ChevronLeft className="size-5 shrink-0 text-neutral-500 md:size-6" strokeWidth={2} />
-          </button>
-
-          {/* 다음 버튼 */}
-          <button
-            type="button"
-            onClick={next}
-            className="absolute -right-6 top-1/2 z-10 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:right-2 md:size-10"
-            aria-label="다음 슬라이드"
-          >
-            <ChevronRight className="size-5 shrink-0 text-neutral-500 md:size-6" strokeWidth={2} />
-          </button>
-
+          ))}
         </div>
 
-        {/* 오른쪽 피크 — 다음 슬라이드 */}
-        <PeekSlide
-          src={slides[nextIdx].src}
-          alt="다음 슬라이드 미리보기"
-          position="right"
-          className="rounded-l-[12px]"
-          miniOverlay
-          title={slides[nextIdx].title}
-          subtitle={slides[nextIdx].subtitle}
+        {/* 이전 버튼 */}
+        <button
+          type="button"
+          onClick={prev}
+          className="absolute top-1/2 z-20 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:size-10"
+          style={{ left: 'calc(var(--carousel-peek) + var(--carousel-gap) + 0.5rem)' }}
+          aria-label="이전 슬라이드"
+        >
+          <ChevronLeft className="size-5 shrink-0 text-neutral-500 md:size-6" strokeWidth={2} />
+        </button>
+
+        {/* 다음 버튼 */}
+        <button
+          type="button"
           onClick={next}
-        />
+          className="absolute top-1/2 z-20 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:size-10"
+          style={{ right: 'calc(var(--carousel-peek) + var(--carousel-gap) + 0.5rem)' }}
+          aria-label="다음 슬라이드"
+        >
+          <ChevronRight className="size-5 shrink-0 text-neutral-500 md:size-6" strokeWidth={2} />
+        </button>
       </div>
 
-      {/* 인디케이터 — 모바일만 (슬라이더 이미지 아래) */}
+      {/* 인디케이터 — 모바일만 */}
       <div className="flex justify-center gap-1.5 pb-6 md:hidden">
         {slides.map((_, i) => (
           <button
             key={i}
             type="button"
-            onClick={() => setCurrent(i)}
+            onClick={() => goToSlide(i)}
             aria-label={`${i + 1}번 슬라이드`}
             className={`h-2 rounded-full transition-all ${
               i === current ? 'w-6 bg-[#2563EB]' : 'w-2 bg-[#EBF1FD]'

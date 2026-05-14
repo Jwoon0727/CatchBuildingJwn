@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
   Search, Map, ChevronDown,
@@ -88,6 +88,115 @@ const initialHistory = [
   },
 ]
 
+const SEARCH_PAGE_SIZE = 2
+
+const searchResults = [
+  {
+    id: 1,
+    image: '/building/building_type04.png',
+    title: '1-강남역 초역세권 오피스텔',
+    pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
+    area: '대지 85평 연면적 · 210평',
+    date: '사용승인일 2017년 08월 06일',
+    views: 123, comments: 123, likes: 123,
+    deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
+  },
+  {
+    id: 2,
+    image: '/building/building_type04.png',
+    title: '2-강남역 초역세권 오피스텔',
+    pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
+    area: '대지 85평 연면적 · 210평',
+    date: '사용승인일 2017년 08월 06일',
+    views: 123, comments: 123, likes: 123,
+    deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
+  },
+  {
+    id: 3,
+    image: '/building/building_type04.png',
+    title: '3-강남역 초역세권 오피스텔',
+    pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
+    area: '대지 85평 연면적 · 210평',
+    date: '사용승인일 2017년 08월 06일',
+    views: 123, comments: 123, likes: 123,
+    deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
+  },
+  {
+    id: 4,
+    image: '/building/building_type04.png',
+    title: '4-강남역 초역세권 오피스텔',
+    pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
+    area: '대지 85평 연면적 · 210평',
+    date: '사용승인일 2017년 08월 06일',
+    views: 123, comments: 123, likes: 123,
+    deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
+  },
+  {
+    id: 5,
+    image: '/building/building_type04.png',
+    title: '5-강남역 초역세권 오피스텔',
+    pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
+    area: '대지 85평 연면적 · 210평',
+    date: '사용승인일 2017년 08월 06일',
+    views: 123, comments: 123, likes: 123,
+    deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
+  },
+  {
+    id: 6,
+    image: '/building/building_type04.png',
+    title: '6-강남역 초역세권 오피스텔',
+    pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
+    area: '대지 85평 연면적 · 210평',
+    date: '사용승인일 2017년 08월 06일',
+    views: 123, comments: 123, likes: 123,
+    deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
+  },
+]
+
+function SearchPagination({
+  totalPages,
+  currentPage,
+  onPageChange,
+}: {
+  totalPages: number
+  currentPage: number
+  onPageChange: (page: number) => void
+}) {
+  if (totalPages <= 1) return null
+  const pageNumbersDesc = Array.from({ length: totalPages }, (_, i) => totalPages - i)
+  return (
+    <nav
+      className="flex flex-wrap items-end justify-center gap-6 py-6"
+      aria-label="페이지 네비게이션"
+    >
+      {pageNumbersDesc.map(n => (
+        <button
+          key={n}
+          type="button"
+          onClick={() => onPageChange(n)}
+          aria-label={`${n}페이지`}
+          aria-current={currentPage === n ? 'page' : undefined}
+          className="flex flex-col items-center gap-1.5 px-1 pb-0.5 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#2567E7]/40 focus-visible:ring-offset-2"
+        >
+          <span
+            className={
+              currentPage === n ? 'text-[#2567E7]' : 'text-foreground/55 hover:text-foreground'
+            }
+          >
+            {n}
+          </span>
+          <span
+            className={`h-0.5 w-5 shrink-0 rounded-full transition-colors ${
+              currentPage === n ? 'bg-[#2567E7]' : 'bg-transparent'
+            }`}
+            aria-hidden
+          />
+        </button>
+      ))}
+    </nav>
+  )
+}
+
 export default function PropertySearchPage() {
   const [activeChip, setActiveChip] = useState('all')
   const [filterOpen, setFilterOpen] = useState(false)
@@ -96,39 +205,23 @@ export default function PropertySearchPage() {
   const [pricePreset, setPricePreset] = useState<(typeof pricePresets)[number]['id']>('all')
   const [priceRange, setPriceRange] = useState<number[]>([15, 120])
   const [regionId, setRegionId] = useState('all')
+  const [searchPage, setSearchPage] = useState(1)
 
-  const searchResults = [
-    {
-      id: 1,
-      image: '/building/building_type04.png',
-      title: '강남역 초역세권 오피스텔',
-      pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
-      area: '대지 85평 연면적 · 210평',
-      date: '사용승인일 2017년 08월 06일',
-      views: 123, comments: 123, likes: 123,
-      deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
-    },
-    {
-      id: 2,
-      image: '/building/building_type04.png',
-      title: '강남역 초역세권 오피스텔',
-      pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
-      area: '대지 85평 연면적 · 210평',
-      date: '사용승인일 2017년 08월 06일',
-      views: 123, comments: 123, likes: 123,
-      deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
-    },
-    {
-      id: 3,
-      image: '/building/building_type04.png',
-      title: '강남역 초역세권 오피스텔',
-      pinLines: ['서울 강남구 역삼동 · 15층', '근생빌딩 지하1층/지상 6층'],
-      area: '대지 85평 연면적 · 210평',
-      date: '사용승인일 2017년 08월 06일',
-      views: 123, comments: 123, likes: 123,
-      deposit: '평단가 2,131만', discount: '수익률 5.9%', price: '14.5억', badge: 'NEW',
-    },
-  ]
+  const totalSearchPages = Math.ceil(searchResults.length / SEARCH_PAGE_SIZE)
+  const currentSearchPage =
+    totalSearchPages > 0 ? Math.min(Math.max(1, searchPage), totalSearchPages) : 1
+  const paginatedSearchResults =
+    totalSearchPages > 0
+      ? searchResults.slice(
+          (currentSearchPage - 1) * SEARCH_PAGE_SIZE,
+          currentSearchPage * SEARCH_PAGE_SIZE,
+        )
+      : []
+  useEffect(() => {
+    if (totalSearchPages > 0 && searchPage > totalSearchPages) {
+      setSearchPage(totalSearchPages)
+    }
+  }, [searchPage, totalSearchPages])
 
   return (
     <div className="font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
@@ -202,7 +295,7 @@ export default function PropertySearchPage() {
         {/*모바일  결과 헤더 */}
         <div className="flex items-center justify-between px-4 py-3">
           <h2 className="text-lg font-bold text-foreground">
-            부산 매물 결과 <span className="text-[#2567E7]">8건</span>
+            부산 매물 결과 <span className="text-[#2567E7]">{searchResults.length}건</span>
           </h2>
           <button className="border border-border rounded-[4px] px-2 py-1 flex items-center gap-1 text-sm text-foreground">
             추천순 <ChevronDown className="size-4" strokeWidth={2} />
@@ -211,9 +304,14 @@ export default function PropertySearchPage() {
 
         {/* 결과 목록 */}
         <div className="flex-1 px-4">
-          {searchResults.map(result => (
+          {paginatedSearchResults.map(result => (
             <SearchResultCard key={result.id} result={result} />
           ))}
+          <SearchPagination
+            totalPages={totalSearchPages}
+            currentPage={currentSearchPage}
+            onPageChange={setSearchPage}
+          />
         </div>
 
         {/* 하단 플로팅 지도 버튼 */}
@@ -405,16 +503,21 @@ export default function PropertySearchPage() {
                 </div>
                 <div className="mb-5 flex items-center justify-between">
                   <h2 className="text-lg font-bold text-foreground">
-                    부산 매물 결과 <span className="text-[#2567E7]">8건</span>
+                    부산 매물 결과 <span className="text-[#2567E7]">{searchResults.length}건</span>
                   </h2>
                   <button className="flex items-center gap-1 text-sm text-black hover:text-foreground">
                     추천순 <ChevronDown size={25} />
                   </button>
                 </div>
                 <div className="overflow-hidden rounded-lg bg-white">
-                  {searchResults.map(result => (
+                  {paginatedSearchResults.map(result => (
                     <SearchResultCard key={result.id} result={result} />
                   ))}
+                  <SearchPagination
+                    totalPages={totalSearchPages}
+                    currentPage={currentSearchPage}
+                    onPageChange={setSearchPage}
+                  />
                 </div>
               </div>
             </div>

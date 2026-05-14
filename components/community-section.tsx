@@ -36,7 +36,7 @@ const posts = [
     badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
     description:
-      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인<br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
@@ -50,7 +50,7 @@ const posts = [
     badgeColor: 'bg-[#22C55E]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
     description:
-      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인<br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 22',
     views: 123,
     comments: 123,
@@ -64,7 +64,7 @@ const posts = [
     badgeColor: 'bg-[#F97316]',
     title: '노후 준비를 위한 소액 아파트 투자 전략 3가지',
     description:
-      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인 방법을 공유합니다. 지역 선택부터 매물 분석까지',
+      '살라주도 관찮고 임대수익까지 노릴 수 있는 현실적인<br/> 방법을 공유합니다. 지역 선택부터 매물 분석까지',
     date: '2026. 02. 23',
     views: 123,
     comments: 123,
@@ -127,15 +127,15 @@ export default function CommunitySection() {
                   >
                     {post.badge}
                   </span>
-                  <span className="text-xs text-[#9CA3AF]">{post.date}</span>
+                  <span className="text-[12px] text-[#777777]">{post.date}</span>
                 </div>
 
                 <div className="flex gap-3">
                   <div className="min-w-0 flex-1">
-                    <h3 className="mb-1.5 line-clamp-2 text-[11.7px] font-bold leading-snug text-foreground md:text-[15px]">
+                    <h3 className="mb-1.5 line-clamp-2 text-[14px] font-semibold leading-snug text-foreground md:text-[15px]">
                       {post.title}
                     </h3>
-                    <p className="line-clamp-4 text-[10px] leading-relaxed text-[#6B7280] md:text-sm">
+                    <p className="line-clamp-4 text-[12px] leading-relaxed text-[#6B7280] md:text-[12px]">
                       {splitDescriptionHtmlBreaks(post.description).map((part, i) => (
                         <span key={i}>
                           {i > 0 ? <br /> : null}
@@ -144,7 +144,7 @@ export default function CommunitySection() {
                       ))}
                     </p>
                   </div>
-                  <div className="relative h-[76px] w-[100px] shrink-0 overflow-hidden rounded-lg bg-muted">
+                  <div className="relative  h-[65px] w-[99px] shrink-0 overflow-hidden rounded-lg bg-muted">
                     <img
                       src={post.image}
                       alt={post.title}
@@ -153,7 +153,7 @@ export default function CommunitySection() {
                   </div>
                 </div>
 
-                <div className="flex max-md:-mt-6 items-center gap-4 text-xs text-[#9CA3AF]">
+                <div className="flex  max-md:-mt-1 items-center gap-4 text-sm text-[#9CA3AF]">
                   <span className="flex items-center gap-1">
                     <Eye className="size-3.5 shrink-0" strokeWidth={2} aria-hidden />
                     {post.views}

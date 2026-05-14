@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { LayoutGrid, Home, Heart, TrendingUp, BookOpen, FilePlus, DollarSign, PlusCircle, Search, Eye, MessageSquare, MessageCircle, ChevronDown, Pencil } from 'lucide-react'
 
@@ -101,6 +101,9 @@ const communityPosts = [
 
 const BR_TAG_RE = /<br\s*\/?>/i
 
+const BOARD_OPTIONS = ['전체 게시판', 'A게시판', 'B게시판'] as const
+const SEARCH_SCOPE_OPTIONS = ['작성자 + 제목 + 내용', '제목', '내용'] as const
+
 function renderContentWithBr(content: string) {
   const segments = content.split(BR_TAG_RE)
   return segments.map((segment, i) => (
@@ -113,18 +116,34 @@ function renderContentWithBr(content: string) {
 
 export default function CommunityContent() {
   const [activeTab, setActiveTab] = useState(0)
+  const [boardOpen, setBoardOpen] = useState(false)
+  const [scopeOpen, setScopeOpen] = useState(false)
+  const [selectedBoard, setSelectedBoard] = useState<(typeof BOARD_OPTIONS)[number]>('전체 게시판')
+  const [searchScope, setSearchScope] = useState<(typeof SEARCH_SCOPE_OPTIONS)[number]>('작성자 + 제목 + 내용')
+  const boardMenuRef = useRef<HTMLDivElement>(null)
+  const scopeMenuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const onPointerDown = (e: MouseEvent) => {
+      const t = e.target as Node
+      if (boardMenuRef.current && !boardMenuRef.current.contains(t)) setBoardOpen(false)
+      if (scopeMenuRef.current && !scopeMenuRef.current.contains(t)) setScopeOpen(false)
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    return () => document.removeEventListener('mousedown', onPointerDown)
+  }, [])
 
   return (
     <div className="flex-1 min-w-0 font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
       {/* Banner */}
       <div className="bg-gradient-to-r from-primary to-blue-600 rounded-xl p-6 mb-6 text-white">
-        <p className="text-xs opacity-80 mb-1">영끌남 커뮤니티</p>
+        <p className="text-sm opacity-80 mb-1">영끌남 커뮤니티</p>
         <h2 className="text-xl font-bold mb-1">현명한 투자로, 더 나은 미래를 만드세요</h2>
         <p className="text-sm opacity-80">실전 경험과 인사이트를 나누는 부동산 투자 커뮤니티</p>
       </div>
 
       {/* Category Tabs */}
-      <div className="mb-6 flex gap-0 overflow-x-auto pb-2 sm:gap-4">
+      <div className="-ml-2 mb-6 flex gap-2 overflow-x-auto pb-2 sm:gap-6">
         {categoryTabs.map((tab, index) => {
           const Icon = tab.icon
           const isActive = activeTab === index
@@ -162,23 +181,95 @@ export default function CommunityContent() {
 
       {/* Search Bar — 모바일 2열 그리드, lg+ 한 줄 flex */}
       <div className="mb-6 grid grid-cols-2 gap-4 border-b border-t border-border pb-8 pt-4 lg:flex lg:flex-nowrap lg:items-center lg:gap-2">
-        <div className="relative min-w-0">
+        <div className="relative min-w-0" ref={boardMenuRef}>
           <button
             type="button"
+            aria-haspopup="listbox"
+            aria-expanded={boardOpen}
+            onClick={() => {
+              setBoardOpen(v => !v)
+              setScopeOpen(false)
+            }}
             className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-border px-3 py-2.5 text-sm text-foreground sm:px-4 lg:w-auto lg:justify-between"
           >
-            전체 게시판
-            <ChevronDown size={22} className="shrink-0" />
+            <span className="min-w-0 truncate text-left">{selectedBoard}</span>
+            <ChevronDown
+              size={22}
+              className={`shrink-0 transition-transform ${boardOpen ? 'rotate-180' : ''}`}
+              aria-hidden
+            />
           </button>
+          {boardOpen ? (
+            <ul
+              role="listbox"
+              aria-label="게시판 선택"
+              className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-[4px] border border-border bg-white py-1 shadow-md lg:right-auto lg:min-w-[10rem]"
+            >
+              {BOARD_OPTIONS.map(option => (
+                <li key={option} role="presentation">
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={selectedBoard === option}
+                    onClick={() => {
+                      setSelectedBoard(option)
+                      setBoardOpen(false)
+                    }}
+                    className={`flex w-full px-3 py-2.5 text-left text-sm transition-colors hover:bg-muted/60 ${
+                      selectedBoard === option ? 'bg-muted/40 font-medium text-[#2567E7]' : 'text-foreground'
+                    }`}
+                  >
+                    {option}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
-        <div className="relative min-w-0">
+        <div className="relative min-w-0" ref={scopeMenuRef}>
           <button
             type="button"
+            aria-haspopup="listbox"
+            aria-expanded={scopeOpen}
+            onClick={() => {
+              setScopeOpen(v => !v)
+              setBoardOpen(false)
+            }}
             className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-border px-3 py-2.5 text-sm text-foreground sm:px-4 lg:w-auto lg:justify-between"
           >
-            <span className="min-w-0 truncate">작성자+제목+내용</span>
-            <ChevronDown size={22} className="shrink-0" />
+            <span className="min-w-0 truncate text-left">{searchScope}</span>
+            <ChevronDown
+              size={22}
+              className={`shrink-0 transition-transform ${scopeOpen ? 'rotate-180' : ''}`}
+              aria-hidden
+            />
           </button>
+          {scopeOpen ? (
+            <ul
+              role="listbox"
+              aria-label="검색 범위"
+              className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-[4px] border border-border bg-white py-1 shadow-md lg:right-auto lg:min-w-[10rem]"
+            >
+              {SEARCH_SCOPE_OPTIONS.map(option => (
+                <li key={option} role="presentation">
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={searchScope === option}
+                    onClick={() => {
+                      setSearchScope(option)
+                      setScopeOpen(false)
+                    }}
+                    className={`flex w-full px-3 py-2.5 text-left text-sm transition-colors hover:bg-muted/60 ${
+                      searchScope === option ? 'bg-muted/40 font-medium text-[#2567E7]' : 'text-foreground'
+                    }`}
+                  >
+                    {option}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
         <div className="col-span-2 flex min-w-0 gap-4 lg:contents">
           <div className="relative min-w-0 flex-1">

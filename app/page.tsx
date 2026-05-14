@@ -14,6 +14,61 @@ export default function Home() {
       <Header />
       <Hero />
       <CategoryNav />
+
+{/* ------------------------------------------------------------------------------------------ */}
+
+      <nav
+        aria-label="빠른 이동"
+        className="ml-4 flex flex-wrap items-center divide-x divide-border py-2 text-sm sm:ml-6"
+      >
+        <a
+          href="/search"
+          className="px-4 py-1.5 text-foreground transition-colors hover:text-[#2567E7]"
+        >
+          매물 검색
+        </a>
+        <a
+          href="/map-search"
+          className="px-4 py-1.5 text-foreground transition-colors hover:text-[#2567E7]"
+        >
+          지도검색
+        </a>
+        <a
+          href="/community"
+          className="px-4 py-1.5 text-foreground transition-colors hover:text-[#2567E7]"
+        >
+          커뮤니티
+        </a>
+        <a
+          href="/login"
+          className="px-4 py-1.5 text-foreground transition-colors hover:text-[#2567E7]"
+        >
+          로그인
+        </a>
+        <a
+          href="/building-search"
+          className="px-4 py-1.5 text-foreground transition-colors hover:text-[#2567E7]"
+        >
+          건물검색
+        </a>
+        <a
+          href="/my-page"
+          className="px-4 py-1.5 text-foreground transition-colors hover:text-[#2567E7]"
+        >
+          마이페이지
+        </a>
+        <a
+          href="/registration"
+          className="px-4 py-1.5 text-foreground transition-colors hover:text-[#2567E7]"
+        >
+          매물 등록
+        </a>
+      </nav>
+
+{/* ------------------------------------------------------------------------------------------ */}
+
+
+
       <PropertySection
         title="추천매물"
         hideBottomBorder

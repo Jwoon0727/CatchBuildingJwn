@@ -1,6 +1,6 @@
 'use client'
 
-import { Instagram, Youtube, Send } from 'lucide-react'
+import { Instagram, Send } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -43,17 +43,30 @@ export default function Footer() {
           <div className="mb-8 flex gap-3">
             <a
               href="#"
-              className="flex size-11 items-center justify-center rounded-full bg-[#F2F2F2] text-[#636363] transition-colors hover:bg-[#E5E8EC] hover:text-[#424242]"
+              className="group flex size-11 items-center justify-center rounded-full bg-[#F2F2F2] text-[#636363] transition-colors hover:bg-[#E5E8EC] hover:text-[#424242]"
               aria-label="YouTube"
             >
-              <Youtube className="size-[18px]" strokeWidth={2} />
+              <svg
+                viewBox="0 0 24 24"
+                className="size-[20px] shrink-0"
+                aria-hidden
+              >
+                <path
+                  fill="currentColor"
+                  d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"
+                />
+                <path
+                  className="fill-[#F2F2F2] transition-[fill] duration-200 group-hover:fill-[#E5E8EC]"
+                  d="m10 15 5-3-5-3z"
+                />
+              </svg>
             </a>
             <a
               href="#"
               className="flex size-11 items-center justify-center rounded-full bg-[#F2F2F2] text-[#636363] transition-colors hover:bg-[#E5E8EC] hover:text-[#424242]"
               aria-label="Instagram"
             >
-              <Instagram className="size-[18px]" strokeWidth={2} />
+              <Instagram className="size-[20px]" strokeWidth={2} />
             </a>
           </div>
 
