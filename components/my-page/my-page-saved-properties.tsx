@@ -94,8 +94,8 @@ export default function MyPageSavedProperties() {
 
      
 
-      <div className="mt-4 mb-8 flex gap-2">
-        <div className="flex flex-1 items-center gap-3 rounded-lg border border-border px-4 py-3">
+      <div className="mt-4 mb-8 flex min-w-0 items-stretch gap-2">
+        <div className="flex min-h-11 min-w-0 flex-1 items-center gap-2 overflow-hidden rounded-lg border border-border px-3 py-0 sm:gap-3 sm:px-4">
           {SEARCH_FIELD_LEADING_IMAGE_SRC ? (
             <span className="relative inline-flex size-5 shrink-0">
               <Image
@@ -110,12 +110,12 @@ export default function MyPageSavedProperties() {
           <input
             type="search"
             placeholder="매물을 검색해 주세요."
-            className="flex-1 bg-transparent text-sm outline-none"
+            className="min-h-0 min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap bg-transparent text-sm outline-none placeholder:text-muted-foreground"
           />
         </div>
         <button
           type="button"
-          className="rounded-lg bg-[#2567E7] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2567E7]/90"
+          className="shrink-0 whitespace-nowrap rounded-lg bg-[#2567E7] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2567E7]/90 sm:px-6"
         >
           검색
         </button>

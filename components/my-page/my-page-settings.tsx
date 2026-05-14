@@ -59,7 +59,7 @@ export default function MyPageSettings() {
         ))}
       </div>
 
-      <p className="mt-120 flex justify-center lg:hidden">
+      <p className="mt-40 flex justify-center lg:hidden">
         <a
           href="#"
           className="text-sm text-[#757575] underline underline-offset-2 transition-opacity hover:opacity-80"
