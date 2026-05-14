@@ -142,13 +142,17 @@ export default function MapSearchPage() {
                     ? activeTab === 'recent'
                       ? 'text-[#333333]'
                       : 'text-[#CCCCCC]'
-                    : 'text-[#333333]'
+                    : activeTab === 'recent'
+                      ? 'text-[#CCCCCC]'
+                      : 'text-[#333333]'
                 } ${activeTab === tab ? 'border-b-2 border-[#2567E7]' : ''}`}
               >
                 {tab === 'results' ? (
                   <>
                     검색결과{' '}
-                    <span className="text-[#2567E7]">{searchResults.length}</span>
+                    <span className={activeTab === 'results' ? 'text-[#2567E7]' : 'text-[#CCCCCC]'}>
+                      {searchResults.length}
+                    </span>
                   </>
                 ) : (
                   '최근조회'
@@ -166,7 +170,7 @@ export default function MapSearchPage() {
                     key={chip.id}
                     type="button"
                     onClick={() => setActiveChip(chip.id)}
-                    className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${activeChip === chip.id ? ACCENT : INACTIVE}`}
+                    className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${activeChip === chip.id ? ACCENT : INACTIVE}`}
                   >
                     {chip.label}
                   </button>

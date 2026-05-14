@@ -66,7 +66,7 @@ export default function PropertyRecommendations() {
           <Link
             key={item.id}
             href={`/property/${item.id}`}
-            className="group w-[60vw] max-w-[14rem] shrink-0 md:w-auto md:max-w-none md:shrink"
+            className="group w-[54vw] max-w-[13rem] shrink-0 md:w-auto md:max-w-none md:shrink"
           >
             {/* Image */}
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-3">

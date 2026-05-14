@@ -107,6 +107,8 @@ export default function Home() {
       <PropertySection
         title="지역별 신규 매물"
         mobileGrid
+        compactMobileCardImage
+        borderlessCards
         properties={[5, 6, 7, 8].map((id) => ({
           id,
           image: '/building/building_type02.png',

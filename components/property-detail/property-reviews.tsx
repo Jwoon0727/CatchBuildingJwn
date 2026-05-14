@@ -43,7 +43,7 @@ export default function PropertyReviews() {
       </div>
 
       {/* Reviews Card */}
-      <div className="border border-border rounded-xl p-6">
+      <div className="border border-border rounded-xl p-4">
         <div className="space-y-6">
           {reviews.map((review) => (
             <div key={review.id} className="flex gap-4">

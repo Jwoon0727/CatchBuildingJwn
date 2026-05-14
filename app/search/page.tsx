@@ -171,14 +171,14 @@ export default function PropertySearchPage() {
                 className="min-w-0 flex-1 border-0 bg-transparent py-2 pr-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
               />
             </div>
-            <Button className="shrink-0 rounded-xl bg-[#2567E7] px-4 text-sm text-white hover:bg-[#2567E7]/90">
+            <Button className="h-11 shrink-0 rounded-xl bg-[#2567E7] px-4 text-sm text-white hover:bg-[#2567E7]/90">
               검색
             </Button>
             <button
               type="button"
               aria-label="최근 검색"
               onClick={() => setHistoryOpen(true)}
-              className="flex shrink-0 items-center justify-center rounded-xl border border-border bg-white p-2.5"
+              className="h-11 flex shrink-0 items-center justify-center rounded-xl border border-border bg-white p-4"
             >
               <History className="size-5 text-[#2567E7]" strokeWidth={2} />
             </button>
@@ -192,7 +192,7 @@ export default function PropertySearchPage() {
               key={chip.id}
               type="button"
               onClick={() => setActiveChip(chip.id)}
-              className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${activeChip === chip.id ? ACCENT : INACTIVE}`}
+              className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${activeChip === chip.id ? ACCENT : INACTIVE}`}
             >
               {chip.label}
             </button>
@@ -263,7 +263,7 @@ export default function PropertySearchPage() {
           </div>
         )}
 
-        {/* ── 모바일 필터 드로어 ── */}
+        {/* ── 모바일 필터 드로어 ──-------------------------------------------------------------------------------- */}
         {filterOpen && (
           <div className="fixed inset-0 z-50 flex flex-col bg-white">
             {/* 드로어 헤더 */}
@@ -304,7 +304,7 @@ export default function PropertySearchPage() {
                       key={p.id}
                       type="button"
                       onClick={() => setPricePreset(p.id)}
-                      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${pricePreset === p.id ? ACCENT : INACTIVE}`}
+                      className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${pricePreset === p.id ? ACCENT : INACTIVE}`}
                     >
                       {p.label}
                     </button>
@@ -347,7 +347,7 @@ export default function PropertySearchPage() {
                       key={r.id}
                       type="button"
                       onClick={() => setRegionId(r.id)}
-                      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${regionId === r.id ? ACCENT : INACTIVE}`}
+                      className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${regionId === r.id ? ACCENT : INACTIVE}`}
                     >
                       {r.label}
                     </button>
@@ -363,7 +363,7 @@ export default function PropertySearchPage() {
                     <button
                       key={tag}
                       type="button"
-                      className={`rounded-full px-3 py-1.5 text-sm ${INACTIVE}`}
+                      className={`rounded-full px-3 py-2.5 text-sm ${INACTIVE}`}
                     >
                       #{tag}
                     </button>
@@ -393,10 +393,10 @@ export default function PropertySearchPage() {
                         className="w-full rounded-lg border border-border bg-white py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50"
                       />
                     </div>
-                    <Button className="rounded-[8px] bg-[#2567E7] px-5 text-white hover:bg-primary/90">검색</Button>
+                    <Button className="h-11 rounded-[8px] bg-[#2567E7] px-5 text-white hover:bg-primary/90">검색</Button>
                     <Link
                       href="/map-search"
-                      className="inline-flex items-center justify-center rounded-lg border border-border bg-white p-2 px-5 transition-colors hover:bg-muted/40"
+                      className="h-11 inline-flex items-center justify-center rounded-lg border border-border bg-white p-2 px-5 transition-colors hover:bg-muted/40"
                       aria-label="지도로 보기"
                     >
                       <Map className="size-5 text-[#2563EB]" strokeWidth={2} aria-hidden />

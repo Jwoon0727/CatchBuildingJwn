@@ -38,7 +38,7 @@ export default function PropertyDetails() {
       <div className="overflow-hidden rounded-lg border-y border-border">
         {/* 모바일: 섹션 헤더 + 행 세로 배치 */}
         <div className="divide-y divide-border lg:hidden">
-          <div className="bg-[#F8F8F8] px-4 py-3 text-sm font-medium text-muted-foreground">
+          <div className="bg-[#F8F8F8] px-4 py-3 text-sm font-semibold text-muted-foreground">
             매물 세부 정보
           </div>
           {leftDetails.map((item, i) => (
@@ -50,7 +50,7 @@ export default function PropertyDetails() {
               <span className="text-sm font-semibold text-foreground">{item.value}</span>
             </div>
           ))}
-          <div className="bg-[#F8F8F8] px-4 py-3 text-sm font-medium text-muted-foreground">
+          <div className="bg-[#F8F8F8] px-4 py-3 text-sm font-semibold text-muted-foreground">
             추가 확인 정보
           </div>
           {rightDetails.map((item, i) => (
@@ -68,8 +68,8 @@ export default function PropertyDetails() {
         <div className="hidden lg:block">
         {/* 헤더: 열 사이 세로선 없음 */}
         <div className="grid grid-cols-2 gap-x-8 border-b border-border bg-[#F8F8F8] px-4 py-3 sm:gap-x-12 sm:px-5">
-          <div className="text-sm font-medium text-muted-foreground">매물 세부 정보</div>
-          <div className="text-sm font-medium text-muted-foreground">추가 확인 정보</div>
+          <div className="text-sm font-semibold text-muted-foreground">매물 세부 정보</div>
+          <div className="text-sm font-semibold text-muted-foreground">추가 확인 정보</div>
         </div>
 
         <div className="divide-y divide-border">

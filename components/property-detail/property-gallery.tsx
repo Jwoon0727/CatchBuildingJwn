@@ -128,11 +128,11 @@ export default function PropertyGallery() {
           </div>
         </div>
 
-        <div className="mb-2 flex items-start justify-between">
-          <h1 className="text-xl font-bold tracking-tight text-foreground">
+        <div className="mb-2 flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
+          <h1 className="w-full min-w-0 text-xl font-bold tracking-tight text-foreground lg:flex-1 lg:pr-4">
             분당 백현동 까페거리, 단독주택 3가구, 임차형 수익 물건
           </h1>
-          <span className="mt-12 ml-4 shrink-0 text-xs text-muted-foreground">
+          <span className="mb-2 -mt-2  w-full shrink-0 text-right text-xs text-muted-foreground lg:mt-8 lg:ml-4 lg:w-auto">
             등록일 2025. 03. 26
           </span>
         </div>
@@ -175,7 +175,7 @@ export default function PropertyGallery() {
 
         {/* 가격 + 요약 지표: mockup — 구분선 아래 매매가 → 4열 균등 그리드 */}
         <div className="border-t border-border pt-4">
-        <div className="mb-4 flex items-center gap-6 text-sm text-muted-foreground">
+        <div className="mb-5 flex items-center gap-3 text-sm text-muted-foreground">
           <span className="flex items-center gap-1.5"><Eye size={16} /> 123</span>
           <span className="flex items-center gap-1.5"><MessageCircle size={16} /> 45</span>
           <span className="flex items-center gap-1.5"><Heart size={16} /> 12</span>
@@ -206,8 +206,8 @@ export default function PropertyGallery() {
                   />
                 )}
                 <div className="min-w-0">
-                  <p className="mb-1 text-[11px] text-muted-foreground sm:mb-1.5 sm:text-xs">{item.label}</p>
-                  <p className="text-xs font-bold leading-snug text-foreground break-keep sm:text-base">{item.value}</p>
+                  <p className="mb-1 text-[13px] text-muted-foreground sm:mb-1.5 sm:text-xs">{item.label}</p>
+                  <p className="text-base font-bold leading-snug text-foreground break-keep sm:text-base">{item.value}</p>
                 </div>
               </div>
             ))}

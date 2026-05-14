@@ -62,8 +62,8 @@ export default function PropertyBuildingInfo() {
               <div key={index} className="border-b border-border pb-6">
                 {/* Floor Header */}
                 <div className="flex items-center justify-between mb-4">
-                  <h4 className="font-bold text-foreground">{floor.floor}</h4>
-                  <p className="text-base font-semibold">
+                  <h4 className="text-sm font-bold text-foreground md:text-base">{floor.floor}</h4>
+                  <p className="text-sm font-semibold md:text-base">
                     보증금 <span className="text-[#2567E7] font-bold">{floor.deposit}</span>
                     <span className="text-muted-foreground mx-1">|</span>
                     월세 <span className="text-[#2567E7] font-bold">{floor.rent}</span>
@@ -88,14 +88,14 @@ export default function PropertyBuildingInfo() {
                       {floor.tags.map((tag, tagIndex) => (
                         <span
                           key={tagIndex}
-                          className="bg-[#EBF1FD] px-3 py-1 border border-border text-foreground text-xs rounded-[4px]"
+                          className="bg-[#EBF1FD] px-2.5 py-1  text-foreground text-xs rounded-[4px]"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
                     {/* Description */}
-                    <p className="text-base text-foreground leading-relaxed">{floor.description}</p>
+                    <p className="text-sm text-foreground leading-relaxed md:text-base">{floor.description}</p>
                   </div>
                 </div>
               </div>

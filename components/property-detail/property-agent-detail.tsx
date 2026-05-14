@@ -18,22 +18,22 @@ export default function PropertyAgentDetail() {
             이
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="mb-1 text-base font-bold text-foreground">
+            <h3 className="mb-1 text-sm font-bold text-foreground">
               이진솔 공인중개사
             </h3>
-            <p className="mb-2 text-sm text-muted-foreground">
+            <p className="mb-2 text-xs text-foreground">
               경기 성남시 분당구 · 영끌남 파트너
             </p>
             <div className="flex min-w-0 flex-nowrap items-center gap-x-2 overflow-x-auto sm:gap-x-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <a
                 href="tel:010-4080-6005"
-                className="flex shrink-0 items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="flex shrink-0 items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Phone size={16} strokeWidth={1.5} className="shrink-0 text-teal-500" />
+                <Phone size={14} strokeWidth={1.5} className="shrink-0 text-teal-500" />
                 010-4080-6005
               </a>
               <span className="flex shrink-0 items-center gap-1.5 text-sm text-muted-foreground">
-                <Home size={16} strokeWidth={1.5} className="shrink-0 text-amber-500" />
+                <Home size={14} strokeWidth={1.5} className="shrink-0 text-amber-500" />
                 다른매물 14
               </span>
             </div>
@@ -49,9 +49,9 @@ export default function PropertyAgentDetail() {
       </div>
 
       {/* Broker comment — 제목·본문 모두 연회색 박스 안 */}
-      <div className="rounded-xl bg-[#F8F8F8] px-4 py-5 sm:px-5">
-        <h4 className="mb-3 text-base font-bold text-foreground">중계사 코멘트</h4>
-        <p className="text-sm leading-relaxed text-muted-foreground">{COMMENT_TEXT}</p>
+      <div className="border border-border rounded-xl bg-[#F8F8F8] px-3 py-3 sm:px-3">
+        <h4 className="mb-3 text-sm font-bold text-foreground">중계사 코멘트</h4>
+        <p className="text-xs leading-relaxed text-muted-foreground">{COMMENT_TEXT}</p>
       </div>
     </div>
   )

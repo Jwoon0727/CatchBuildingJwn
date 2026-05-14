@@ -50,6 +50,10 @@ interface PropertySectionProps {
   hideBottomBorder?: boolean
   /** true면 모바일에서 가로 스크롤 대신 2열 그리드로 표시 */
   mobileGrid?: boolean
+  /** true면 모바일에서만 카드 썸네일 높이 축소(해당 섹션에서만 켤 것) */
+  compactMobileCardImage?: boolean
+  /** true면 카드 외곽 보더 없음 — 모바일·PC 공통(해당 섹션에서만 켤 것) */
+  borderlessCards?: boolean
 }
 
 export default function PropertySection({
@@ -60,6 +64,8 @@ export default function PropertySection({
   showFilterTabs = true,
   hideBottomBorder = false,
   mobileGrid = false,
+  compactMobileCardImage = false,
+  borderlessCards = false,
 }: PropertySectionProps) {
   const [activeFilterTab, setActiveFilterTab] = useState<string>('all')
 
@@ -200,7 +206,13 @@ export default function PropertySection({
           >
             {displayProperties.map(property => (
               <div key={property.id}>
-                <PropertyCard property={property} hideRecommendation mobileCompactPricing />
+                <PropertyCard
+                  property={property}
+                  hideRecommendation
+                  mobileCompactPricing
+                  compactMobileImage={compactMobileCardImage}
+                  borderless={borderlessCards}
+                />
               </div>
             ))}
           </div>

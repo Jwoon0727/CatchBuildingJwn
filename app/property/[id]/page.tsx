@@ -31,12 +31,12 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
       {/* 모바일 헤더 */}
       <div className="lg:hidden sticky top-0 z-50 bg-white border-border">
-        <div className="flex items-center justify-between px-4 py-3.5">
+        <div className="flex items-center gap-2 px-4 py-3.5">
           <button type="button" aria-label="뒤로가기" onClick={() => window.history.back()}>
-            <ChevronLeft size={22} strokeWidth={2} />
+            <ChevronLeft className="size-7 text-foreground" strokeWidth={2} />
           </button>
-          <span className="text-base font-bold text-foreground">매물상세</span>
-          <button type="button" aria-label="메뉴">
+          <span className="text-xl font-bold text-foreground">매물상세</span>
+          <button type="button" aria-label="메뉴" className="ml-auto">
             <Menu size={22} strokeWidth={1.75} />
           </button>
         </div>
@@ -56,7 +56,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           </nav>
         </div>
 
-        <div className="mx-auto max-w-[75rem] px-4 lg:px-1 pb-28 lg:pb-16">
+        <div className="mx-auto max-w-[75rem] px-4 pb-[5.5rem] lg:px-1 lg:pb-16">
           {/* Main Layout: Content + Sticky Sidebar */}
           <div className="flex gap-6">
             {/* Left Content */}
@@ -138,17 +138,19 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
       {/* 모바일 전용 하단 고정 바 */}
       <div className="fixed bottom-0 left-2 right-2 z-50 lg:hidden">
-        <div className="border-t border-border bg-white px-4 py-3">
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <p className="text-base text-muted-foreground">매매가</p>
-              <p className="text-xl font-bold text-[#2567E7]">13.5억원</p>
+        <div className="border-t border-border bg-white px-3 py-3 sm:px-4">
+          <div className="flex flex-nowrap items-center gap-2 sm:gap-3">
+            <div className="min-w-0 shrink">
+              <p className="whitespace-nowrap text-xs text-muted-foreground sm:text-base">매매가</p>
+              <p className="whitespace-nowrap text-lg font-bold leading-tight text-[#2567E7] sm:text-xl">
+                13.5억원
+              </p>
             </div>
             <button
               type="button"
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#2567E7] px-25 py-3.5 text-sm font-bold text-white"
+              className="flex min-h-[2.75rem] min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-[7px] bg-[#2567E7] px-3 py-2.5 text-xs font-bold text-white sm:min-h-0 sm:gap-2 sm:py-3.5 sm:text-sm"
             >
-              <Headset size={18} strokeWidth={2} />
+              <Headset className="size-[1.05rem] shrink-0 sm:size-[18px]" strokeWidth={2} />
               상담하기
             </button>
           </div>

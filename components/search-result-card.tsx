@@ -126,10 +126,10 @@ export default function SearchResultCard({ result }: SearchResultCardProps) {
         </div>
 
         <div className="mt-4 flex max-w-full flex-nowrap items-center justify-end gap-2 md:mt-3">
-          <span className="shrink-0 rounded border border-[#e5e7eb] bg-white px-3 py-1 text-[11px] font-semibold text-neutral-900 shadow-none">
+          <span className="shrink-0 rounded border border-[#e5e7eb] bg-white px-2 py-1 text-[11px] font-semibold text-neutral-900 shadow-none">
             {result.deposit}
           </span>
-          <span className="shrink-0 rounded bg-[#facc15] px-3 py-1 text-[11px] font-bold text-neutral-900">
+          <span className="shrink-0 rounded bg-[#facc15] px-2 py-1 text-[11px] font-bold text-neutral-900">
             {result.discount}
           </span>
           <span className="ml-1 shrink-0 text-lg font-bold tracking-tight text-neutral-900 md:text-[20px]">

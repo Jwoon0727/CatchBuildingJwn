@@ -11,8 +11,12 @@ const PROPERTY_AREA_ICON_SRC = '/building/loca02.svg'
 interface PropertyCardProps {
   /** true면 "추천하는 이유" 블록 숨김 */
   hideRecommendation?: boolean
+  /** true면 모바일에서만 썸네일 높이 축소(md 이상은 기본 h-56 유지) */
+  compactMobileImage?: boolean
   /** true면 모바일에서 평단가 위, 수익률+가격 가로 한 줄 레이아웃 */
   mobileCompactPricing?: boolean
+  /** true면 카드 외곽 보더 제거(모바일·PC 공통) */
+  borderless?: boolean
   property: {
     id: number
     image: string
@@ -42,7 +46,13 @@ interface PropertyCardProps {
   }
 }
 
-export default function PropertyCard({ property, hideRecommendation = false, mobileCompactPricing = false }: PropertyCardProps) {
+export default function PropertyCard({
+  property,
+  hideRecommendation = false,
+  compactMobileImage = false,
+  mobileCompactPricing = false,
+  borderless = false,
+}: PropertyCardProps) {
   const title = property.title || property.name || '매물'
   const stars = property.rating ? Math.round(property.rating) : 4
 
@@ -50,9 +60,13 @@ export default function PropertyCard({ property, hideRecommendation = false, mob
   const metaRow = 'grid grid-cols-[20px_minmax(0,1fr)] items-start gap-x-1.5'
   
   return (
-    <div className="group cursor-pointer overflow-hidden rounded-lg border border-border bg-white shadow-sm transition-shadow hover:shadow-lg">
+    <div
+      className={`group cursor-pointer overflow-hidden rounded-lg bg-white transition-shadow hover:shadow-lg ${borderless ? 'border-0' : 'border border-border'}`}
+    >
       {/* Image Container */}
-      <div className="relative h-56 overflow-hidden bg-muted">
+      <div
+        className={`relative overflow-hidden bg-muted ${compactMobileImage ? 'h-40 md:h-56' : 'h-56'}`}
+      >
         <img 
           src={property.image} 
           alt={title}

@@ -11,11 +11,11 @@ export default function PropertyIncomeStructure() {
   ]
 
   return (
-    <div className="mb-7">
+    <div className="mb-7 font-pretendard [&_button]:font-pretendard">
       <h3 className="text-lg font-bold text-foreground mb-1.5">층별 수익구조</h3>
       
       {/* Summary */}
-      <p className="mb-3 text-sm text-muted-foreground">
+      <p className="mb-3 text-xs text-muted-foreground">
         합계 : 보증금 8,000만원 · 월세 530만원 ·{' '}
         <span className="text-[#2567E7]">연 수익률 6.2%</span>
       </p>
@@ -26,22 +26,22 @@ export default function PropertyIncomeStructure() {
         <table className="w-max max-w-none border-collapse text-sm lg:min-w-0 lg:w-full">
           <thead>
             <tr className="border-b border-border bg-[#F8F8F8]">
-              <th className="py-2 pr-[1.404rem] text-left text-xs font-medium text-muted-foreground lg:pr-3">
+              <th className="py-2 pr-[1.404rem] text-left text-xs font-semibold text-muted-foreground lg:pr-3">
                 층
               </th>
-              <th className="px-[1.404rem] py-2 text-left text-xs font-medium text-muted-foreground lg:px-3">
+              <th className="px-[1.404rem] py-2 text-left text-xs font-semibold text-muted-foreground lg:px-3">
                 용도
               </th>
-              <th className="px-[1.404rem] py-2 text-left text-xs font-medium text-muted-foreground lg:px-3">
+              <th className="px-[1.404rem] py-2 text-left text-xs font-semibold text-muted-foreground lg:px-3">
                 면적
               </th>
-              <th className="px-[1.404rem] py-2 text-left text-xs font-medium text-muted-foreground lg:px-3">
+              <th className="px-[1.404rem] py-2 text-left text-xs font-semibold text-muted-foreground lg:px-3">
                 보증금
               </th>
-              <th className="px-[1.404rem] py-2 text-left text-xs font-medium text-muted-foreground lg:px-3">
+              <th className="px-[1.404rem] py-2 text-left text-xs font-semibold text-muted-foreground lg:px-3">
                 월세
               </th>
-              <th className="py-2 pl-[1.404rem] text-left text-xs font-medium text-muted-foreground lg:pl-3">
+              <th className="py-2 pl-[1.404rem] text-left text-xs font-semibold text-muted-foreground lg:pl-3">
                 계약기간
               </th>
             </tr>
