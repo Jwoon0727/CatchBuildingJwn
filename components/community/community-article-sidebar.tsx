@@ -14,7 +14,7 @@ const stats = [
 
 export default function CommunityArticleSidebar() {
   return (
-    <div className="w-60 shrink-0">
+    <div className="w-60 shrink-0 font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
     <div className="mb-6 rounded-xl border border-border bg-white p-5">
       <div className="mb-5 flex gap-3">
         <div className="relative shrink-0">

@@ -13,7 +13,7 @@ const subscribeBtnClass =
 
 export default function CommunityMembers() {
   return (
-    <div className="w-56 shrink-0 rounded-xl border border-border bg-white p-4">
+    <div className="w-56 shrink-0 rounded-xl border border-border bg-white p-4 font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
       {[0, 1].map((sectionIndex) => (
         <div key={sectionIndex}>
           {sectionIndex > 0 && <div className="my-5 border-t border-border" aria-hidden />}

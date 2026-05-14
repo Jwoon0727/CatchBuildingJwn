@@ -117,19 +117,19 @@ function MobileBookmarkListOverlay({
 
   return (
     <div
-      className="lg:hidden fixed inset-0 z-[80] flex flex-col bg-white"
+      className="lg:hidden fixed inset-0 z-[80] flex flex-col bg-white font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard"
       role="dialog"
       aria-modal="true"
       aria-labelledby="mobile-bookmark-list-title"
     >
-      <header className="relative flex shrink-0 items-center justify-center border-b border-border px-4 py-3.5">
+      <header className="relative flex shrink-0 items-center justify-center  border-border px-4 py-3.5">
         <button
           type="button"
           aria-label="닫기"
           onClick={onClose}
           className="absolute left-4 text-foreground transition-colors hover:text-muted-foreground"
         >
-          <X size={22} strokeWidth={2} />
+          <X size={22} strokeWidth={1.5} />
         </button>
         <h2 id="mobile-bookmark-list-title" className="text-base font-bold text-foreground">
           북마크 목록 <span className="text-[#2567E7]">{MOBILE_BOOKMARK_LIST_ITEMS.length}</span>
@@ -174,10 +174,10 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
   if (activeMenu === 'url') {
     return (
-      <div className="flex-1 min-w-0">
+      <div className="min-w-0 flex-1 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard">
         {/* Header */}
         <div className="mb-8">
-        <h1 className="mt-5 pb-9 -mb-8 border-border text-xl font-bold text-foreground">URL 조회 + 밸류맵</h1>
+        <h1 className="mt-5 pb-9 -mb-8 border-border text-base font-semibold text-foreground">URL 조회 + 밸류맵</h1>
           <p className="text-xs text-muted-foreground">
             웹페이지 URL을 입력하면 건물 정보 추출 + 건물 매칭 + 밸류맵 시세 조회까지 한번에 실행 됩니다.
           </p>
@@ -239,7 +239,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
         {/* URL Input */}
         <div className="mb-8">
-          <label className="block text-sm text-muted-foreground mb-2">웹 페이지 URL</label>
+          <label className="block text-sm text-foreground mb-2">웹 페이지 URL</label>
           <div className="flex gap-2">
             <input
               type="url"
@@ -259,14 +259,14 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
         {/* Result */}
         <div>
-          <h2 className="text-sm font-medium text-foreground mb-4">건물 매칭 완료</h2>
+          <h2 className="text-base font-semibold text-foreground mb-4">건물 매칭 완료</h2>
           <div 
             onClick={() => setIsModalOpen(true)}
             className="border border-border rounded-lg p-4 flex items-center justify-between hover:bg-secondary/30 cursor-pointer transition-colors"
           >
             <div>
-              <p className="font-medium text-foreground">부산광역시 동래구 사직동 153-29</p>
-              <p className="text-sm text-muted-foreground mt-1">492.4m² · 145.m²</p>
+              <p className="text-sm font-semibold text-foreground">부산광역시 동래구 사직동 153-29</p>
+              <p className="text-xs text-muted-foreground mt-1">492.4m² · 145.m²</p>
             </div>
             <ChevronRight size={20} className="text-muted-foreground" />
           </div>
@@ -278,7 +278,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
         {isModalOpen && (
           <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
             {/* 상단 헤더 */}
-            <div className="sticky top-0 z-10 bg-white border-b border-border flex items-center justify-between px-4 py-3.5">
+            <div className="sticky top-0 z-10 bg-white border-border flex items-center justify-between px-4 py-3.5">
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="text-foreground hover:text-muted-foreground transition-colors"
@@ -300,13 +300,13 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
                 <Bookmark size={24} className="text-yellow-400 fill-yellow-400 shrink-0 mt-0.5" />
               </div>
 
-              {/* Map */}
-              <div className="relative mb-6">
-                <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden">
+              {/* Map — 부모 px-4를 -mx-4로 상쇄해 좌우 풀블리드 */}
+              <div className="relative -mx-4 mb-6">
+                <div className="h-48 w-full overflow-hidden bg-gray-200">
                   <img
                     src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=300&fit=crop"
                     alt="Map"
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <button className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2 text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap">
@@ -318,21 +318,21 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               {/* Property Info Cards */}
               <div className="bg-[#F8F8F8] rounded-lg p-4 mb-4">
                 <div className="py-3 border-b border-border flex items-center justify-between">
-                  <span className="text-sm text-[#2567E7] font-medium">토지 지번</span>
+                  <span className="mt-6 text-sm text-[#2567E7] font-semibold">토지 지번</span>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground block">지번</span>
                     <span className="text-xl font-bold text-foreground">153-29 m²</span>
                   </div>
                 </div>
                 <div className="py-3 border-b border-border flex items-center justify-between">
-                  <span className="text-sm text-[#2567E7] font-medium">총 연면적</span>
+                  <span className="mt-6 text-sm text-[#2567E7] font-semibold">총 연면적</span>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground block">연면적</span>
                     <span className="text-xl font-bold text-foreground">494.4 m²</span>
                   </div>
                 </div>
                 <div className="py-3 flex items-center justify-between">
-                  <span className="text-sm text-[#2567E7] font-medium">대지 면적</span>
+                  <span className="mt-5 text-sm text-[#2567E7] font-semibold">대지 면적</span>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground block">대지면적</span>
                     <span className="text-xl font-bold text-foreground">145.8 m²</span>
@@ -344,28 +344,28 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               <div className="bg-[#F8F8F8] rounded-lg p-4 mb-4">
                 <h4 className="font-bold text-foreground mb-4">시세 요약</h4>
                 <div className="py-3 border-b border-border flex items-center justify-between">
-                  <span className="text-sm text-[#2567E7] font-medium">감정평가 기준</span>
+                  <span className="mt-6 text-sm text-[#2567E7] font-semibold">감정평가 기준</span>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground block">총 시세</span>
                     <span className="text-xl font-bold text-foreground">8.7억</span>
                   </div>
                 </div>
                 <div className="py-3 border-b border-border flex items-center justify-between">
-                  <span className="text-sm text-[#2567E7] font-medium">토지 기준</span>
+                  <span className="mt-6 text-sm text-[#2567E7] font-semibold">토지 기준</span>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground block">총 시세</span>
                     <span className="text-xl font-bold text-foreground">6.4억</span>
                   </div>
                 </div>
                 <div className="py-3 border-b border-border flex items-center justify-between">
-                  <span className="text-sm text-[#2567E7] font-medium">건물 기준</span>
+                  <span className="mt-6 text-sm text-[#2567E7] font-semibold">건물 기준</span>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground block">총 시세</span>
                     <span className="text-xl font-bold text-foreground">6.4억</span>
                   </div>
                 </div>
                 <div className="py-3 flex items-center justify-between">
-                  <span className="text-sm text-[#2567E7] font-medium">평가 완료</span>
+                  <span className="mt-5 text-sm text-[#2567E7] font-semibold">평가 완료</span>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground block">신뢰도</span>
                     <span className="text-xl font-bold text-foreground">76점</span>
@@ -378,7 +378,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
                 {buildingDetails.map((item, index) => (
                   <div key={index} className="py-3 border-b border-border flex">
                     <span className="ml-5 w-28 text-sm text-muted-foreground flex-shrink-0">{item.label}</span>
-                    <span className="text-sm text-foreground">{item.value}</span>
+                    <span className="text-sm text-[#333333]">{item.value}</span>
                   </div>
                 ))}
               </div>
@@ -395,16 +395,16 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
   if (activeMenu === 'building') {
     return (
       <>
-      <div className="flex-1 min-w-0 pb-24 lg:pb-0">
+      <div className="min-w-0 flex-1 pb-24 font-pretendard lg:pb-0 [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard">
         <div className="mb-8">
-          <h1 className="mt-5 pb-9 -mb-8 border-border text-xl font-bold text-foreground">건물 검색</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="mt-5 pb-9 -mb-8 border-border text-base font-semibold text-foreground">건물 검색</h1>
+          <p className="text-xs text-muted-foreground">
             지역명과 연면적을 기준으로 가장 가까운 건물을 찾고, 좌표와 주소 정보를 함께 확인합니다.
           </p>
         </div>
 
-        {/* Search Form - 2x2 Grid */}
-        <div className="grid grid-cols-2 gap-6 mb-8">
+        {/* Search Form - 모바일 1열, sm 이상 2x2 Grid */}
+        <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
             <label className="block text-sm text-foreground mb-2">
               지역명<span className="text-red-500">*</span>
@@ -447,12 +447,18 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-end gap-3 mb-8">
-          <button className="px-7 py-2.5 border border-border rounded-[8px] text-sm font-medium text-foreground hover:bg-secondary transition-colors">
+        {/* Action Buttons — 모바일: 가로 풀폭 1:1, sm+: 우측 정렬 */}
+        <div className="mb-8 flex w-full gap-3 sm:justify-end">
+          <button
+            type="button"
+            className="flex min-w-0 flex-1 items-center justify-center rounded-[8px] border border-border py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:flex-none sm:px-7"
+          >
             초기화
           </button>
-          <button className="px-7 py-2.5 bg-[#2567E7] text-white rounded-[8px] text-sm font-medium hover:bg-primary/90 transition-colors">
+          <button
+            type="button"
+            className="flex min-w-0 flex-1 items-center justify-center rounded-[8px] bg-[#2567E7] py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90 sm:flex-none sm:px-7"
+          >
             검색
           </button>
         </div>
@@ -462,7 +468,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
         {/* Results */}
         <div>
-          <h2 className="text-sm font-medium text-foreground mb-4">
+          <h2 className="text-base font-semibold text-foreground mb-4">
             매칭된 건물물 <span className="text-[#2567E7]">2</span>건
           </h2>
           <div className="space-y-3">
@@ -471,7 +477,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               className="border border-border rounded-lg p-4 flex items-center justify-between hover:bg-secondary/30 cursor-pointer transition-colors"
             >
               <div>
-                <p className="font-medium text-foreground">부산광역시 동래구 사직동 153-29</p>
+                <p className="font-semibold text-foreground">부산광역시 동래구 사직동 153-29</p>
                 <p className="text-sm text-muted-foreground mt-1">492.4m² · 145.m²</p>
               </div>
               <ChevronRight size={20} className="text-muted-foreground" />
@@ -481,7 +487,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               className="border border-border rounded-lg p-4 flex items-center justify-between hover:bg-secondary/30 cursor-pointer transition-colors"
             >
               <div>
-                <p className="font-medium text-foreground">부산광역시 동래구 사직동 153-29</p>
+                <p className="font-semibold text-foreground">부산광역시 동래구 사직동 153-29</p>
                 <p className="text-sm text-muted-foreground mt-1">492.4m² · 145.m²</p>
               </div>
               <ChevronRight size={20} className="text-muted-foreground" />
@@ -490,12 +496,12 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
         </div>
 
         {/* 모바일 하단 고정 버튼 바 */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white  border-border px-4 py-3 flex items-center gap-3">
           <button
             type="button"
             aria-label="북마크"
             onClick={() => setIsMobileBookmarkListOpen(true)}
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#2567E7] bg-white transition-colors hover:bg-muted/50"
           >
             <MobileBottomBarBookmarkIcon />
           </button>
@@ -517,11 +523,11 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
   if (activeMenu === 'blog') {
     return (
       <>
-      <div className="flex-1 min-w-0 pb-24 lg:pb-0">
+      <div className="min-w-0 flex-1 pb-24 font-pretendard lg:pb-0 [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="mt-5 pb-9 -mb-8 border-border text-xl font-bold text-foreground">네이버 블로그 검색</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="mt-5 pb-9 -mb-8 border-border text-base font-semibold text-foreground">네이버 블로그 검색</h1>
+          <p className="text-xs text-muted-foreground">
             검색어 기준으로 블로그를 수집하고, 추론된 건물 주소와 면적 정보를 바탕으로 분석 결과를 정리합니다.
           </p>
         </div>
@@ -529,7 +535,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
         {/* Search Form */}
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm text-muted-foreground mb-2">검색어</label>
+            <label className="block text-sm text-foreground mb-2">검색어</label>
             <input
               type="text"
               defaultValue="부산 건물 급매"
@@ -538,7 +544,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-muted-foreground mb-2">기간</label>
+              <label className="block text-sm text-foreground mb-2">기간</label>
               <div className="relative">
                 <select className="w-full px-4 py-3   border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none">
                   <option>1일</option>
@@ -549,7 +555,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               </div>
             </div>
             <div>
-              <label className="block text-sm text-muted-foreground mb-2">정렬</label>
+              <label className="block text-sm text-foreground mb-2">정렬</label>
               <div className="relative">
                 <select className="w-full px-4 py-3  border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none">
                   <option>최신순</option>
@@ -560,7 +566,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
             </div>
           </div>
           <div>
-            <label className="block text-sm text-muted-foreground mb-2">부산 조회 이력</label>
+            <label className="block text-sm text-foreground mb-2">부산 조회 이력</label>
             <div className="relative">
               <select className="w-full px-4 py-3   border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none">
                 <option>부산 해운대 급매 2026. 03. 21 오후 12:12</option>
@@ -570,12 +576,18 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-end gap-3 mb-8">
-          <button className="px-7 py-2.5 border border-border rounded-[8px] text-sm font-medium text-foreground hover:bg-secondary transition-colors">
+        {/* Action Buttons — 모바일: 가로 풀폭, sm+: 우측 정렬 */}
+        <div className="mb-8 flex w-full gap-3 sm:justify-end">
+          <button
+            type="button"
+            className="flex min-w-0 flex-1 items-center justify-center rounded-[8px] border border-border py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:flex-none sm:px-7"
+          >
             초기화
           </button>
-          <button className="px-7 py-2.5 bg-[#2567E7] text-white rounded-[8px] text-sm font-medium hover:bg-primary/90 transition-colors">
+          <button
+            type="button"
+            className="flex min-w-0 flex-1 items-center justify-center rounded-[8px] bg-[#2567E7] py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90 sm:flex-none sm:px-7"
+          >
             분석시작
           </button>
         </div>
@@ -585,7 +597,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
 
         {/* Analysis Status */}
         <div className="mb-8">
-          <h2 className="text-sm font-bold text-foreground mb-2">최근 분석 상태</h2>
+          <h2 className="text-base font-bold text-foreground mb-2">최근 분석 상태</h2>
           <p className="text-xs text-muted-foreground mb-4">
             진행중인 작업은 자동으로 새로고침되며, 선택한 이력의 최신 상태를 보여줍니다.
           </p>
@@ -597,45 +609,45 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </div>
 
           {/* Status Grid */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
+          <div className="grid grid-cols-2 gap-4 mb-2">
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">검색어</p>
-              <p className="text-sm font-medium text-foreground">부산 해운대 급매</p>
+              <p className="text-sm font-semibold text-foreground">부산 해운대 급매</p>
             </div>
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">생성 시각</p>
-              <p className="text-sm font-medium text-foreground">2026. 03. 21 오후 12:51</p>
+              <p className="text-sm font-semibold text-foreground">2026. 03. 21 오후 12:51</p>
             </div>
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">시작 시각</p>
-              <p className="text-sm font-medium text-foreground">2026. 03. 21 오후 12:51</p>
+              <p className="text-sm font-semibold text-foreground">2026. 03. 21 오후 12:51</p>
             </div>
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">종료 시각</p>
-              <p className="text-sm font-medium text-foreground">2026. 03. 21 오후 12:51</p>
+              <p className="text-sm font-semibold text-foreground">2026. 03. 21 오후 12:51</p>
             </div>
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">수집 URL</p>
-              <p className="text-sm font-medium text-foreground">25</p>
+              <p className="text-sm font-semibold text-foreground">25</p>
             </div>
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">스크린샷</p>
-              <p className="text-sm font-medium text-foreground">25</p>
+              <p className="text-sm font-semibold text-foreground">25</p>
             </div>
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">분석 완료</p>
-              <p className="text-sm font-medium text-foreground">25</p>
+              <p className="text-sm font-semibold text-foreground">25</p>
             </div>
             <div className="border border-border rounded-lg p-4">
               <p className="text-xs text-muted-foreground mb-1">건물 매칭</p>
-              <p className="text-sm font-medium text-foreground">5</p>
+              <p className="text-sm font-semibold text-foreground">5</p>
             </div>
           </div>
         </div>
 
         {/* Analysis Results */}
         <div className="mb-8">
-          <h2 className="text-sm font-bold text-foreground mb-4">분석 결과</h2>
+          <h2 className="text-sm border-t border-border pt-6 pb-2 font-bold text-foreground mb-4">분석 결과</h2>
           
           {/* Search */}
           <div className="relative mb-4">
@@ -644,7 +656,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               placeholder="제목 또는 주소 검색"
               className="w-full px-4 py-3 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 pr-10"
             />
-            <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
@@ -652,23 +664,23 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           {/* Results List */}
           <div className="space-y-3 mb-4">
             <div className="border border-border rounded-lg p-4 flex items-start gap-3">
-              <input type="checkbox" defaultChecked className="mt-1 h-4 w-4 rounded border-gray-300 accent-[#2567E7] focus:ring-[#2567E7]" />
+              <input type="checkbox" defaultChecked className="mt-1 h-4 w-4 rounded border border-[#E5E5E5] accent-[#2567E7] focus:ring-[#2567E7]" />
               <div>
-                <p className="text-sm font-medium text-foreground">해운대 상업지 건물주의 꿈! 급매 보다 싼...</p>
+                <p className="text-sm font-semibold text-foreground">해운대 상업지 건물주의 꿈! 급매 보다 싼...</p>
                 <p className="text-xs text-muted-foreground mt-1">부산 광역시 해운대구 우동 762-60 1,741.4m²</p>
               </div>
             </div>
             <div className="border border-border rounded-lg p-4 flex items-start gap-3">
-              <input type="checkbox" className="mt-1 h-4 w-4 rounded border-gray-300 accent-[#2567E7] focus:ring-[#2567E7]" />
+              <input type="checkbox" className="mt-1 h-4 w-4 rounded border border-[#E5E5E5] accent-[#2567E7] focus:ring-[#2567E7]" />
               <div>
-                <p className="text-sm font-medium text-foreground">해운대 상업지 건물주의 꿈! 급매 보다 싼...</p>
+                <p className="text-sm font-semibold text-foreground">해운대 상업지 건물주의 꿈! 급매 보다 싼...</p>
                 <p className="text-xs text-muted-foreground mt-1">부산 광역시 해운대구 우동 762-60 1,741.4m²</p>
               </div>
             </div>
             <div className="border border-border rounded-lg p-4 flex items-start gap-3">
-              <input type="checkbox" className="mt-1 h-4 w-4 rounded border-gray-300 accent-[#2567E7] focus:ring-[#2567E7]" />
+              <input type="checkbox" className="mt-1 h-4 w-4 rounded border border-[#E5E5E5] accent-[#2567E7] focus:ring-[#2567E7]" />
               <div>
-                <p className="text-sm font-medium text-foreground">해운대 상업지 건물주의 꿈! 급매 보다 싼...</p>
+                <p className="text-sm font-semibold text-foreground">해운대 상업지 건물주의 꿈! 급매 보다 싼...</p>
                 <p className="text-xs text-muted-foreground mt-1">부산 광역시 해운대구 우동 762-60 1,741.4m²</p>
               </div>
             </div>
@@ -687,7 +699,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           </h3>
           <div className="flex items-center justify-between  rounded-lg p-4">
             <p className="-ml-3 text-xs text-muted-foreground truncate flex-1">https://blog.naver.com/dario_15/12452365478</p>
-            <button className="ml-4 px-4 py-2 border border-border rounded-lg text-sm font-light text-foreground hover:bg-secondary transition-colors whitespace-nowrap">
+            <button className="ml-4 px-4 py-2 border border-border rounded-lg text-sm font-light text-black hover:bg-secondary transition-colors whitespace-nowrap">
               원문 열기
             </button>
           </div>
@@ -711,13 +723,13 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               <span className="text-xs text-muted-foreground">조회 주소</span>
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-foreground">부산 광역시 해운대구 우동 762-60</p>
+              <p className="text-sm font-semibold text-foreground">부산 광역시 해운대구 우동 762-60</p>
               <ChevronRight size={18} className="-mt-6 text-muted-foreground" />
             </div>
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-4 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
             <div className="border border-border rounded-lg p-3">
               <p className="text-xs text-muted-foreground mb-3">등록 매물</p>
               <p className="text-sm font-bold text-foreground">없음</p>
@@ -753,13 +765,13 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
               <span className="text-xs text-muted-foreground">추론 주소</span>
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-foreground">부산 광역시 해운대구 우동 762-60</p>
+              <p className="text-sm font-semibold text-foreground">부산 광역시 해운대구 우동 762-60</p>
               <ChevronRight size={18} className="-mt-6 text-muted-foreground" />
             </div>
           </div>
 
           {/* Stats Grid for Inferred */}
-          <div className="grid grid-cols-4 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
             <div className="border border-border rounded-lg p-3">
               <p className="text-xs text-muted-foreground mb-1">등록 매물</p>
               <p className="text-sm font-bold text-foreground">없음</p>
@@ -786,12 +798,12 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
         </div>
 
         {/* 모바일 하단 고정 버튼 바 */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-border px-4 py-3 flex items-center gap-3">
           <button
             type="button"
             aria-label="북마크"
             onClick={() => setIsMobileBookmarkListOpen(true)}
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#2567E7] bg-white transition-colors hover:bg-muted/50"
           >
             <MobileBottomBarBookmarkIcon />
           </button>
@@ -814,17 +826,17 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
   if (activeMenu === 'history') {
     return (
       <>
-      <div className="flex-1 min-w-0 pb-24">
+      <div className="mt-3 min-w-0 flex-1 pb-24 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard">
         {/* Filter Tabs */}
         <div className="flex items-center gap-2 mb-4 flex-wrap">
           {historyFilters.map((filter) => (
             <button
               key={filter.id}
               onClick={() => setHistoryFilter(filter.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`px-4 py-2.5 rounded-full text-sm font-medium transition-colors ${
                 historyFilter === filter.id
                   ? 'bg-[#2567E7] text-white'
-                  : 'bg-white border border-border text-foreground hover:bg-muted/50'
+                  : 'bg-[#F8F8F8] text-[#636363] hover:bg-muted/50'
               }`}
             >
               {filter.label}
@@ -863,8 +875,8 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
                   <p className="text-xs text-muted-foreground truncate">{item.url}</p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-bold text-[#2567E7] mb-6">{item.price}</p>
-                  <p className="text-xs text-muted-foreground">{item.date}</p>
+                  <p className="text-sm font-semibold text-[#2567E7] mb-6">{item.price}</p>
+                  <p className="mt-9 text-xs text-muted-foreground">{item.date}</p>
                 </div>
               </div>
             </div>
@@ -872,12 +884,12 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
         </div>
 
         {/* 하단 고정 버튼 바 */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-border px-4 py-3 flex items-center gap-3">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white  border-border px-4 py-3 flex items-center gap-3">
           <button
             type="button"
             aria-label="북마크"
             onClick={() => setIsMobileBookmarkListOpen(true)}
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white transition-colors hover:bg-muted/50"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#2567E7] bg-white transition-colors hover:bg-muted/50"
           >
             <MobileBottomBarBookmarkIcon />
           </button>

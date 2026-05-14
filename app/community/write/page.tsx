@@ -54,20 +54,20 @@ export default function CommunityWritePage() {
   const [content, setContent] = useState('')
 
   return (
-    <>
+    <div className="font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
       {/* 데스크톱 헤더 */}
       <div className="hidden lg:block">
         <Header />
       </div>
 
       {/* 모바일 헤더 */}
-      <div className="lg:hidden sticky top-0 z-50 bg-white border-b border-border">
-        <div className="flex items-center justify-between px-4 py-3.5">
+      <div className="lg:hidden sticky top-0 z-50 bg-white  border-border">
+        <div className="flex items-center gap-2 px-4 py-3.5">
           <button type="button" aria-label="뒤로가기" onClick={() => window.history.back()}>
-            <ChevronLeft size={22} strokeWidth={2} />
+            <ChevronLeft className="size-7 text-foreground" strokeWidth={2} />
           </button>
-          <span className="text-base font-bold text-foreground">글쓰기</span>
-          <button type="button" aria-label="메뉴">
+          <span className="min-w-0 truncate text-lg font-bold text-foreground">커뮤니티 글 작성</span>
+          <button type="button" aria-label="메뉴" className="ml-auto shrink-0">
             <Menu size={22} strokeWidth={1.75} />
           </button>
         </div>
@@ -108,7 +108,7 @@ export default function CommunityWritePage() {
                 <select
                   value={subTopic}
                   onChange={(e) => setSubTopic(e.target.value)}
-                  className={`w-full rounded-lg border border-border bg-transparent px-4 py-3 pr-10 text-sm shadow-none outline-none appearance-none cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 ${
+                  className={`w-full rounded-lg border border-border bg-[#F8F8F8] px-4 py-3 pr-10 text-sm shadow-none outline-none appearance-none cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 ${
                     subTopic === ''
                       ? 'text-muted-foreground'
                       : 'text-foreground'
@@ -292,7 +292,7 @@ export default function CommunityWritePage() {
                 {/* 구분선 */}
                 <button
                   type="button"
-                  className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
+                  className="hidden h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary md:flex"
                   title="구분선"
                 >
                   <WriteIconImg src="/icon/write/link.svg" className="h-[20px] w-[20px]" />
@@ -322,7 +322,7 @@ export default function CommunityWritePage() {
           </div>
 
           {/* File Upload */}
-          <div className="mb-2">
+          <div className="mb-4">
             <button
               type="button"
               className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border py-2 text-sm text-foreground transition-colors hover:bg-secondary/30"
@@ -333,16 +333,22 @@ export default function CommunityWritePage() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-3">
-            <button className="px-6 py-3 border border-border rounded-lg text-sm font-medium text-[#2567E7] hover:bg-secondary transition-colors">
+          <div className="flex gap-3 md:justify-end">
+            <button
+              type="button"
+              className="max-md:flex max-md:flex-1 max-md:items-center max-md:justify-center border border-border rounded-lg px-6 py-3 text-sm font-medium text-[#2567E7] transition-colors hover:bg-secondary"
+            >
               임시 저장
             </button>
-            <button className="px-8 py-3 bg-[#2567E7] text-white rounded-lg text-sm font-medium hover:bg-[#2567E7]/90 transition-colors">
+            <button
+              type="button"
+              className="max-md:flex max-md:flex-1 max-md:items-center max-md:justify-center rounded-lg bg-[#2567E7] px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2567E7]/90"
+            >
               저장
             </button>
           </div>
         </div>
       </main>
-    </>
+    </div>
   )
 }

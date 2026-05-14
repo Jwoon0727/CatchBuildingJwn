@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from 'react'
 import Link from 'next/link'
-import { LayoutGrid, Home, Heart, TrendingUp, BookOpen, FilePlus, DollarSign, PlusCircle, Search, Eye, MessageSquare, MessageCircle, ThumbsUp, ChevronDown, Pencil } from 'lucide-react'
+import { LayoutGrid, Home, Heart, TrendingUp, BookOpen, FilePlus, DollarSign, PlusCircle, Search, Eye, MessageSquare, MessageCircle, ChevronDown, Pencil } from 'lucide-react'
 
 type CategoryTabItem = {
   icon: typeof LayoutGrid
@@ -115,7 +115,7 @@ export default function CommunityContent() {
   const [activeTab, setActiveTab] = useState(0)
 
   return (
-    <div className="flex-1 min-w-0">
+    <div className="flex-1 min-w-0 font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
       {/* Banner */}
       <div className="bg-gradient-to-r from-primary to-blue-600 rounded-xl p-6 mb-6 text-white">
         <p className="text-xs opacity-80 mb-1">영끌남 커뮤니티</p>
@@ -124,7 +124,7 @@ export default function CommunityContent() {
       </div>
 
       {/* Category Tabs */}
-      <div className="mb-6 flex gap-3 overflow-x-auto pb-2 sm:gap-4">
+      <div className="mb-6 flex gap-0 overflow-x-auto pb-2 sm:gap-4">
         {categoryTabs.map((tab, index) => {
           const Icon = tab.icon
           const isActive = activeTab === index
@@ -160,31 +160,42 @@ export default function CommunityContent() {
       {/* Filter Tabs (Second Row) */}
   
 
-      {/* Search Bar */}
-      <div className="pb-8 pt-4 border-t border-b border-border flex gap-2 mb-6">
-        <div className="relative">
-          <button className="flex items-center gap-2 px-4 py-2.5 border border-border rounded-[4px] text-sm text-foreground">
+      {/* Search Bar — 모바일 2열 그리드, lg+ 한 줄 flex */}
+      <div className="mb-6 grid grid-cols-2 gap-4 border-b border-t border-border pb-8 pt-4 lg:flex lg:flex-nowrap lg:items-center lg:gap-2">
+        <div className="relative min-w-0">
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-border px-3 py-2.5 text-sm text-foreground sm:px-4 lg:w-auto lg:justify-between"
+          >
             전체 게시판
-            <ChevronDown size={22} />
+            <ChevronDown size={22} className="shrink-0" />
           </button>
         </div>
-        <div className="relative">
-          <button className="flex items-center gap-2 px-4 py-2.5 border border-border rounded-[4px] text-sm text-foreground">
-            작성자+제목+내용
-            <ChevronDown size={22} />
+        <div className="relative min-w-0">
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-2 rounded-[4px] border border-border px-3 py-2.5 text-sm text-foreground sm:px-4 lg:w-auto lg:justify-between"
+          >
+            <span className="min-w-0 truncate">작성자+제목+내용</span>
+            <ChevronDown size={22} className="shrink-0" />
           </button>
         </div>
-        <div className="flex-1 relative">
-          <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder="찾고 싶은 콘텐츠를 검색해 주세요"
-            className="w-full pl-10 pr-4 py-2.5 border border-border rounded-[4px] text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
+        <div className="col-span-2 flex min-w-0 gap-4 lg:contents">
+          <div className="relative min-w-0 flex-1">
+            <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="찾고 싶은 콘텐츠를 검색해 주세요"
+              className="w-full rounded-[4px] border border-border py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <button
+            type="button"
+            className="shrink-0 rounded-[8px] bg-[#2567E7] px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90"
+          >
+            검색
+          </button>
         </div>
-        <button className="px-6 py-2.5 bg-[#2567E7] text-white rounded-[8px] text-sm font-medium hover:bg-primary/90 transition-colors">
-          검색
-        </button>
       </div>
 
       {/* Popular Posts */}
@@ -198,11 +209,21 @@ export default function CommunityContent() {
                   type="button"
                   className="flex w-full cursor-pointer items-start gap-3 rounded-xl py-1 text-left transition-colors hover:bg-white/70"
                 >
-                  <span className="w-6 shrink-0 pt-0.5 text-center text-sm font-bold text-[#2567E7]">{post.rank}</span>
-                  <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
+                  <span className="w-6 shrink-0 pt-1.5 text-center text-sm font-bold text-[#2567E7]">{post.rank}</span>
+                  {/* 모바일: 제목 줄바꿈 + 댓글 뱃지 항상 행 오른쪽 정렬 */}
+                  <div className="flex min-w-0 flex-1 items-center gap-2 lg:hidden">
+                    <span className="min-w-0 flex-1 text-sm font-normal leading-snug text-foreground">{post.title}</span>
+                    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-2.5 py-1 text-xs text-muted-foreground">
+                      <MessageCircle
+                       size={15} strokeWidth={1.75} className="text-muted-foreground" aria-hidden />
+                      {post.comments}
+                    </span>
+                  </div>
+                  {/* PC: 기존 flex-wrap 레이아웃 유지 */}
+                  <div className="hidden min-w-0 flex-1 flex-wrap items-center gap-2 lg:flex">
                     <span className="text-sm font-normal leading-snug text-foreground">{post.title}</span>
                     <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-2.5 py-1 text-xs text-muted-foreground">
-                      <MessageSquare size={13} strokeWidth={1.75} className="text-muted-foreground" aria-hidden />
+                      <MessageCircle size={15} strokeWidth={1.75} className="text-muted-foreground" aria-hidden />
                       {post.comments}
                     </span>
                   </div>
@@ -220,28 +241,28 @@ export default function CommunityContent() {
           {communityPosts.map((post, index) => (
             <Link key={index} href={`/community/${index + 1}`} className="flex gap-4 py-4 border-b border-border last:border-b-0 cursor-pointer hover:bg-secondary/30 rounded-lg px-2 -mx-2 transition-colors">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`px-2.5 py-1 ${post.badgeColor} text-white text-xs rounded`}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`px-2.5 py-1.5 ${post.badgeColor} text-white text-xs rounded`}>
                     {post.badge}
                   </span>
                 </div>
-                <h4 className="font-medium text-base text-foreground mb-1.5">{post.title}</h4>
-                <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{renderContentWithBr(post.content)}</p>
+                <h4 className="font-semibold text-sm text-foreground mb-1.5">{post.title}</h4>
+                <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{renderContentWithBr(post.content)}</p>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    <Eye size={12} /> {post.views}
+                    <Eye size={15} /> {post.views}
                   </span>
                   <span className="flex items-center gap-1">
-                    <MessageCircle size={12} /> {post.comments}
+                    <MessageCircle size={15} /> {post.comments}
                   </span>
                   <span className="flex items-center gap-1">
-                    <ThumbsUp size={12} /> {post.likes}
+                    <Heart size={15} /> {post.likes}
                   </span>
                 </div>
               </div>
               <div className="flex shrink-0 flex-col items-end justify-end gap-3">
                 <span className="text-xs text-muted-foreground">{post.date}</span>
-                <div className="mb-7 h-16 w-24 overflow-hidden rounded-lg">
+                <div className="mb-8 h-14 w-23 overflow-hidden rounded-lg">
                   <img src={post.image} alt="" className="w-full h-full object-cover" />
                 </div>
               </div>

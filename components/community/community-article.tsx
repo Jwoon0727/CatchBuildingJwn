@@ -29,14 +29,14 @@ export default function CommunityArticle() {
   const [myCommentsOnly, setMyCommentsOnly] = useState(false)
 
   return (
-    <div className="flex-1 min-w-0">
-      <div className="rounded-xl bg-white p-6 md:p-8">
+    <div className="flex-1 min-w-0 font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
+      <div className=" rounded-xl bg-white  md:p-8">
       {/* Top Action Bar */}
-      <div className="-mb-2 flex items-center justify-between border-border pb-6">
+      <div className="mt-3  -mb-2 flex items-center justify-between border-border pb-6">
         <span className="rounded-md border border-[#E5E5E5] bg-white px-3 py-1.5 text-xs font-medium text-[#2567E7]">
           투자후기
         </span>
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <div className="hidden flex-wrap items-center justify-end gap-2 lg:flex">
           <button type="button" className={articleHeaderActionClass}>
             <ThumbsUp size={16} strokeWidth={1.75} />
             <span>36</span>
@@ -63,7 +63,7 @@ export default function CommunityArticle() {
       <p className="mb-8 text-right text-sm text-muted-foreground">등록일 2025. 03. 26</p>
 
       {/* Article Stats */}
-      <div className="mb-10 flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+      <div className="mb-10 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
         <span className="flex items-center gap-1.5">
           <Eye size={15} strokeWidth={1.75} /> 123
         </span>
@@ -80,7 +80,7 @@ export default function CommunityArticle() {
 
       {/* Article Content */}
       <article className="prose prose-gray max-w-none mb-8">
-        <p className="text-sm text-foreground leading-relaxed mb-4">
+        <p className="text-lg font-semibold text-foreground leading-relaxed mb-4">
           &quot;전용 84㎡에 60억이요?&quot;
         </p>
         <p className="text-sm text-foreground leading-relaxed mb-4">
@@ -136,15 +136,15 @@ export default function CommunityArticle() {
         </p>
 
         {/* Main Image */}
-        <div className="my-6 overflow-hidden rounded-lg">
+        <div className="my-6 overflow-hidden">
           <img
             src="/building/apart.png"
             alt="아파트 전경"
-            className="h-[420px] w-full object-cover md:h-[580px]"
+            className="h-[220px] w-full object-cover md:h-[500px]"
           />
         </div>
 
-        <p className="text-sm text-foreground leading-relaxed mb-4">
+        <p className="text-lg font-semibold text-foreground leading-relaxed mb-4">
           일단 원베일리에 들어가보니, 가장 먼저 눈에 띈 건...
         </p>
         <p className="text-sm text-foreground leading-relaxed mb-4">
@@ -196,7 +196,7 @@ export default function CommunityArticle() {
                 type="checkbox"
                 checked={myCommentsOnly}
                 onChange={(e) => setMyCommentsOnly(e.target.checked)}
-                className="h-4 w-4 rounded border border-gray-300/50 accent-[#2567E7]"
+                className="h-4 w-4  border border-[#E5E5E5] accent-[#2567E7]"
               />
             </label>
             <button
@@ -204,7 +204,7 @@ export default function CommunityArticle() {
               className="inline-flex items-center gap-0.5 text-xs font-normal text-foreground hover:opacity-80"
             >
               추천순
-              <ChevronDown size={18} strokeWidth={2} className="text-foreground" aria-hidden />
+              <ChevronDown size={24} strokeWidth={2} className="text-foreground" aria-hidden />
             </button>
           </div>
         </div>
@@ -233,13 +233,13 @@ export default function CommunityArticle() {
                   <span className="text-sm font-semibold text-foreground">{comment.author}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground/50">{comment.date}</span>
+                  <span className="text-xs text-foreground/50">{comment.date}</span>
                   <button
                     type="button"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-foreground hover:text-foreground"
                     aria-label="더보기"
                   >
-                    <MoreVertical size={18} strokeWidth={1.75} />
+                    <MoreVertical size={20} strokeWidth={2} />
                   </button>
                 </div>
               </div>

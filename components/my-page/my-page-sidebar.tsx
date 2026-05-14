@@ -21,11 +21,11 @@ interface MyPageSidebarProps {
 
 export default function MyPageSidebar({ activeMenu, setActiveMenu }: MyPageSidebarProps) {
   return (
-    <div className="w-60 shrink-0 font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_textarea]:font-pretendard">
+    <div className="w-60 shrink-0 font-pretendard antialiased [&_*]:font-pretendard [&_button]:font-pretendard [&_input]:font-pretendard [&_input]:placeholder:font-pretendard [&_textarea]:font-pretendard [&_select]:font-pretendard [&_option]:font-pretendard [&_label]:font-pretendard [&_a]:font-pretendard">
       <div className="mb-6 rounded-xl border border-border bg-white p-5">
         <div className="mb-5 flex gap-3">
           <div className="relative shrink-0">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-lg font-bold text-gray-800">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-lg font-semibold text-gray-800">
               홍
             </div>
             <button
@@ -40,11 +40,11 @@ export default function MyPageSidebar({ activeMenu, setActiveMenu }: MyPageSideb
           <div className="min-w-0 flex-1 pt-0.5">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-base font-bold text-foreground mb-2">홍길동</span>
-              <span className="rounded-full bg-[#432DD7] px-2 py-1.5 mb-3.5 text-[10px] font-bold uppercase tracking-wide text-white">
+              <span className="rounded-full bg-[#432DD7] px-2 py-1.5 mb-3.5 text-[10px] font-semibold uppercase tracking-wide text-white">
                 BRONZE 1
               </span>
             </div>
-            <p className="mt-1 text-xs text-muted-foreground">카카오 계정으로 가입</p>
+            <p className="text-xs text-muted-foreground">카카오 계정으로 가입</p>
           </div>
         </div>
 
