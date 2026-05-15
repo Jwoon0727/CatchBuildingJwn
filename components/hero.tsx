@@ -155,7 +155,7 @@ export default function Hero() {
           type="button"
           onClick={prev}
           className="absolute top-1/2 z-20 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:size-10"
-          style={{ left: 'calc(var(--carousel-peek) + var(--carousel-gap) + 0.5rem)' }}
+          style={{ left: 'calc(var(--carousel-peek) + var(--carousel-gap) + -1.5rem)' }}
           aria-label="이전 슬라이드"
         >
           <ChevronLeft className="size-5 shrink-0 text-neutral-500 md:size-6" strokeWidth={2} />
@@ -166,7 +166,7 @@ export default function Hero() {
           type="button"
           onClick={next}
           className="absolute top-1/2 z-20 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:size-10"
-          style={{ right: 'calc(var(--carousel-peek) + var(--carousel-gap) + 0.5rem)' }}
+          style={{ right: 'calc(var(--carousel-peek) + var(--carousel-gap) + -1.5rem)' }}
           aria-label="다음 슬라이드"
         >
           <ChevronRight className="size-5 shrink-0 text-neutral-500 md:size-6" strokeWidth={2} />

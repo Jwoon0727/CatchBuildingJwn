@@ -328,7 +328,7 @@ export default function PropertySearchPage() {
           </Link>
         </div>
 
-        {/* ── 모바일 최근 기록 드로어 ── */}
+        {/* ── 모바일 최근 기록 ── */}
         {historyOpen && (
           <div className="fixed inset-0 z-50 flex flex-col bg-white">
             {/* 헤더 */}
@@ -352,7 +352,7 @@ export default function PropertySearchPage() {
                       type="button"
                       aria-label="기록 삭제"
                       onClick={() => setHistory(prev => prev.filter(h => h.id !== item.id))}
-                      className="absolute right-3 top-5 z-10 flex size-5 items-center justify-center text-muted-foreground hover:text-foreground"
+                      className="absolute -right-1.5 top-5 z-10 flex size-5 items-center justify-center text-muted-foreground hover:text-foreground"
                     >
                       <X className="size-4" strokeWidth={2} />
                     </button>

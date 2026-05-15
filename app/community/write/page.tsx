@@ -207,7 +207,7 @@ export default function CommunityWritePage() {
                   className="flex h-[35px] w-[44px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="글자 색상"
                 >
-                  <WriteIconImg src="/icon/write/A02.svg" className="h-[26px] w-[40px]" />
+                  <WriteIconImg src="/icon/write/A02.svg" className="h-[30px] w-[45px]" />
                 </button>
 
                 {/* 글자 색상·팔레트 등 */}
@@ -216,7 +216,7 @@ export default function CommunityWritePage() {
                   className="flex h-[35px] w-[44px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="글자 색상 선택"
                 >
-                  <WriteIconImg src="/icon/write/A3.svg" className="h-[26px] w-[40px]" />
+                  <WriteIconImg src="/icon/write/A3.svg" className="h-[30px] w-[45px]" />
                 </button>
 
                 {/* 형광펜 */}
@@ -225,7 +225,7 @@ export default function CommunityWritePage() {
                   className="flex h-[35px] w-[44px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="형광펜"
                 >
-                  <WriteIconImg src="/icon/write/Filt.svg" className="h-[26px] w-[40px]" />
+                  <WriteIconImg src="/icon/write/Filt.svg" className="h-[30px] w-[45px]" />
                 </button>
 
                 {/* 형광펜·색 선택 */}
@@ -234,7 +234,7 @@ export default function CommunityWritePage() {
                   className="flex h-[35px] w-[44px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="형광펜 색상 선택"
                 >
-                  <WriteIconImg src="/icon/write/drop1.svg" className="h-[26px] w-[40px]" />
+                  <WriteIconImg src="/icon/write/drop1.svg" className="h-[30px] w-[45px]" />
                 </button>
 
 
@@ -244,7 +244,7 @@ export default function CommunityWritePage() {
                   className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="정렬"
                 >
-                  <WriteIconImg src="/icon/write/right.svg" className="h-[20px] w-[20px]" />
+                  <WriteIconImg src="/icon/write/right.svg" className="h-[30px] w-[40px]" />
                 </button>
 
                 <button
@@ -252,16 +252,16 @@ export default function CommunityWritePage() {
                   className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="정렬 선택"
                 >
-                  <WriteIconImg src="/icon/write/left.svg" className="h-[20px] w-[20px]" />
+                  <WriteIconImg src="/icon/write/left.svg" className="h-[30px] w-[40px]" />
                 </button>
 
                 {/* 목록 */}
                 <button
                   type="button"
-                  className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
+                  className="flex h-[40px] w-[30px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="목록"
                 >
-                  <WriteIconImg src="/icon/write/bar.svg" className="h-[20px] w-[20px]" />
+                  <WriteIconImg src="/icon/write/bar.svg" className="h-[30px] w-[40px]" />
                 </button>
 
                 <button
@@ -275,27 +275,27 @@ export default function CommunityWritePage() {
                 {/* 들여쓰기 / 내어쓰기 */}
                 <button
                   type="button"
-                  className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
+                  className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="들여쓰기"
                 >
-                  <WriteIconImg src="/icon/write/imgUp.svg" className="h-[20px] w-[20px]" />
+                  <WriteIconImg src="/icon/write/imgUp.svg" className="h-[25px] w-[30px]" />
                 </button>
                 <button
                   type="button"
-                  className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
+                  className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary"
                   title="내어쓰기"
                 >
-                  <WriteIconImg src="/icon/write/grid.svg" className="h-[20px] w-[30px]" />
+                  <WriteIconImg src="/icon/write/grid.svg" className="h-[30px] w-[40px]" />
                 </button>
 
 
                 {/* 구분선 */}
                 <button
                   type="button"
-                  className="hidden h-[35px] w-[35px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary md:flex"
+                  className="hidden h-[40px] w-[30px] shrink-0 items-center justify-center rounded transition-colors hover:bg-secondary md:flex"
                   title="구분선"
                 >
-                  <WriteIconImg src="/icon/write/link.svg" className="h-[20px] w-[20px]" />
+                  <WriteIconImg src="/icon/write/link.svg" className="h-[30px] w-[30px]" />
                 </button>
 
                 {/* Blockquote */}
