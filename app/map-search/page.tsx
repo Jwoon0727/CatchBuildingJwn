@@ -192,10 +192,10 @@ export default function MapSearchPage() {
         {activeTab === 'results' && (
           <div className="relative flex flex-1 flex-col">
             <PropertyMap selectedId={selectedProperty} onMarkerClick={setSelectedProperty} />
-            <div className="pointer-events-none absolute bottom-6 left-1/2 z-10 -translate-x-1/2">
+            <div className="pointer-events-none absolute bottom-6 left-1/2 z-[1000] -translate-x-1/2">
               <Link
                 href="/search"
-                className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1a1a1a] px-5 py-3 text-sm font-semibold text-white shadow-lg"
+                className="mb-3 pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1a1a1a] px-5 py-3 text-sm font-semibold text-white shadow-lg"
               >
                 <AlignJustify className="size-4" strokeWidth={2} aria-hidden />
                 목록보기

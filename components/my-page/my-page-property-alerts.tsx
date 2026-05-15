@@ -190,7 +190,7 @@ export default function MyPagePropertyAlerts() {
                 </div>
                 <div className="-mb-5 text-right">
                   <p className="text-base font-bold text-foreground">{property.price}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{property.registeredDate}</p>
+                  <p className="mt-1 mb-2.5 text-xs text-muted-foreground">{property.registeredDate}</p>
                 </div>
               </div>
             </div>

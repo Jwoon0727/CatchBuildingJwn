@@ -309,8 +309,8 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <button className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-md flex items-center gap-2 text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap">
-                  <Map size={16} />
+                <button className="absolute bottom-4 right-4 bg-white px-2.5 py-1 rounded-[4px]  flex items-center gap-2 text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap">
+                  <Map size={18} />
                   카카오지도에서 열기
                 </button>
               </div>
@@ -751,7 +751,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           {/* Reliability */}
             <div className="border border-border rounded-lg p-3 mb-3 w-1/2">
             <p className="text-xs text-muted-foreground mb-3">신뢰도</p>
-            <p className="text-sm font-bold text-primary">79</p>
+            <p className="text-sm font-bold text-foreground">79</p>
           </div>
 
           {/* Inferred Address */}
@@ -793,7 +793,7 @@ export default function BuildingSearchContent({ activeMenu }: BuildingSearchCont
           {/* Reliability for Inferred */}
           <div className="border border-border rounded-lg p-3 w-1/2">
             <p className="text-xs text-muted-foreground mb-3">신뢰도</p>
-            <p className="text-sm font-bold text-primary">79</p>
+            <p className="text-sm font-bold text-foreground">79</p>
           </div>
         </div>
 

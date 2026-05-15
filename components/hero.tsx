@@ -157,7 +157,7 @@ export default function Hero() {
           className="absolute z-20 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:size-10"
           style={{
             left: 'calc(var(--carousel-peek) + var(--carousel-gap) + -1.5rem)',
-            top: 'calc(50% - 1rem)',
+            top: 'calc(50% - 0.5rem)',
           }}
           aria-label="이전 슬라이드"
         >
@@ -171,7 +171,7 @@ export default function Hero() {
           className="absolute z-20 flex size-9 shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-neutral-50 md:size-10"
           style={{
             right: 'calc(var(--carousel-peek) + var(--carousel-gap) + -1.5rem)',
-            top: 'calc(50% - 1rem)',
+            top: 'calc(50% - 0.5rem)',
           }}
           aria-label="다음 슬라이드"
         >

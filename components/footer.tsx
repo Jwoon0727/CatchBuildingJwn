@@ -38,9 +38,9 @@ export default function Footer() {
       {/* 회사 정보 */}
       <div className="py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <h2 className="mb-4 text-2xl font-bold text-[#636363]">에이치에스씨앤디</h2>
+          <h2 className="mb-8 text-xl font-bold text-[#333333]">에이치에스씨앤디</h2>
 
-          <div className="mb-8 flex gap-3">
+          <div className="mb-5 flex gap-3">
             <a
               href="#"
               className="group flex size-11 items-center justify-center rounded-full bg-[#F2F2F2] text-[#636363] transition-colors hover:bg-[#E5E8EC] hover:text-[#424242]"
