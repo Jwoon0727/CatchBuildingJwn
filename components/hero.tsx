@@ -120,34 +120,50 @@ export default function Hero() {
           onTouchEnd={onTouchEnd}
           onTouchCancel={onTouchCancel}
         >
-          {extended.map((slide, i) => (
-            <div
-              key={i}
-              className="relative flex-shrink-0 aspect-[5/2] md:aspect-[1133/408] rounded-[12px] overflow-hidden bg-neutral-200"
-              style={{
-                width: 'calc(100vw - 2 * var(--carousel-peek) - 2 * var(--carousel-gap))',
-              }}
-            >
-              <Image
-                src={slide.src}
-                alt={`슬라이드 ${((i - CLONE_COUNT + TOTAL) % TOTAL) + 1}`}
-                fill
-                sizes="(max-width: 808px) 100vw, 1133px"
-                className="object-cover object-center"
-                priority={i === CLONE_COUNT}
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent">
-                <div className="flex h-full flex-col justify-center px-4 py-6 text-left font-pretendard text-white md:justify-start md:p-10">
-                  <h2 className="max-w-[20em] text-base font-bold leading-snug md:max-w-none md:text-xl lg:text-2xl">
-                    {slide.title}
-                  </h2>
-                  <p className="mt-2 max-w-[18rem] text-[0.785rem] font-medium leading-snug text-white/95 md:max-w-none md:text-sm lg:text-base">
-                    {slide.subtitle}
-                  </p>
+          {extended.map((slide, i) => {
+            const isActive = i === pos
+            return (
+              <div
+                key={i}
+                className="relative flex-shrink-0 aspect-[5/2] md:aspect-[1133/408] rounded-[12px] overflow-hidden bg-neutral-200"
+                style={{
+                  width: 'calc(100vw - 2 * var(--carousel-peek) - 2 * var(--carousel-gap))',
+                }}
+              >
+                <Image
+                  src={slide.src}
+                  alt={`슬라이드 ${((i - CLONE_COUNT + TOTAL) % TOTAL) + 1}`}
+                  fill
+                  sizes="(max-width: 808px) 100vw, 1133px"
+                  className="object-cover object-center"
+                  priority={i === CLONE_COUNT}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent">
+                  <div className="flex h-full flex-col justify-center px-4 py-6 text-left font-pretendard text-white md:justify-start md:p-10">
+                    {/* 모바일: 크기 고정 */}
+                    <h2 className="max-w-[20em] text-base font-bold leading-snug md:hidden">
+                      {slide.title}
+                    </h2>
+                    <p className="mt-2 max-w-[18rem] text-[0.785rem] font-medium leading-snug text-white/95 md:hidden">
+                      {slide.subtitle}
+                    </p>
+                    {/* PC: scale 트랜지션 */}
+                    <div
+                      className="hidden md:block origin-top-left transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+                      style={{ transform: isActive ? 'scale(1)' : 'scale(0.72)' }}
+                    >
+                      <h2 className="text-xl font-bold leading-snug lg:text-2xl">
+                        {slide.title}
+                      </h2>
+                      <p className="mt-2 text-sm font-medium leading-snug text-white/95 lg:text-base">
+                        {slide.subtitle}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* 이전 버튼 */}
